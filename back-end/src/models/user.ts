@@ -41,7 +41,6 @@ UserSchema.methods.encryptPassword = async (
 
 // Encrypt password before saving
 UserSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(10);
   this.password = await UserSchema.methods.encryptPassword(this.password);
   next();
 });

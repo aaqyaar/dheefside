@@ -1,22 +1,10 @@
-import app from "./main";
-import http from "http";
-import { graphqlHTTP } from "express-graphql";
-import { resolvers } from "./graphql/resolvers";
-import { schema } from "./graphql/schema";
+import { connectDB } from "./config/connectDB";
+import { startApolloServer } from "./graphql/apollo";
+import "dotenv/config";
+//
+const PORT = Number(process.env.PORT) || 3000;
+// Connect to MongoDB
+connectDB();
 
-const server = http.createServer(app);
-
-const PORT = process.env.PORT || 3000;
-
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    rootValue: resolvers,
-    graphiql: process.env.NODE_ENV === "development",
-  })
-);
-
-server.listen(PORT, () => {
-  console.log(`🌍 => Server is running on port ${PORT} <= 🌍`);
-});
+// Start Apollo Server
+startApolloServer(PORT);

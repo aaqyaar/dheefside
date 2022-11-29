@@ -1,5 +1,10 @@
 import { userResolvers } from "./user";
 
 export const resolvers = {
-  ...userResolvers,
+  Query: {
+    ...userResolvers.Query,
+  },
+  Mutation: {
+    ...userResolvers.Mutation,
+  },
 };

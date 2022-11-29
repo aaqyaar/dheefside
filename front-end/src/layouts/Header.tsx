@@ -1,4 +1,4 @@
-import { useScrollDown, useTheme } from "../hooks";
+import { useScrollDown } from "../hooks";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { HiMenu, HiSun, HiMoon, HiX } from "react-icons/hi";
@@ -12,36 +12,22 @@ interface NavType {
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
   const isScrolledtoDown = useScrollDown(50);
   return (
     <header
-      className={`sticky top-0 z-50 max-w-full bg-white py-4 px-5 dark:bg-black/95  ${
-        isScrolledtoDown && "shadow shadow-gray-50 dark:shadow-blue-200"
+      className={`sticky top-0 z-50 max-w-full  py-4 px-5 bg-slate-900  ${
+        isScrolledtoDown && "shadow  shadow-blue-200"
       }`}
     >
       <div className="flex items-center justify-between md:mx-auto md:max-w-[1240px]">
         <div id="brand">
-          <h1 className="ml-2 text-lg font-bold text-blue-200 sm:text-xl md:text-2xl">
-            <Link to="/">Abdi Zamed Mohamed</Link>
+          <h1 className="ml-2 text-lg font-bold   text-blue-200 sm:text-xl md:text-2xl">
+            <Link to="/">Dheefside</Link>
           </h1>
         </div>
         <nav id="nav-links" className="flex items-center">
           {desktopNav()}
-          <div className="ml-4 flex items-center">
-            <button
-              className="rounded-md  p-1 text-blue-600 outline outline-offset-2 outline-blue-600 dark:bg-transparent dark:text-blue-500 dark:outline-blue-500"
-              aria-label="toggle dark mode"
-              onClick={() => toggleTheme()}
-              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-            >
-              {theme === "light" ? (
-                <HiMoon className="h-6 w-6" aria-label="toggle dark mode" />
-              ) : (
-                <HiSun className="h-6 w-6" aria-label="toggle light mode" />
-              )}
-            </button>
-          </div>
+
           <div className="ml-4 inline-flex items-center lg:hidden">
             {!isOpen ? (
               <button
@@ -72,7 +58,7 @@ const RenderNav = ({ title, path, target }: NavType) => {
       <Link
         to={path}
         target={target}
-        className="flex items-center gap-1 text-gray-900 hover:text-gray-800 dark:text-blue-100 dark:hover:text-blue-600"
+        className="flex items-center gap-1 hover:text-blue-500 text-blue-100"
       >
         <>{title}</>
       </Link>
@@ -103,7 +89,7 @@ const mobileNav = ({
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50"></div>
 
         <div
-          className={`absolute inset-x-0 z-50 my-7 ml-1 mr-2 rounded-lg bg-white shadow-2xl dark:bg-gray-800  ${
+          className={`absolute inset-x-0 z-50 my-7 ml-1 mr-2 rounded-lg shadow-2xl bg-gray-800  ${
             open && "translate-y-0"
           } transform p-2 transition duration-300 ease-in-out`}
         >
@@ -128,12 +114,12 @@ const mobileNav = ({
 
 const navigation: NavType[] = [
   {
-    title: "Flights",
-    path: "/flights",
+    title: "Home",
+    path: "/home",
   },
   {
-    title: "Hotels",
-    path: "/hotels",
+    title: "Users",
+    path: "/users",
   },
   {
     title: "About",
