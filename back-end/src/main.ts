@@ -2,7 +2,6 @@ import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
-import path from "path";
 import { connectDB } from "./config/connectDB";
 import "dotenv/config";
 
