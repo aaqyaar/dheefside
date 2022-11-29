@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense, lazy, Fragment } from "react";
-import { LoadingScreen } from "components";
-import { Main } from "layouts";
+import { LoadingScreen } from "./components";
+import { Main } from "./layouts";
 
 const Loadable = (Component: any) => (props: any) =>
   (
@@ -22,9 +22,7 @@ function renderRoutes(routes: any) {
             path={path}
             index={exact}
             element={
-              <Main>
-                <Component>{children && renderRoutes(children)}</Component>
-              </Main>
+              <Main>{children ? renderRoutes(children) : <Component />}</Main>
             }
           />
         );
@@ -41,21 +39,21 @@ const routes = [
   {
     path: "/",
     exact: true,
-    element: Loadable(lazy(() => import("pages/Home"))),
-  },
-  {
-    path: "/auth/login",
-    element: Loadable(lazy(() => import("pages/Login"))),
+    element: Loadable(lazy(() => import("./pages/Home"))),
   },
   {
     path: "*",
     exact: true,
-    element: lazy(() => import("pages/404")),
+    element: lazy(() => import("./pages/404")),
+  },
+
+  {
+    path: "/auth/login",
+    element: Loadable(lazy(() => import("./pages/Login"))),
   },
   {
     path: "/auth/register",
-    element: Loadable(lazy(() => import("pages/Register"))),
-
+    element: Loadable(lazy(() => import("./pages/Register"))),
     exact: true,
   },
 ];

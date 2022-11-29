@@ -1,6 +1,7 @@
 import NProgress from "nprogress";
 import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
+import Logo from "../assets/abdizamed.svg";
 
 export function ProgressBarStyle() {
   return (
@@ -59,7 +60,7 @@ export default function LoadingScreen({ ...other }) {
           }}
         >
           <img
-            src="/images/abdizamed.svg"
+            src={Logo}
             alt="logo"
             style={{
               width: 64,

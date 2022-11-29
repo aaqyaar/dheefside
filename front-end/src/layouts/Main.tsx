@@ -6,8 +6,8 @@ export default function Main({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
-      <Footer />
+      <main className="bg-black/95 w-full h-screen">{children}</main>
+      {/* <Footer /> */}
     </>
   );
 }
