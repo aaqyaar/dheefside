@@ -2,9 +2,11 @@ import bcrypt from "bcryptjs";
 import { Schema, model, Document } from "mongoose";
 
 export interface IUser extends Document {
+  _id?: string;
   name: string;
   email: string;
   password: string;
+  _doc?: any;
   avatar: string;
   encryptPassword(password: string): Promise<string>;
   isMatchPassword(password: string, receivedPassword: string): Promise<boolean>;
