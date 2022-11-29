@@ -15,7 +15,7 @@ const user = async (args: any, req: any) => {
 
 const users = async (args: any, req: any) => {
   try {
-    const users = await User.find();
+    const users = await User.find().exec();
     if (!users) {
       throw new Error("Users not found");
     }
@@ -56,7 +56,8 @@ const login = async (args: any) => {
     const token = await generateToken({
       _id: user._id,
     });
-    return { token, user };
+    const { password, ...rest } = user._doc;
+    return { token, user: rest };
   } catch (err) {
     throw err;
   }

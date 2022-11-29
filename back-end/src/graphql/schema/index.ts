@@ -1,23 +1,33 @@
 import { buildSchema } from "graphql";
-import User from "../../models/user";
 
-const schema = buildSchema(`
-    type Query {
-       user: ${User}
+export const schema = buildSchema(`
+    type User {
+        _id: ID!
+        name: String!
+        email: String!
+        password: String!
+        avatar: String
     }
-
+    input UserInput {
+        name: String!
+        email: String!
+        password: String!
+        avatar: String
+    }
     type AuthData {
-        user: ${User}
         token: String!
+        user : User!
     }
-    type Mutation {
-        createUser(name: String!, email: String!, password: String!): String
+    type RootQuery {
+        user : User!
+        users:  [User!]!
+    }
+    type RootMutation {
+        createUser(userInput: UserInput) : User!
         login(email: String!, password: String!): AuthData!
     }
-
     schema {
-        query: Query
-        mutation: Mutation
+        query: RootQuery
+        mutation: RootMutation
     }
-    
 `);
