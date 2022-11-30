@@ -1,5 +1,13 @@
 import User from "../../models/user";
 import jwt from "jsonwebtoken";
+import type {
+  AuthData,
+  Mutation,
+  MutationCreateUserArgs,
+  MutationLoginArgs,
+  Query as QueryType,
+  User as UserType,
+} from "../../generated/graphql";
 
 const Query = {
   users: async () => {
@@ -13,9 +21,10 @@ const Query = {
       throw err;
     }
   },
-  user: async (args: any, req: any) => {
+
+  user: async (_: any, { userId }: { userId: string }) => {
     try {
-      const user = await User.findById(req.userId);
+      const user = await User.findById(userId);
       if (!user) {
         throw new Error("User not found");
       }
@@ -27,16 +36,19 @@ const Query = {
 };
 
 const Mutation = {
-  createUser: async (args: any) => {
+  createUser: async (
+    _: any,
+    { userInput }: MutationCreateUserArgs
+  ): Promise<UserType> => {
     try {
-      const user = await User.findOne({ email: args.userInput.email });
+      const user = await User.findOne({ email: userInput?.email });
       if (user) {
         throw new Error("User already exists");
       }
       const newUser = new User({
-        name: args.userInput.name,
-        email: args.userInput.email,
-        password: args.userInput.password,
+        name: userInput?.name,
+        email: userInput?.email,
+        password: userInput?.password,
       });
       const result = await newUser.save();
       return { ...result._doc, password: null };
@@ -46,10 +58,10 @@ const Mutation = {
   },
   login: async (
     _: any,
-    { loginInput: { email, password: userPassword } }: any
-  ) => {
+    { email, password: userPassword }: MutationLoginArgs
+  ): Promise<AuthData> => {
     try {
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email });
       if (!user) {
         throw new Error("User not found");
       }

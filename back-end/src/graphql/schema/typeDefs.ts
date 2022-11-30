@@ -12,10 +12,7 @@ export const typeDefs = `#graphql
     password: String!
     avatar: String
   }
-  input LoginInput {
-    email:String!
-    password :String!
-  }
+ 
   type AuthData {
     token: String!
     user: User!
@@ -26,6 +23,6 @@ export const typeDefs = `#graphql
   }
   type Mutation {
     createUser(userInput: UserInput): User!
-    login(loginInput: LoginInput): AuthData!
+    login(email: String!, password: String!): AuthData!
   }
 `;
