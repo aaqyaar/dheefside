@@ -8,6 +8,7 @@ import type {
   Query as QueryType,
   User as UserType,
 } from "../../generated/graphql";
+import { AuthService } from "../../services/AuthService";
 
 const Query = {
   users: async () => {
@@ -41,16 +42,26 @@ const Mutation = {
     { userInput }: MutationCreateUserArgs
   ): Promise<UserType> => {
     try {
+      const awsRegister = await AuthService.register(
+        userInput?.email,
+        userInput?.password
+      );
+      if (awsRegister instanceof Error) {
+        throw new Error(awsRegister.message);
+      }
       const user = await User.findOne({ email: userInput?.email });
       if (user) {
         throw new Error("User already exists");
       }
+
       const newUser = new User({
         name: userInput?.name,
         email: userInput?.email,
         password: userInput?.password,
       });
+
       const result = await newUser.save();
+
       return { ...result._doc, password: null };
     } catch (err) {
       throw err;
@@ -61,19 +72,17 @@ const Mutation = {
     { email, password: userPassword }: MutationLoginArgs
   ): Promise<AuthData> => {
     try {
-      const user = await User.findOne({ email });
+      const awsLogin = await AuthService.login(email, userPassword);
+      if (awsLogin instanceof Error) {
+        throw new Error(awsLogin.message);
+      }
+      const accessToken: any = await AuthService.getAcessToken();
+      const user = await User.findOne({ email: email }).exec();
       if (!user) {
-        throw new Error("User not found");
+        throw new Error("User does not exist");
       }
-      const isMatch = await user.isMatchPassword(userPassword, user.password);
-      if (!isMatch) {
-        throw new Error("Invalid password");
-      }
-      const token = await generateToken({
-        _id: user._id,
-      });
-      const { password, ...rest } = user._doc;
-      return { token, user: rest };
+
+      return { user, token: accessToken };
     } catch (err) {
       throw err;
     }

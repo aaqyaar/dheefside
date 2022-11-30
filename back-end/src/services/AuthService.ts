@@ -1,9 +1,9 @@
 import { Auth } from "./Auth";
 
 export const AuthService = {
-  register: async (email: string, password: string) => {
+  register: async (email?: string, password?: string) => {
     try {
-      const result = await Auth.register(email, password);
+      const result = await Auth.register(email!, password!);
       return result;
     } catch (error) {
       return error;
@@ -28,6 +28,14 @@ export const AuthService = {
   logout: async () => {
     try {
       const result = await Auth.logout();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
+  getAcessToken: async () => {
+    try {
+      const result = await Auth.getAccessToken();
       return result;
     } catch (error) {
       return error;
