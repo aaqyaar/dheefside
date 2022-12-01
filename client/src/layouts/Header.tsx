@@ -12,7 +12,7 @@ interface NavItem {
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="relative shadow-lg shadow-black/10">
+    <header className="relative shadow-none shadow-black/10">
       <div className="w-full h-16 max-w-[1280px] mx-auto px-8 flex justify-between items-center">
         <Link to="/">
           <h1 className="text-2xl text-indigo-500 font-bold">Dheefside</h1>

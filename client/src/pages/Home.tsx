@@ -1,5 +1,5 @@
 import styles from "styles/style";
-import { Hero } from "views";
+import { About, Guidence, Hero, Services } from "views";
 
 export default function Home() {
   return (
@@ -9,10 +9,10 @@ export default function Home() {
           <Hero />
         </div>
       </div>
-
-      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>
-          {/* <Stats />
+      <Guidence />
+      <About />
+      <Services />
+      {/* <Stats />
           <Business />
           <Billing />
           <CardDeal />
@@ -20,8 +20,6 @@ export default function Home() {
           <Clients />
           <CTA />
           <Footer /> */}
-        </div>
-      </div>
     </>
   );
 }

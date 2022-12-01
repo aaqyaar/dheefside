@@ -1,5 +1,10 @@
 import React from "react";
 
+enum variants {
+  "text",
+  "outlined",
+  "contained",
+}
 type Props = {
   children: React.ReactNode;
   className?: string;
@@ -8,7 +13,7 @@ type Props = {
   type?: "button" | "submit" | "reset";
   fullWidth?: boolean;
   size?: "sm" | "md" | "lg";
-  variant?: "text" | "outlined" | "contained";
+  variant?: variants | "text" | "outlined" | "contained";
   onClick?: () => void;
   loading?: boolean;
   startIcon?: React.ReactNode;
