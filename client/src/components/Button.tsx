@@ -31,6 +31,7 @@ export default function Button({ children, ...props }: Props) {
   } = props;
   return (
     <button
+      onClick={onClick}
       className={`btn ${className} ${color ? `btn-${color}` : ""}
     } ${disabled || loading ? "disabled" : ""} ${fullWidth ? "btn-block" : ""} 
     } ${size ? `btn-${size}` : ""} ${variant ? `btn-${variant}` : ""}

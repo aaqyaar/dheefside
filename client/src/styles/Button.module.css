@@ -3,9 +3,10 @@
 @layer components {
   .btn {
     @apply relative
-      w-full
-      flex
+      inline-flex
+      items-center
       justify-center
+      gap-4
       py-2
       px-4
       border
