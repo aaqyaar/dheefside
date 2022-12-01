@@ -1,0 +1,98 @@
+@tailwind components;
+
+@layer components {
+  .btn {
+    @apply relative
+      w-full
+      flex
+      justify-center
+      py-2
+      px-4
+      border
+      border-transparent
+      text-sm
+      font-medium
+      rounded-md
+      text-white
+      bg-indigo-600
+      hover:bg-indigo-700
+      focus:outline-none
+      focus:ring-2
+      focus:ring-offset-2
+      focus:ring-indigo-500;
+  }
+
+  .btn:disabled {
+    @apply bg-gray-300
+      cursor-not-allowed
+      pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-600
+      hover:bg-indigo-700
+      focus:ring-indigo-500;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-600
+      hover:bg-gray-700
+      focus:ring-gray-500;
+  }
+
+  .btn-tertiary {
+    @apply bg-red-600
+      hover:bg-red-700
+      focus:ring-red-500;
+  }
+
+  .btn-sm {
+    @apply text-xs
+      px-2
+      py-1;
+  }
+
+  .btn-lg {
+    @apply text-lg
+      px-4
+      py-2;
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+
+  .startIcon {
+    @apply absolute
+      left-0
+      inset-y-0
+      flex
+      items-center
+      pl-3;
+  }
+  .endIcon {
+    @apply absolute
+      right-0
+      inset-y-0
+      flex
+      items-center
+      pr-3;
+  }
+
+  .btn-contained {
+    @apply btn-primary;
+  }
+  .btn-outlined {
+    @apply bg-white
+      text-gray-700
+      border-indigo-500
+      hover:bg-indigo-50;
+  }
+  .btn-text {
+    @apply bg-transparent
+      text-gray-700
+      border-transparent
+      hover:bg-gray-50
+      focus:ring-gray-500;
+  }
+}

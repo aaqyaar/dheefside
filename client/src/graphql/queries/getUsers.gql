@@ -1,0 +1,18 @@
+type User {
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String!
+}
+
+query getUsers {
+  users {
+    _id
+    name
+    email
+  }
+}
+
+type Query {
+  users: [User!]!
+}
