@@ -42,7 +42,7 @@ export default function Services() {
         </p>
       </div>
       <div
-        className={`${styles.marginX} place-items-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}
+        className={`${styles.marginX} flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4`}
       >
         {services.map((service: any) => renderService(service))}
       </div>
@@ -66,6 +66,7 @@ function renderService(service: any) {
         <p id="limit" className="max-w-md text-lg text-center text-gray-600">
           {service.desc}
         </p>
+
         <style>{`
           #limit {
             overflow: hidden;
