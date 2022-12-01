@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -26,8 +27,21 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createService: Service;
+  createTeam: Team;
   createUser: User;
   login: AuthData;
+  updateTeam: Team;
+};
+
+
+export type MutationCreateServiceArgs = {
+  serviceInput?: InputMaybe<ServiceInput>;
+};
+
+
+export type MutationCreateTeamArgs = {
+  teamInput?: InputMaybe<TeamInput>;
 };
 
 
@@ -40,10 +54,64 @@ export type MutationLoginArgs = {
   loginInput?: InputMaybe<LoginInput>;
 };
 
+
+export type MutationUpdateTeamArgs = {
+  teamId: Scalars['ID'];
+  teamInput?: InputMaybe<TeamInput>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  service: Service;
+  services: Array<Service>;
+  team: Team;
+  teams: Array<Team>;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryServiceArgs = {
+  serviceId: Scalars['ID'];
+};
+
+
+export type QueryTeamArgs = {
+  teamId: Scalars['ID'];
+};
+
+export type Service = {
+  __typename?: 'Service';
+  _id: Scalars['ID'];
+  category: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type ServiceInput = {
+  category: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type Team = {
+  __typename?: 'Team';
+  _id: Scalars['ID'];
+  avatar: Scalars['String'];
+  department: Scalars['String'];
+  description: Scalars['String'];
+  name: Scalars['String'];
+  position: Scalars['String'];
+};
+
+export type TeamInput = {
+  avatar: Scalars['String'];
+  department: Scalars['String'];
+  description: Scalars['String'];
+  name: Scalars['String'];
+  position: Scalars['String'];
 };
 
 export type User = {
@@ -140,9 +208,13 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
-  Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Query: ResolverTypeWrapper<{}>;
+  Service: ResolverTypeWrapper<Service>;
+  ServiceInput: ServiceInput;
+  Team: ResolverTypeWrapper<Team>;
+  TeamInput: TeamInput;
+  User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   AdditionalEntityFields: AdditionalEntityFields;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -154,9 +226,13 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   LoginInput: LoginInput;
   Mutation: {};
-  Query: {};
-  User: User;
   ID: Scalars['ID'];
+  Query: {};
+  Service: Service;
+  ServiceInput: ServiceInput;
+  Team: Team;
+  TeamInput: TeamInput;
+  User: User;
   UserInput: UserInput;
   AdditionalEntityFields: AdditionalEntityFields;
   Boolean: Scalars['Boolean'];
@@ -216,13 +292,39 @@ export type AuthDataResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createService?: Resolver<ResolversTypes['Service'], ParentType, ContextType, Partial<MutationCreateServiceArgs>>;
+  createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
   login?: Resolver<ResolversTypes['AuthData'], ParentType, ContextType, Partial<MutationLoginArgs>>;
+  updateTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<MutationUpdateTeamArgs, 'teamId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  service?: Resolver<ResolversTypes['Service'], ParentType, ContextType, RequireFields<QueryServiceArgs, 'serviceId'>>;
+  services?: Resolver<Array<ResolversTypes['Service']>, ParentType, ContextType>;
+  team?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<QueryTeamArgs, 'teamId'>>;
+  teams?: Resolver<Array<ResolversTypes['Team']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type ServiceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Service'] = ResolversParentTypes['Service']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  avatar?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  department?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  position?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -238,6 +340,8 @@ export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Service?: ServiceResolvers<ContextType>;
+  Team?: TeamResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

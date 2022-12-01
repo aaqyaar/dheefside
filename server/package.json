@@ -7,7 +7,8 @@
     "start": "nodemon src/server.ts",
     "build": "tsc",
     "prod": "node src/server.ts",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "dev": "concurrently \"nodemon src/server.ts\" \"npm run generate --watch\""
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.11.9",
     "@types/request": "^2.48.8",
+    "concurrently": "^7.6.0",
     "nodemon": "^2.0.20",
     "typescript": "^4.9.3"
   },
