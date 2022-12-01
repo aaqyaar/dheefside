@@ -1,5 +1,9 @@
 import { awsCognito } from "../utils/aws-cognito";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import {
+  CognitoUser,
+  AuthenticationDetails,
+  CognitoUserAttribute,
+} from "amazon-cognito-identity-js";
 import request from "request";
 import jwkToPem from "jwk-to-pem";
 import jwt from "jsonwebtoken";

@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/server.js",
     "client": "cd ../front-end && npm run dev",
+    "nodemon": "nodemon dist/server.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\" \"npm run client\"",
     "generate": "graphql-codegen --config codegen.ts"
   },

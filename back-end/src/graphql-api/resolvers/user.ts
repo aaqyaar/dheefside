@@ -69,9 +69,10 @@ const Mutation = {
   },
   login: async (
     _: any,
-    { email, password: userPassword }: MutationLoginArgs
+    { loginInput }: MutationLoginArgs
   ): Promise<AuthData> => {
     try {
+      const { email, password: userPassword }: any = loginInput;
       const awsLogin = await AuthService.login(email, userPassword);
       if (awsLogin instanceof Error) {
         throw new Error(awsLogin.message);
