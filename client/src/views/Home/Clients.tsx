@@ -2,29 +2,22 @@ import React from "react";
 
 export default function Clients() {
   return (
-    <div className="bg-white w-full h-fit p-10 rounded-lg">
-      <div className="flex justify-center flex-col items-center">
-        <h1 className="text-4xl text-gray-700 font-bold">
-          Trusted by the world's best startups
-        </h1>
-        <p className="text-gray-700 text-center text-xl">
-          We are the proven network to turn your innovative ideas into startups
-          and startups into established companies.
-        </p>
-      </div>
-      <div className="flex justify-center items-center flex-wrap">
-        <div className="w-1/4 h-1/4 flex justify-center items-center">
-          <img
-            src="https://dheefside.com/assets/images/clients/1.png"
-            alt="client"
-          />
+    <div className="bg-indigo-600/90 font-inter">
+      <div className="max-w-[1280px] mx-auto px-8 py-20">
+        <div className="flex justify-center items-center space-x-4">
+          <h1 className="text-2xl font-bold text-gray-100">
+            Trusted by over 1000+ companies worldwide to manage their business
+            and grow their revenue online with our all-in-one platform.
+          </h1>
         </div>
-        <div className="w-1/4 h-1/4 flex justify-center items-center">
-          <img
-            src="https://dheefside.com/assets/images/clients/2.png"
-            alt="client"
-          />
+        <div className="flex justify-center items-center space-x-4 mt-8 gap-8">
+          {[...Array(2)].map((item) => (
+            // max to display 10 logos
+            <img src="/dheefside.png" alt="client" className="w-62 h-20" />
+          ))}
         </div>
+
+        {/*  */}
       </div>
     </div>
   );

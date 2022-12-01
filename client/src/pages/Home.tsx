@@ -1,5 +1,5 @@
 import styles from "styles/style";
-import { About, Guidence, Hero, Services } from "views";
+import { About, Clients, Guidence, Hero, Services, Testimonials } from "views";
 
 export default function Home() {
   return (
@@ -12,14 +12,8 @@ export default function Home() {
       <Guidence />
       <About />
       <Services />
-      {/* <Stats />
-          <Business />
-          <Billing />
-          <CardDeal />
-          <Testimonials />
-          <Clients />
-          <CTA />
-          <Footer /> */}
+      <Clients />
+      <Testimonials />
     </>
   );
 }
