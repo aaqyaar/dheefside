@@ -19,5 +19,9 @@ module.exports = {
     //   xl: "1700px",
     // },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("tailwind-scrollbar"),
+  ],
 };

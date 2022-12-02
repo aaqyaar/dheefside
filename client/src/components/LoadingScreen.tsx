@@ -46,7 +46,7 @@ export default function LoadingScreen({ ...other }) {
 
       <section
         {...other}
-        className="absolute inset-0 flex h-screen items-center justify-center bg-gray-800"
+        className="absolute inset-0 flex h-screen items-center justify-center bg-gray-100"
       >
         <motion.div
           initial={{ rotateY: 0 }}

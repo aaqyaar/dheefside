@@ -1,14 +1,20 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Suspense, lazy, Fragment } from "react";
 import { LoadingScreen } from "components";
 import { Main } from "layouts";
 
-const Loadable = (Component: any) => (props: any) =>
-  (
-    <Suspense fallback={<LoadingScreen />}>
+const Loadable = (Component: any) => (props: any) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  return (
+    <Suspense
+      fallback={<Fragment>{isHome ? <LoadingScreen /> : null}</Fragment>}
+    >
       <Component {...props} />
     </Suspense>
   );
+};
 
 function renderRoutes(routes: any) {
   return (
