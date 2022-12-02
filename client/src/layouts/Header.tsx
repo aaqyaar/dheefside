@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { PATH } from "routes";
+import { PATH } from "routes/paths";
 
 interface NavItem {
   title: string;
