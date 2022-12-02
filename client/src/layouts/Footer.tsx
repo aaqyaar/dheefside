@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { PATH } from "routes";
 
 export default function Footer() {
   return (
@@ -27,22 +27,31 @@ export default function Footer() {
               <nav>
                 <ul className="space-y-2 mx-2">
                   <li>
-                    <Link to="/" className="text-gray-400 no-underline">
+                    <Link to={PATH.home} className="text-gray-400 no-underline">
                       Home
                     </Link>
                   </li>
                   <li>
-                    <Link to="/about" className="text-gray-400 no-underline">
+                    <Link
+                      to={PATH.about}
+                      className="text-gray-400 no-underline"
+                    >
                       About
                     </Link>
                   </li>
                   <li>
-                    <Link to="/services" className="text-gray-400 no-underline">
+                    <Link
+                      to={PATH.about}
+                      className="text-gray-400 no-underline"
+                    >
                       Services
                     </Link>
                   </li>
                   <li>
-                    <Link to="/contact" className="text-gray-400 no-underline">
+                    <Link
+                      to={PATH.contact}
+                      className="text-gray-400 no-underline"
+                    >
                       Contact
                     </Link>
                   </li>

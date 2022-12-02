@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 import { motion } from "framer-motion";
+import { PATH } from "routes";
 
 interface NavItem {
   title: string;
@@ -83,19 +84,19 @@ function MobileNav() {
 const navItems: NavItem[] = [
   {
     title: "Home",
-    path: "/",
+    path: PATH.home,
   },
   {
     title: "About",
-    path: "/about",
+    path: PATH.about,
   },
   {
     title: "Contact",
-    path: "/contact",
+    path: PATH.contact,
   },
   {
     title: "Sign in",
-    path: "/auth/login",
+    path: PATH.auth.login,
   },
 ];
 

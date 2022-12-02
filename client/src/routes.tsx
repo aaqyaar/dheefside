@@ -20,15 +20,18 @@ function renderRoutes(routes: any) {
   return (
     <Routes>
       {routes.map((route: any, index: number) => {
-        const { path, element, children, exact } = route;
+        const { path, element, children, exact, layout } = route;
         const Component = element || Fragment;
+        const Layout = layout || Fragment;
         return (
           <Route
             key={index}
             path={path}
             index={exact}
             element={
-              <Main>{children ? renderRoutes(children) : <Component />}</Main>
+              <Layout>
+                {children ? renderRoutes(children) : <Component />}
+              </Layout>
             }
           />
         );
@@ -41,24 +44,41 @@ export default function AppRoutes() {
   return renderRoutes(routes);
 }
 
+export const PATH = {
+  home: "/",
+  auth: {
+    login: "/auth/login",
+    register: "/auth/register",
+    forgotPassword: "/auth/forgot-password",
+  },
+  about: "/about",
+  services: "/services",
+  contact: "/contact",
+  notFound: "*",
+};
+
 const routes = [
   {
-    path: "/",
+    path: PATH.home,
     exact: true,
+    layout: Main,
     element: Loadable(lazy(() => import("./pages/Home"))),
   },
   {
-    path: "*",
+    path: PATH.notFound,
     exact: true,
+    layout: Main,
     element: lazy(() => import("./pages/404")),
   },
 
   {
-    path: "/auth/login",
-    element: Loadable(lazy(() => import("./pages/Login"))),
+    path: PATH.auth.login,
+    layout: Main,
+    element: Loadable(lazy(() => import("./pages/LoginPage"))),
   },
   {
-    path: "/auth/register",
+    path: PATH.auth.register,
+    layout: Main,
     element: Loadable(lazy(() => import("./pages/Register"))),
     exact: true,
   },

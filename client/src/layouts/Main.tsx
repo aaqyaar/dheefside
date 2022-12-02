@@ -1,12 +1,15 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Footer, Header } from ".";
 
 export default function Main({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const isAuth = location.pathname.includes("/auth");
   return (
     <div className="bg-white">
       <Header />
       <main className="w-full h-full">{children}</main>
-      <Footer />
+      {!isAuth ? <Footer /> : null}
     </div>
   );
 }
