@@ -1,1 +1,1 @@
-export { loginYupSchema, registerSchema } from "./auth";
+export { loginYupSchema, registerYupSchema } from "./auth";

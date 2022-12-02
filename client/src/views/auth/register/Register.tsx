@@ -1,5 +1,5 @@
-import React from "react";
 import styles from "styles/style";
+import RegisterForm from "./RegisterForm";
 
 export default function Register() {
   return (
@@ -11,6 +11,8 @@ export default function Register() {
           <h1 className="text-2xl font-bold">Register</h1>
           <p className="text-gray-400">Create a new account</p>
         </div>
+
+        <RegisterForm />
       </div>
     </section>
   );
