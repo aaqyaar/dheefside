@@ -11,7 +11,7 @@ export default function Clients() {
           </h1>
         </div>
         <div className="flex justify-center items-center space-x-4 mt-8 gap-8">
-          {[...Array(2)].map((item) => (
+          {[...Array(1)].map((item) => (
             // max to display 10 logos
             <img src="/dheefside.png" alt="client" className="w-62 h-20" />
           ))}

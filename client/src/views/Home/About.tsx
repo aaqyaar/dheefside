@@ -5,7 +5,7 @@ import styles from "styles/style";
 export default function About() {
   return (
     <section className={`bg-gray-100 ${styles.paddingX} relative`}>
-      <div className={`px-6 py-20`}>
+      <div className={`px-6 py-20 ${styles.boxWidth} mx-auto px-8 py-20`}>
         {/* grid */}
         <div
           className={`grid lg:grid-cols-12 place-items-center gap-y-4 lg:gap-y-0`}
