@@ -8,14 +8,16 @@ import { Button } from "components";
 import { PATH } from "routes/paths";
 import TextField, { ITextField } from "components/TextField";
 
-type Props = {};
+type Props = {
+  onLogin: (email: string, password: string) => void;
+};
 
 const initialState = {
   email: "",
   password: "",
 };
 
-export default function LoginForm({}: Props) {
+export default function LoginForm({ onLogin }: Props) {
   const [showPasword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -25,12 +27,14 @@ export default function LoginForm({}: Props) {
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: loginYupSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
+      onLogin(values.email, values.password);
       console.log(values);
+      resetForm();
     },
   });
 
-  const { values, errors, touched, getFieldProps, handleSubmit } = formik;
+  const { errors, touched, getFieldProps, handleSubmit } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -93,7 +97,13 @@ export default function LoginForm({}: Props) {
           <div
             className={`${styles.flexCol} items-center justify-center space-y-4`}
           >
-            <Button className="w-96 h-12">Login</Button>
+            <Button
+              className="w-96 h-12 bg-indigo-600"
+              type="submit"
+              variant={"contained"}
+            >
+              Login
+            </Button>
           </div>
 
           <div

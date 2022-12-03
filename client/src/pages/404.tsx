@@ -1,5 +1,7 @@
 import { Button } from "components";
 import React from "react";
+import { Link } from "react-router-dom";
+import { PATH } from "routes/paths";
 
 export default function NotFound() {
   return (
@@ -9,7 +11,9 @@ export default function NotFound() {
         <p className="text-2xl capitalize my-4">
           oops, page is not found in the server
         </p>
-        <Button>Go Back</Button>
+        <Link to={PATH.home}>
+          <Button>Go Back</Button>
+        </Link>
       </div>
     </div>
   );

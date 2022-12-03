@@ -1,0 +1,29 @@
+type User {
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String!
+  password: String!
+}
+
+type AuthData {
+  user: User!
+  token: String!
+}
+
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    user {
+      _id
+      name
+      email
+      avatar
+      password
+    }
+    token
+  }
+}
+
+type Mutation {
+  login(email: String!, password: String!): AuthData!
+}
