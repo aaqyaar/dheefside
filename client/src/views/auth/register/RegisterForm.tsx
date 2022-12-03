@@ -2,8 +2,9 @@ import { useState } from "react";
 import { FormikProvider, Form, useFormik } from "formik";
 import { registerYupSchema } from "validations";
 import { Button, TextField } from "components";
-import { InputType, ITextField } from "components/TextField";
+import { ITextField } from "components/TextField";
 import styles from "styles/style";
+import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 const initialState = {
   email: "",
@@ -29,43 +30,63 @@ export default function RegisterForm() {
     },
   });
 
-  const { values, handleSubmit, touched, errors, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, getFieldProps } = formik;
   return (
     <FormikProvider value={formik}>
-      <Form onSubmit={handleSubmit} noValidate autoComplete="off">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="mt-4">
-            {formFields.map((field: ITextField) => (
-              <TextField
-                key={field.name}
-                label={field.label}
-                name={field.name}
-                component={field.component}
-                className={field.className}
-                type={field.type}
-                placeholder={field.placeholder}
-                onChange={field.onChange}
-                errors={errors}
-                touched={touched}
-                getFieldProps={getFieldProps}
-                endIcon={field.endIcon}
-                startIcon={field.startIcon}
-                options={field.options}
-              />
-            ))}
-
-            <div
-              className={`${styles.flexCol} items-center justify-center space-y-4`}
-            >
-              <Button
-                className="w-96 h-12 text-black"
-                variant={"contained"}
-                type="submit"
-              >
-                Register
-              </Button>
-            </div>
+      <Form
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+        className="mt-6 grid gap-4 grid-cols-1"
+      >
+        {formFields.map((field: ITextField) => (
+          <div className={`col-span-2 lg:col-span-1`}>
+            <TextField
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              component={field.component}
+              className={field.className}
+              type={
+                field.type === "password"
+                  ? showPasword
+                    ? "text"
+                    : "password"
+                  : field.type
+              }
+              placeholder={field.placeholder}
+              onChange={field.onChange}
+              errors={errors}
+              touched={touched}
+              getFieldProps={getFieldProps}
+              endIcon={
+                field.type === "password" ? (
+                  showPasword ? (
+                    <HiOutlineEye
+                      className="cursor-pointer"
+                      onClick={() => handleShowPassword()}
+                    />
+                  ) : (
+                    <HiOutlineEyeOff
+                      className="cursor-pointer"
+                      onClick={() => handleShowPassword()}
+                    />
+                  )
+                ) : null
+              }
+              startIcon={field.startIcon}
+              options={field.options}
+            />
           </div>
+        ))}
+
+        <div className="col-span-2">
+          <Button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700"
+          >
+            Register
+          </Button>
         </div>
       </Form>
     </FormikProvider>
@@ -77,30 +98,38 @@ const formFields: ITextField[] = [
     label: "Name",
     name: "name",
     component: "input",
-    type: InputType.text,
+    type: "text",
   },
   {
     label: "Email",
     name: "email",
     component: "input",
-    type: InputType.email,
+    type: "email",
   },
   {
     label: "Password",
     name: "password",
     component: "input",
-    type: InputType.password,
+    type: "password",
+  },
+  {
+    label: "Confirm Password",
+    name: "confirmPassword",
+    component: "input",
+    type: "password",
   },
   {
     label: "Company",
+    colSpan: 2,
     name: "company",
     component: "input",
-    type: InputType.text,
+    type: "text",
   },
   {
     label: "Phone",
+    colSpan: 12,
     name: "phone",
     component: "input",
-    type: InputType.text,
+    type: "text",
   },
 ];

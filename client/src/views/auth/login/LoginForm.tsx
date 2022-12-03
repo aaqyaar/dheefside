@@ -6,6 +6,7 @@ import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Button } from "components";
 import { PATH } from "routes/paths";
+import TextField, { ITextField } from "components/TextField";
 
 type Props = {};
 
@@ -36,36 +37,45 @@ export default function LoginForm({}: Props) {
       <Form onSubmit={handleSubmit} noValidate autoComplete="off">
         <div className={`${styles.flexCol} items-center space-y-4 mt-8`}>
           <div className={`${styles.flexCol} items-start  space-y-4`}>
-            <label htmlFor="email" className="text-gray-400">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="w-96 h-12 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-600"
-            />
-          </div>
-          <div className={`${styles.flexCol} items-start space-y-4`}>
-            <label htmlFor="password" className="text-gray-400">
-              Password
-            </label>
-            <div className={`${styles.flexRow} relative items-center`}>
-              <input
-                type={showPasword ? "text" : "password"}
-                name="password"
-                id="password"
-                className="w-96 h-12 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-600"
+            {formFields.map((field: ITextField) => (
+              <TextField
+                key={field.name}
+                label={field.label}
+                name={field.name}
+                component={field.component}
+                className={field.className}
+                type={
+                  field.type === "password"
+                    ? showPasword
+                      ? "text"
+                      : "password"
+                    : field.type
+                }
+                placeholder={field.placeholder}
+                onChange={field.onChange}
+                errors={errors}
+                touched={touched}
+                getFieldProps={getFieldProps}
+                endIcon={
+                  field.type === "password" ? (
+                    showPasword ? (
+                      <HiOutlineEye
+                        className="cursor-pointer"
+                        onClick={() => handleShowPassword()}
+                      />
+                    ) : (
+                      <HiOutlineEyeOff
+                        className="cursor-pointer"
+                        onClick={() => handleShowPassword()}
+                      />
+                    )
+                  ) : null
+                }
+                startIcon={field.startIcon}
               />
-              <button className="absolute right-4" onClick={handleShowPassword}>
-                {showPasword ? (
-                  <HiOutlineEye className="text-2xl text-gray-400" />
-                ) : (
-                  <HiOutlineEyeOff className="text-2xl text-gray-400" />
-                )}
-              </button>
-            </div>
+            ))}
           </div>
+
           <div className={`${styles.flexItemsCenter} justify-between w-full`}>
             <div className={`${styles.flexItemsCenter} gap-2`}>
               <input type="checkbox" className="rounded" />
@@ -104,3 +114,18 @@ export default function LoginForm({}: Props) {
     </FormikProvider>
   );
 }
+
+const formFields: ITextField[] = [
+  {
+    label: "Email",
+    name: "email",
+    component: "input",
+    type: "email",
+  },
+  {
+    label: "Password",
+    name: "password",
+    component: "input",
+    type: "password",
+  },
+];

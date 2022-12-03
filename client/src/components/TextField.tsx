@@ -1,29 +1,6 @@
 import React from "react";
 import styles from "styles/style";
 
-export enum InputType {
-  text = "text",
-  password = "password",
-  email = "email",
-  number = "number",
-  tel = "tel",
-  date = "date",
-  time = "time",
-  datetime = "datetime",
-  month = "month",
-  week = "week",
-  url = "url",
-  search = "search",
-  color = "color",
-  range = "range",
-  file = "file",
-  checkbox = "checkbox",
-  radio = "radio",
-  submit = "submit",
-  reset = "reset",
-  button = "button",
-}
-
 export enum Component {
   default = "input",
   textarea = "textarea",
@@ -41,18 +18,37 @@ export interface ITextField {
   label: string;
   name: string;
   component?: "input" | "textarea" | "select";
-  type: InputType;
+  type:
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "date"
+    | "time"
+    | "datetime"
+    | "file"
+    | "checkbox"
+    | "radio"
+    | "range"
+    | "search"
+    | "tel"
+    | "url";
   placeholder?: string;
   className?: string;
   value?: string;
   rows?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   errors?: { [key: string]: string };
   touched?: { [key: string]: boolean };
   getFieldProps?: (name: string) => any;
+
   endIcon?: React.ReactNode;
+
   startIcon?: React.ReactNode;
+
   options?: OptionsT;
+  colSpan?: number;
 }
 
 export default function TextField({
@@ -72,8 +68,11 @@ export default function TextField({
   startIcon,
   options,
 }: ITextField) {
+  const error = errors && touched && errors[name] && touched[name];
+  const errorText = error ? errors[name] : "";
+
   return (
-    <div className={`${styles.flexCol} items-start space-y-4`}>
+    <div className={`${styles.flexCol} items-start space-y-2`}>
       <label htmlFor={name} className="text-gray-400">
         {label}
       </label>
@@ -120,9 +119,7 @@ export default function TextField({
       </div>
       {/* startIcon and endIcon */}
 
-      {touched?.[name] && errors?.[name] ? (
-        <p className="text-red-500">{errors?.name}</p>
-      ) : null}
+      {error ? <p className="text-red-500">{errorText}</p> : null}
     </div>
   );
 }
