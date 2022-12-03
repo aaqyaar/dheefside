@@ -26,5 +26,5 @@ type Query {
 }
 type Mutation {
   createUser(userInput: UserInput): User!
-  login(loginInput: LoginInput): AuthData!
+  login(email:String, password:String): AuthData!
 }`;

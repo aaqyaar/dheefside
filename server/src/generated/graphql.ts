@@ -51,7 +51,8 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationLoginArgs = {
-  loginInput?: InputMaybe<LoginInput>;
+  email?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
 };
 
 

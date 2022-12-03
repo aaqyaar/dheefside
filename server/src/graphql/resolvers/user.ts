@@ -61,14 +61,20 @@ const Mutation = {
   },
   login: async (
     _: any,
-    { loginInput }: MutationLoginArgs
+    { email, password }: MutationLoginArgs
   ): Promise<AuthData> => {
     try {
-      const { email, password: userPassword }: any = loginInput;
-
       const user = await User.findOne({ email: email }).exec();
       if (!user) {
         throw new Error("User does not exist");
+      }
+
+      const isMatch = await user.isMatchPassword(
+        password as string,
+        user.password
+      );
+      if (!isMatch) {
+        throw new Error("Invalid Password credentials");
       }
 
       const token = generateToken({ _id: user._id });
