@@ -1,7 +1,27 @@
+import { useAuth } from "contexts/AuthContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import styles from "styles/style";
 import RegisterForm from "./RegisterForm";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const { register, auth } = useAuth();
+  console.log(auth);
+
+  const handleRegister = async (values: any) => {
+    try {
+      const { data, error } = await register(values);
+      if (data) {
+        navigate("/login");
+      }
+      if (error) {
+        toast.error(error);
+      }
+    } catch (error) {
+      throw new Error(error as any);
+    }
+  };
   return (
     <section className="lg:py-16 py-10">
       <div className={`${styles.flexCenter} flex-col space-y-2`}>
@@ -12,7 +32,7 @@ export default function Register() {
         </p>
       </div>
       <div className={`${styles.flexCenter}`}>
-        <RegisterForm />
+        <RegisterForm onRegister={handleRegister} />
       </div>
     </section>
   );

@@ -3,7 +3,6 @@ import { FormikProvider, Form, useFormik } from "formik";
 import { registerYupSchema } from "validations";
 import { Button, TextField } from "components";
 import { ITextField } from "components/TextField";
-import styles from "styles/style";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 const initialState = {
@@ -14,7 +13,11 @@ const initialState = {
   phone: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({
+  onRegister,
+}: {
+  onRegister: (values: any) => void;
+}) {
   const [showPasword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -25,8 +28,8 @@ export default function RegisterForm() {
     initialValues: initialState,
     validationSchema: registerYupSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      // resetForm()
+      onRegister(values);
+      resetForm();
     },
   });
 
@@ -39,8 +42,8 @@ export default function RegisterForm() {
         autoComplete="off"
         className="mt-6 grid gap-4 grid-cols-1"
       >
-        {formFields.map((field: ITextField) => (
-          <div className={`col-span-2 lg:col-span-1`}>
+        {formFields.map((field: ITextField, i) => (
+          <div className={`col-span-2 lg:col-span-1`} key={i}>
             <TextField
               key={field.name}
               label={field.label}

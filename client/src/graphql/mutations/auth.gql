@@ -9,6 +9,14 @@ type User {
 type AuthData {
   user: User!
   token: String!
+  isAuth: Boolean!
+}
+
+input UserInput {
+  name: String!
+  email: String!
+  password: String!
+  avatar: String!
 }
 
 mutation Login($email: String!, $password: String!) {
@@ -24,6 +32,16 @@ mutation Login($email: String!, $password: String!) {
   }
 }
 
+mutation Register($userInput: UserInput!) {
+  register(userInput: $userInput) {
+    _id
+    name
+    email
+    avatar
+  }
+}
+
 type Mutation {
   login(email: String!, password: String!): AuthData!
+  register(userInput: UserInput!): User!
 }

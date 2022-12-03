@@ -1,25 +1,26 @@
-import { AUTH_LOCAL_STORAGE } from "constants/app-constants";
+import { useAuth } from "contexts/AuthContext";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "routes/paths";
 import styles from "styles/style";
-import { AuthData, useLoginMutation } from "__generated__/generated";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const { login } = useAuth();
 
   const handleLogin = async (email: string, password: string) => {
-    const { data } = await login({
-      variables: {
-        email,
-        password,
-      },
-    });
-    const { token, user } = data?.login as AuthData;
-    localStorage.setItem(AUTH_LOCAL_STORAGE.token, token);
-    localStorage.setItem(AUTH_LOCAL_STORAGE.user, JSON.stringify(user));
-    navigate(PATH.home);
+    try {
+      const { data, error } = await login(email, password);
+      if (data) {
+        navigate(PATH.home);
+      }
+      if (error) {
+        toast.error(error);
+      }
+    } catch (error) {
+      throw new Error(error as any);
+    }
   };
 
   return (

@@ -20,7 +20,7 @@ export default function Header() {
   const { auth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
-  const navItems: NavItem[] = auth?.user
+  const navItems: NavItem[] = auth?.isAuth
     ? generateNavItems("private")
     : generateNavItems("public");
 

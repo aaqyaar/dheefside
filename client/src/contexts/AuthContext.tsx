@@ -1,50 +1,147 @@
 import { AUTH_LOCAL_STORAGE } from "constants/app-constants";
-import { createContext, useContext } from "react";
-import { AuthData, useLoginMutation } from "__generated__/generated";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { setSession } from "utils/jwt";
+import {
+  AuthData,
+  useLoginMutation,
+  User as UserTypes,
+  useRegisterMutation,
+  UserInput,
+} from "__generated__/generated";
 
 interface AuthContextProps {
-  login: (email: string, password: string) => Promise<void>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{
+    data: AuthData | null;
+    error: any;
+  }>;
   logout: () => void;
-  auth: AuthData | null;
+  auth: AuthData;
+  register: (userInput: UserInput) => Promise<{
+    data: UserTypes | null;
+    error: any;
+  }>;
 }
 
+const initialState = {
+  auth: {
+    user: {
+      _id: "",
+      name: "",
+      email: "",
+      avatar: "",
+      password: "",
+    },
+    token: "",
+    isAuth: false,
+  },
+};
+
+const handlers: any = {
+  INITIALIZE: (state: AuthContextProps, action: AuthData) => {
+    const { token, user, isAuth } = action;
+    return {
+      ...state,
+      auth: {
+        token,
+        user,
+        isAuth,
+      },
+    };
+  },
+
+  LOGIN: (state: AuthContextProps, action: AuthData) => {
+    const { token, user } = action;
+    return {
+      ...state,
+      auth: {
+        token,
+        user,
+        isAuth: true,
+      },
+    };
+  },
+
+  LOGOUT: (state: AuthContextProps) => ({
+    ...state,
+    auth: null,
+  }),
+};
+
+// make it reducer
+const reducer = (state: any, action: { type: string | number }) =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;
+
 const AuthContext = createContext<AuthContextProps>({
-  auth: null,
-  login: async () => {},
+  ...initialState,
+  login: () => Promise.resolve({ data: null, error: null }),
   logout: () => {},
+  register: () =>
+    Promise.resolve({
+      data: null,
+      error: null,
+    }),
 });
 
 export const AuthProvider = ({ children }: any) => {
-  const [LoginAuth] = useLoginMutation();
-
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [registerMutation] = useRegisterMutation();
+  const [loginMutation] = useLoginMutation();
+  const register = async (userInput: any) => {
+    const { data, errors } = await registerMutation({
+      variables: {
+        userInput,
+      },
+    });
+    return {
+      data: data?.register,
+      error: errors?.[0].message,
+    };
+  };
   const login = async (email: string, password: string) => {
-    const { data, errors } = await LoginAuth({
+    const { data, errors } = await loginMutation({
       variables: {
         email,
         password,
       },
     });
+    const { __typename, ...authData } = data?.login as AuthData;
+    setSession(authData);
+    dispatch({ type: "LOGIN", ...data?.login });
 
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
-    const { token, user } = data?.login as AuthData;
-    localStorage.setItem(AUTH_LOCAL_STORAGE.token, token);
-    localStorage.setItem(AUTH_LOCAL_STORAGE.user, JSON.stringify(user));
-  };
-
-  const auth: AuthData = {
-    user: localStorage.getItem(AUTH_LOCAL_STORAGE.user) as any,
-    token: localStorage.getItem(AUTH_LOCAL_STORAGE.token) as string,
+    return { data: authData, error: errors?.[0].message };
   };
 
   const logout = () => {
-    localStorage.removeItem(AUTH_LOCAL_STORAGE.token);
-    localStorage.removeItem(AUTH_LOCAL_STORAGE.user);
+    setSession(null);
+    dispatch({ type: "LOGOUT" });
   };
 
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const auth = localStorage.getItem(AUTH_LOCAL_STORAGE.auth);
+        if (auth) {
+          dispatch({
+            type: "INITIALIZE",
+            payload: {
+              auth,
+            },
+          } as any);
+        } else {
+          dispatch({ type: "LOGOUT" });
+        }
+      } catch (error) {
+        throw new Error(error as any);
+      }
+    };
+    initialize();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ login, auth, logout }}>
+    <AuthContext.Provider value={{ ...state, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

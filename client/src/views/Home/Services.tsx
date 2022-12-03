@@ -1,42 +1,44 @@
 import styles from "styles/style";
-import { FaCode } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
 
 const services = [
   {
     id: 1,
-    icon: <FaCode className="text-sky-500 w-16 h-16" />,
+    icon: (
+      <img
+        src="/icons/web-development.svg"
+        alt="Web Development"
+        className="w-20 h-20"
+      />
+    ),
     title: "Web Development",
     default: false,
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
+    desc: "We have been developing websites for over 5 years. I have experience with HTML, CSS, JavaScript, React, Next.js, Node.js, Express, MongoDB, and PostgreSQL.",
   },
   {
     id: 2,
-    icon: <HiOutlineMail className="w-16 h-16 text-yellow-500" />,
-    title: "Web Development",
+    icon: (
+      <img
+        src="/icons/app-development.svg"
+        alt="Mobile APP Development"
+        className="w-20 h-20"
+      />
+    ),
+    title: "Mobile APP Development",
     default: true,
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
+    desc: "We have been developing mobile apps for over 5 years. I have experience with React Native, Flutter, Expo, and Firebase.",
   },
   {
     id: 3,
-    icon: <FaCode className="w-16 h-16" />,
-    title: "Web Development",
+    icon: (
+      <img
+        src="/icons/marketing-2.svg"
+        alt="SEO & Marketing"
+        className="w-20 h-20"
+      />
+    ),
+    title: "SEO & Marketing",
     default: false,
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
-  },
-  {
-    id: 3,
-    icon: <FaCode className="w-16 h-16" />,
-    title: "Web Development",
-    default: false,
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
-  },
-  {
-    id: 3,
-    icon: <FaCode className="w-16 h-16" />,
-    title: "Web Development",
-    default: false,
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.",
+    desc: "We have been doing SEO and marketing for over 5 years. I have experience with Google Analytics, Google Search Console, Google Ads, Facebook Ads, and Instagram Ads.",
   },
 ];
 

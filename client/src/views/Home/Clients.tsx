@@ -10,7 +10,7 @@ export default function Clients() {
             and grow their revenue online with our all-in-one platform.
           </h1>
         </div>
-        <div className="flex justify-center items-center space-x-4 mt-8 gap-8">
+        {/* <div className="flex justify-center items-center space-x-4 mt-8 gap-8">
           {[...Array(1)].map((_, i) => (
             // max to display 10 logos
             <img
@@ -20,7 +20,7 @@ export default function Clients() {
               className="w-62 h-20"
             />
           ))}
-        </div>
+        </div> */}
 
         {/*  */}
       </div>

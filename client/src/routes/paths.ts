@@ -9,4 +9,7 @@ export const PATH = {
   services: "/services",
   contact: "/contact",
   notFound: "*",
+  user: {
+    profile: "/user/profile",
+  },
 };

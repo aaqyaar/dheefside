@@ -1,7 +1,5 @@
 export const AUTH_LOCAL_STORAGE: {
-  user: string;
-  token: string;
+  auth: string;
 } = {
-  user: "user",
-  token: "token",
+  auth: "auth",
 };

@@ -39,18 +39,17 @@ const navItems: NavItem[] = [
       },
       {
         title: "Profile",
-        path: PATH.about,
+        path: PATH.user.profile,
         access: "private",
       },
     ],
   },
 ];
 
-export const generateNavItems = (
-  type: "private" | "public" | "no-modifier"
-) => {
+export const generateNavItems = (type: "private" | "public") => {
   const navItemsFiltered = navItems.filter(
-    (item) => item.access === type || item.access !== undefined
+    (item) =>
+      item.access === type || (item.access === "private" && type === "public")
   );
   return navItemsFiltered;
 };

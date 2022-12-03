@@ -70,4 +70,10 @@ const routes = [
     element: Loadable(lazy(() => import("../pages/RegisterPage"))),
     exact: true,
   },
+  {
+    path: PATH.user.profile,
+    layout: Main,
+    element: Loadable(lazy(() => import("../pages/UserPage"))),
+    exact: true,
+  },
 ];
