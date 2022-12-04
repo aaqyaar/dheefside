@@ -8,7 +8,6 @@ import LoginForm from "./LoginForm";
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
-
   const handleLogin = async (email: string, password: string) => {
     try {
       const { data, error } = await login(email, password);
@@ -18,8 +17,8 @@ export default function Login() {
       if (error) {
         toast.error(error);
       }
-    } catch (error) {
-      throw new Error(error as any);
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
@@ -29,7 +28,7 @@ export default function Login() {
         <div
           className={`${styles.flexCol} items-center justify-center space-y-4`}
         >
-          <h1 className="text-2xl font-bold">Login</h1>
+          <h1 className="text-2xl font-bold text-indigo-600">Login</h1>
           <p className="text-gray-400">Login to your account</p>
         </div>
         <LoginForm onLogin={handleLogin} />

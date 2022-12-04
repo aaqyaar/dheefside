@@ -29,7 +29,6 @@ export default function RegisterForm({
     validationSchema: registerYupSchema,
     onSubmit: (values, { resetForm }) => {
       onRegister(values);
-      resetForm();
     },
   });
 

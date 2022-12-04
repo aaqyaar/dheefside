@@ -33,7 +33,7 @@ mutation Login($email: String!, $password: String!) {
 }
 
 mutation Register($userInput: UserInput!) {
-  register(userInput: $userInput) {
+  createUser(userInput: $userInput) {
     _id
     name
     email
@@ -43,5 +43,5 @@ mutation Register($userInput: UserInput!) {
 
 type Mutation {
   login(email: String!, password: String!): AuthData!
-  register(userInput: UserInput!): User!
+  createUser(userInput: UserInput!): User!
 }

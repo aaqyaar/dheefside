@@ -11,20 +11,18 @@ const navItems: NavItem[] = [
   {
     title: "Home",
     path: PATH.home,
-    access: "public",
   },
   {
     title: "About",
     path: PATH.about,
-    access: "public",
   },
   {
     title: "Contact",
     path: PATH.contact,
-    access: "public",
   },
   {
     title: "Sign in",
+    access: "public",
     path: PATH.auth.login,
   },
   {
@@ -47,9 +45,11 @@ const navItems: NavItem[] = [
 ];
 
 export const generateNavItems = (type: "private" | "public") => {
-  const navItemsFiltered = navItems.filter(
-    (item) =>
-      item.access === type || (item.access === "private" && type === "public")
-  );
-  return navItemsFiltered;
+  const filteredNavItems = navItems.filter((item) => {
+    if (item.access === type) {
+      return item;
+    }
+  });
+  const navs = navItems.filter((item) => item.access === undefined);
+  return [...navs, ...filteredNavItems];
 };

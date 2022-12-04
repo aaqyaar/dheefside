@@ -6,8 +6,7 @@ import RegisterForm from "./RegisterForm";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { register, auth } = useAuth();
-  console.log(auth);
+  const { register } = useAuth();
 
   const handleRegister = async (values: any) => {
     try {
@@ -18,8 +17,8 @@ export default function Register() {
       if (error) {
         toast.error(error);
       }
-    } catch (error) {
-      throw new Error(error as any);
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
   return (

@@ -29,8 +29,6 @@ export default function LoginForm({ onLogin }: Props) {
     validationSchema: loginYupSchema,
     onSubmit: (values, { resetForm }) => {
       onLogin(values.email, values.password);
-      console.log(values);
-      resetForm();
     },
   });
 

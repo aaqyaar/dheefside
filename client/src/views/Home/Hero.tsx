@@ -19,7 +19,6 @@ export default function Hero() {
             size="lg"
             variant="contained"
             className="bg-[#3c50e0] py-4 px-5"
-            onClick={() => console.log("clicked")}
           >
             Book A Demo
           </Button>

@@ -52,13 +52,7 @@ export default function Header() {
         </div>
       </div>
       {/* mobile navigation bar */}
-      {isOpen && (
-        <MobileNav
-          navItems={navItems}
-          openDropDown={openDropDown}
-          setOpenDropDown={setOpenDropDown}
-        />
-      )}
+      {isOpen && <MobileNav navItems={navItems} />}
     </header>
   );
 }
@@ -86,15 +80,7 @@ function DesktopNav({
   );
 }
 
-function MobileNav({
-  navItems,
-  openDropDown,
-  setOpenDropDown,
-}: {
-  navItems: NavItem[];
-  openDropDown: boolean;
-  setOpenDropDown: (value: boolean) => void;
-}) {
+function MobileNav({ navItems }: { navItems: NavItem[] }) {
   return (
     <div className="mx-4 block px-4 lg:hidden z-50 py-4 bg-white shadow-2xl rounded-lg absolute inset-0 top-20 h-fit">
       {/* add backdrop modal */}

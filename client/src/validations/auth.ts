@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
 export const loginYupSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().required(),
+  email: Yup.string().email().required("Email field must be filled"),
+  password: Yup.string().required("Password field must be filled"),
 });
 
 export const registerYupSchema = Yup.object().shape({

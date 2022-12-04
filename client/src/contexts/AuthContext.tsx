@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }: any) => {
       },
     });
     return {
-      data: data?.register,
+      data: data?.createUser,
       error: errors?.[0].message,
     };
   };
@@ -107,7 +107,12 @@ export const AuthProvider = ({ children }: any) => {
         password,
       },
     });
-    const { __typename, ...authData } = data?.login as AuthData;
+    const { user, isAuth, token } = data?.login as AuthData;
+    const authData = {
+      user,
+      isAuth,
+      token,
+    };
     setSession(authData);
     dispatch({ type: "LOGIN", ...data?.login });
 
