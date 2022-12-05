@@ -12,7 +12,7 @@ export default function Login() {
     try {
       const { data, error } = await login(email, password);
       if (data) {
-        navigate(PATH.home);
+        navigate(PATH.user.profile);
       }
       if (error) {
         toast.error(error);
@@ -28,7 +28,7 @@ export default function Login() {
         <div
           className={`${styles.flexCol} items-center justify-center space-y-4`}
         >
-          <h1 className="text-2xl font-bold text-indigo-600">Login</h1>
+          <h1 className="text-2xl font-bold text-secondary">Login</h1>
           <p className="text-gray-400">Login to your account</p>
         </div>
         <LoginForm onLogin={handleLogin} />

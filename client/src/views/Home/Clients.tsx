@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Clients() {
   return (
-    <div className="bg-indigo-600/90 font-inter">
+    <div className="bg-secondary font-inter">
       <div className="max-w-[1280px] mx-auto px-8 py-20">
         <div className="flex justify-center items-center space-x-4">
           <h1 className="text-2xl font-bold text-gray-100">

@@ -28,7 +28,8 @@ export default function RegisterForm({
     initialValues: initialState,
     validationSchema: registerYupSchema,
     onSubmit: (values, { resetForm }) => {
-      onRegister(values);
+      const { confirmPassword, ...restValues }: any = values;
+      onRegister(restValues);
     },
   });
 

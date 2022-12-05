@@ -80,14 +80,17 @@ export default function LoginForm({ onLogin }: Props) {
 
           <div className={`${styles.flexItemsCenter} justify-between w-full`}>
             <div className={`${styles.flexItemsCenter} gap-2`}>
-              <input type="checkbox" className="rounded" />
+              <input
+                type="checkbox"
+                className="rounded text-primary focus:outline-primary"
+              />
               <label htmlFor="" className="text-gray-400">
                 Remember me
               </label>
             </div>
 
             <span>
-              <Link to={PATH.auth.forgotPassword} className="text-indigo-600">
+              <Link to={PATH.auth.forgotPassword} className="text-primary">
                 Forgot password?
               </Link>
             </span>
@@ -96,7 +99,7 @@ export default function LoginForm({ onLogin }: Props) {
             className={`${styles.flexCol} items-center justify-center space-y-4`}
           >
             <Button
-              className="w-96 h-12 bg-indigo-600"
+              className="w-96 h-12 bg-secondary"
               type="submit"
               variant={"contained"}
             >
@@ -111,7 +114,7 @@ export default function LoginForm({ onLogin }: Props) {
               Don't have an account?{" "}
               <Link
                 to={PATH.auth.register}
-                className="text-indigo-600 font-bold cursor-pointer"
+                className="text-primary font-bold cursor-pointer"
               >
                 Register
               </Link>

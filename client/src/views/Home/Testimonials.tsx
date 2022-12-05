@@ -7,7 +7,7 @@ export default function Testimonials() {
       <div className="max-w-[1280px] mx-auto px-8 py-20">
         <div className="flex flex-row justify-center items-center space-x-4">
           <h1 className="lg:text-5xl md:text-4xl text-3xl prose font-bold text-gray-600">
-            What our <span className="text-indigo-600"> Happy clients</span> say
+            What our <span className="text-secondary"> Happy clients</span> say
             about us.
           </h1>
           <p className="text-4xl text-gray-600 animate-bounce">👇</p>
@@ -24,7 +24,7 @@ export default function Testimonials() {
                 {/* rating star */}
                 <div className="flex justify-start items-start space-x-1">
                   {[...Array(5)].map((_, i) => (
-                    <HiStar className="text-indigo-500" key={i} />
+                    <HiStar className="text-primaryGreen" key={i} />
                   ))}
                 </div>
 

@@ -15,12 +15,10 @@
       font-medium
       rounded-md
       text-white
-      bg-indigo-600
-      hover:bg-indigo-700
-      focus:outline-none
+    bg-secondary      hover:bg-secondary      focus:outline-none
       focus:ring-2
       focus:ring-offset-2
-      focus:ring-indigo-500;
+    focus:ring-secondary;
   }
 
   .btn:disabled {
@@ -30,21 +28,19 @@
   }
 
   .btn-primary {
-    @apply bg-indigo-600
-      hover:bg-indigo-700
-      focus:ring-indigo-500;
+    @apply bg-primary
+      hover:bg-primary
+      focus:ring-primary;
   }
 
   .btn-secondary {
-    @apply bg-gray-600
-      hover:bg-gray-700
-      focus:ring-gray-500;
+    @apply bg-secondary      hover:bg-secondary      focus:ring-secondaruy;
   }
 
   .btn-tertiary {
-    @apply bg-red-600
-      hover:bg-red-700
-      focus:ring-red-500;
+    @apply bg-tertiary
+      hover:bg-tertiary
+      focus:ring-tertibg-tertiary;
   }
 
   .btn-sm {
@@ -85,15 +81,15 @@
   }
   .btn-outlined {
     @apply bg-white
-      text-gray-700
-      border-indigo-500
-      hover:bg-indigo-50;
+      text-green-700
+      border-green-500
+      hover:bg-green-50;
   }
   .btn-text {
     @apply bg-transparent
-      text-gray-700
+      text-green-700
       border-transparent
-      hover:bg-gray-50
-      focus:ring-gray-500;
+      hover:bg-green-50
+      focus:ring-green-500;
   }
 }

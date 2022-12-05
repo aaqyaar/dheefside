@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -10,14 +12,16 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
     },
-    // screens: {
-    //   xs: "480px",
-    //   ss: "620px",
-    //   sm: "768px",
-    //   md: "1060px",
-    //   lg: "1200px",
-    //   xl: "1700px",
-    // },
+    colors: {
+      ...colors,
+      primary: "#00934C",
+      secondary: "#006D5B",
+      tertiary: "#D0FFE9",
+      primaryGreen: "#5AD17E",
+      formGreen: "#F0FFF8",
+      lightGreen: "#ecfff7",
+      backgroud: "#FAFFFD",
+    },
   },
   plugins: [
     require("@tailwindcss/forms"),

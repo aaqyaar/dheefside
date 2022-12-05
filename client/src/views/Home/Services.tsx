@@ -50,7 +50,7 @@ export default function Services() {
           <h1 className="text-4xl font-bold text-center prose">
             Save Time Managing Your Business
             <br />
-            With <span className="text-indigo-600">Dheefside Services</span>
+            With <span className="text-secondary">Dheefside Services</span>
           </h1>
           <p className="text-lg text-center prose py-4">
             We offer a wide range of services to help you grow your business and

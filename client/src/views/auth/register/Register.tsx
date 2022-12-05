@@ -1,6 +1,7 @@
 import { useAuth } from "contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { PATH } from "routes/paths";
 import styles from "styles/style";
 import RegisterForm from "./RegisterForm";
 
@@ -12,7 +13,7 @@ export default function Register() {
     try {
       const { data, error } = await register(values);
       if (data) {
-        navigate("/login");
+        navigate(PATH.auth.login);
       }
       if (error) {
         toast.error(error);

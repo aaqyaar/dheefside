@@ -25,10 +25,10 @@ export default function Header() {
     : generateNavItems("public");
 
   return (
-    <header className="relative shadow-none shadow-black/10">
+    <header className="relative shadow-none">
       <div className="w-full h-16 max-w-[1280px] mx-auto px-8 flex justify-between items-center">
         <Link to="/">
-          <h1 className="text-2xl text-indigo-500 font-bold">Dheefside</h1>
+          <h1 className="text-2xl text-secondary font-bold">Dheefside</h1>
         </Link>
         {/* desktop navigation bar */}
         <DesktopNav
@@ -40,12 +40,12 @@ export default function Header() {
         <div className="lg:hidden flex items-center space-x-4">
           {!isOpen ? (
             <HiOutlineMenuAlt3
-              className="text-2xl text-indigo-500 cursor-pointer"
+              className="text-2xl text-primaryGreen cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             />
           ) : (
             <HiOutlineX
-              className="text-2xl text-indigo-500 cursor-pointer"
+              className="text-2xl text-primaryGreen cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             />
           )}
@@ -71,7 +71,7 @@ function DesktopNav({
       <ul className="flex space-x-6 justify-center items-center">
         {navItems.map((nav) => renderNav(nav, openDropDown, setOpenDropDown))}
         <li>
-          <Button size="md" variant="contained" className="bg-[#3c50e0]">
+          <Button size="md" variant="contained">
             Book A Demo
           </Button>
         </li>
