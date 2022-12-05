@@ -21,6 +21,7 @@ const styles = {
   marginY: "sm:my-16 my-6",
 
   lightBold: "block font-extrabold text-gray-300",
+  blackBold: "block font-extrabold text-gray-800",
 };
 
 export const layout = {
