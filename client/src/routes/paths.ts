@@ -6,7 +6,6 @@ export const PATH = {
     forgotPassword: "/auth/forgot-password",
   },
   about: "/about",
-  services: "/services",
   contact: "/contact",
   notFound: "*",
   user: {

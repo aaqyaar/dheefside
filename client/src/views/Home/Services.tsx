@@ -1,3 +1,4 @@
+import svg from "constants/svg-exports";
 import styles from "styles/style";
 
 const services = [
@@ -44,8 +45,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section className={`${styles.paddingY}  bg-gray-200/70`}>
+    <section className={`relative bg-gray-200/70`}>
       <div className={`${styles.boxWidth} px-8 py-20 mx-auto`}>
+        <div className="absolute text-secondary">{svg.play}</div>
         <div className="flex flex-col items-center justify-center font-poppins py-4">
           <h1 className="text-4xl font-bold text-center prose">
             Save Time Managing Your Business

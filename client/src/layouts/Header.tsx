@@ -1,6 +1,6 @@
 import { Button } from "components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, matchPath } from "react-router-dom";
 import {
   HiOutlineChevronDown,
   HiOutlineMenuAlt3,
@@ -17,12 +17,16 @@ interface NavItem {
 }
 
 export default function Header() {
+  const location = useLocation();
   const { auth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
   const navItems: NavItem[] = auth?.isAuth
     ? generateNavItems("private")
     : generateNavItems("public");
+
+  const match = (path: string) =>
+    path ? !!matchPath({ path, end: false }, location.pathname) : false;
 
   return (
     <header className="relative shadow-none">
@@ -140,7 +144,12 @@ function renderNav(
           )}
         </div>
       ) : (
-        <Link to={path}>{title}</Link>
+        <Link
+          to={path}
+          className={`hover:text-secondary duration-100 hover:border-b-2 border-primary `}
+        >
+          {title}
+        </Link>
       )}
     </li>
   );

@@ -85,6 +85,20 @@ const routes = [
     exact: true,
   },
   {
+    path: PATH.about,
+    layout: Main,
+    requireAuth: false,
+    element: Loadable(lazy(async () => await import("../pages/AboutPage"))),
+    exact: true,
+  },
+  {
+    path: PATH.contact,
+    layout: Main,
+    requireAuth: false,
+    element: Loadable(lazy(async () => await import("../pages/ContactPage"))),
+    exact: true,
+  },
+  {
     path: PATH.notFound,
     exact: true,
     requireAuth: false,
