@@ -17,7 +17,7 @@ type OptionsT = Ioption extends Component.select ? Ioption[] : [];
 export interface ITextField {
   label: string;
   name: string;
-  component?: "input" | "textarea" | "select";
+  component: "input" | "textarea" | "select";
   type:
     | "text"
     | "password"

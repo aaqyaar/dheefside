@@ -34,7 +34,7 @@
   }
 
   .btn-secondary {
-    @apply bg-secondary      hover:bg-secondary      focus:ring-secondaruy;
+    @apply bg-secondary      hover:bg-secondary      focus:ring-secondary;
   }
 
   .btn-tertiary {
