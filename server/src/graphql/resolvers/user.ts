@@ -5,7 +5,6 @@ import type {
   Mutation,
   MutationCreateUserArgs,
   MutationLoginArgs,
-  Query as QueryType,
   User as UserType,
 } from "../../generated/graphql";
 
@@ -50,6 +49,9 @@ const Mutation = {
         name: userInput?.name,
         email: userInput?.email,
         password: userInput?.password,
+        avatar: userInput?.avatar,
+        company: userInput?.company,
+        phone: userInput?.phone,
       });
 
       const result = await newUser.save();

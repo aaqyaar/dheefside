@@ -5,13 +5,18 @@ export default `
   email: String!
   password: String!
   avatar: String
+  company: String!
+  phone: String!
 }
 input UserInput {
   name: String!
   email: String!
   password: String!
   avatar: String
+  company: String!
+  phone: String!
 }
+
 input LoginInput {
   email: String!
   password: String!

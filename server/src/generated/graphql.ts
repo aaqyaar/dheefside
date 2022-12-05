@@ -20,6 +20,21 @@ export type AuthData = {
   user: User;
 };
 
+export type Contact = {
+  __typename?: 'Contact';
+  email: Scalars['String'];
+  message: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+export type ContactInput = {
+  email: Scalars['String'];
+  message: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -27,11 +42,17 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  contact: Contact;
   createService: Service;
   createTeam: Team;
   createUser: User;
   login: AuthData;
   updateTeam: Team;
+};
+
+
+export type MutationContactArgs = {
+  input: ContactInput;
 };
 
 
@@ -119,16 +140,20 @@ export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
   avatar?: Maybe<Scalars['String']>;
+  company: Scalars['String'];
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
+  phone: Scalars['String'];
 };
 
 export type UserInput = {
   avatar?: InputMaybe<Scalars['String']>;
+  company: Scalars['String'];
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
+  phone: Scalars['String'];
 };
 
 export type AdditionalEntityFields = {
@@ -207,6 +232,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AuthData: ResolverTypeWrapper<AuthData>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Contact: ResolverTypeWrapper<Contact>;
+  ContactInput: ContactInput;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -225,6 +252,8 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AuthData: AuthData;
   String: Scalars['String'];
+  Contact: Contact;
+  ContactInput: ContactInput;
   LoginInput: LoginInput;
   Mutation: {};
   ID: Scalars['ID'];
@@ -292,7 +321,16 @@ export type AuthDataResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  contact?: Resolver<ResolversTypes['Contact'], ParentType, ContextType, RequireFields<MutationContactArgs, 'input'>>;
   createService?: Resolver<ResolversTypes['Service'], ParentType, ContextType, Partial<MutationCreateServiceArgs>>;
   createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
@@ -331,14 +369,17 @@ export type TeamResolvers<ContextType = any, ParentType extends ResolversParentT
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  company?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
+  Contact?: ContactResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Service?: ServiceResolvers<ContextType>;

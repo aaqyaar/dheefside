@@ -6,6 +6,8 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  company: string;
+  phone: string;
   _doc?: any;
   avatar: string;
   encryptPassword(password: string): Promise<string>;
@@ -28,6 +30,13 @@ const UserSchema: Schema = new Schema({
   },
   avatar: {
     type: String,
+  },
+  company: {
+    type: String,
+  },
+  phone: {
+    type: String,
+    required: true,
   },
 });
 
