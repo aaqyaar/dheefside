@@ -37,7 +37,7 @@ export default function Button({ children, ...props }: Props) {
   return (
     <button
       onClick={onClick}
-      className={`btn ${className} ${color ? `btn-${color}` : ""}
+      className={`flex gap-3 btn ${className} ${color ? `btn-${color}` : ""}
     } ${disabled || loading ? "disabled" : ""} ${fullWidth ? "btn-block" : ""} 
     } ${size ? `btn-${size}` : ""} ${variant ? `btn-${variant}` : ""}
       `}

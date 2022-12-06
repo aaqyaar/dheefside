@@ -130,15 +130,17 @@ export default function LoginForm({ onLogin }: Props) {
 
 const formFields: ITextField[] = [
   {
-    label: "Email",
+    label: "Email *",
     name: "email",
     component: "input",
     type: "email",
+    placeholder: "example@gmail.com",
   },
   {
-    label: "Password",
+    label: "Password *",
     name: "password",
     component: "input",
     type: "password",
+    placeholder: "********",
   },
 ];

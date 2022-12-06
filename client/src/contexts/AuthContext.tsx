@@ -40,8 +40,9 @@ const initialState = {
 };
 
 const handlers: any = {
-  INITIALIZE: (state: AuthContextProps, action: AuthData) => {
-    const { token, user, isAuth } = action;
+  INITIALIZE: (state: AuthContextProps, action: any) => {
+    const { token, user, isAuth } = action.payload;
+
     return {
       ...state,
       auth: {
@@ -107,10 +108,10 @@ export const AuthProvider = ({ children }: any) => {
         password,
       },
     });
-    const { user, isAuth, token } = data?.login as AuthData;
+    const { user, token } = data?.login as AuthData;
     const authData = {
       user,
-      isAuth,
+      isAuth: true,
       token,
     };
     setSession(authData);
@@ -132,7 +133,7 @@ export const AuthProvider = ({ children }: any) => {
           dispatch({
             type: "INITIALIZE",
             payload: {
-              auth,
+              ...JSON.parse(auth),
             },
           } as any);
         } else {

@@ -1,5 +1,6 @@
 import { Button } from "components";
 import svg from "constants/svg-exports";
+import { HiStatusOnline } from "react-icons/hi";
 import styles from "styles/style";
 
 export default function Hero() {
@@ -20,7 +21,12 @@ export default function Hero() {
             mentorship, and more.
           </p>
           <div className="flex flex-col items-start justify-start">
-            <Button size="lg" variant="contained" className="py-4 px-5">
+            <Button
+              size="lg"
+              startIcon={<HiStatusOnline className="text-xl" />}
+              variant="contained"
+              className="py-4 px-5"
+            >
               Book A Demo
             </Button>
           </div>

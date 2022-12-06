@@ -21,9 +21,11 @@ export default function Header() {
   const { auth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
-  const navItems: NavItem[] = auth?.isAuth
-    ? generateNavItems("private")
-    : generateNavItems("public");
+
+  const navItems: NavItem[] =
+    auth?.isAuth === true
+      ? generateNavItems("private")
+      : generateNavItems("public");
 
   const match = (path: string) =>
     path ? !!matchPath({ path, end: false }, location.pathname) : false;
@@ -117,7 +119,7 @@ function renderNav(
   return (
     <li key={title}>
       {children ? (
-        <div className="relative">
+        <div className="relative z-50">
           <button
             className="flex items-center space-x-2 outline-none focus:outline-none"
             onClick={() => setOpenDropDown && setOpenDropDown(!openDropDown)}
