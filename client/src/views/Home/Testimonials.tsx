@@ -1,5 +1,6 @@
-import React from "react";
 import { HiStar } from "react-icons/hi";
+import { responsiveSettings } from "utils/carousel-settings";
+import SliderProvider from "utils/SliderProvider";
 
 export default function Testimonials() {
   return (
@@ -12,10 +13,8 @@ export default function Testimonials() {
           </h1>
           <p className="text-4xl text-gray-600 animate-bounce">👇</p>
         </div>
-        <div
-          className={`mt-10 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 place-content-center place-items-center justify-items-center`}
-        >
-          {[...Array(3)].map((_, i) => (
+        <SliderProvider settings={responsiveSettings} className="mt-10">
+          {[...Array(6)].map((_, i) => (
             <div
               key={i}
               className="flex flex-col rounded-md bg-white shadow-2xl shadow-indigo-50 justify-center items-center space-y-4"
@@ -52,7 +51,7 @@ export default function Testimonials() {
               </div>
             </div>
           ))}
-        </div>
+        </SliderProvider>
       </div>
     </div>
   );

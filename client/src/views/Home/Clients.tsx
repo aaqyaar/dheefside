@@ -1,3 +1,6 @@
+import { clientsSettings } from "utils/carousel-settings";
+import SliderProvider from "utils/SliderProvider";
+
 export default function Clients() {
   return (
     <div className="bg-secondary font-inter overflow-hidden">
@@ -8,7 +11,7 @@ export default function Clients() {
             and grow their revenue online with our all-in-one platform.
           </h1>
         </div>
-        <div className="flex justify-center items-center space-x-4 mt-8 gap-8">
+        <SliderProvider className="mt-10" settings={clientsSettings}>
           {clients.map((item, i) => (
             <img
               src={item.logo}
@@ -17,9 +20,7 @@ export default function Clients() {
               className="w-20 h-20"
             />
           ))}
-        </div>
-
-        {/*  */}
+        </SliderProvider>
       </div>
     </div>
   );
@@ -43,6 +44,14 @@ const clients = [
   {
     name: "Spotify",
     logo: "/images/spotify.svg",
+  },
+  {
+    name: "Airbnb",
+    logo: "/images/airbnb.svg",
+  },
+  {
+    name: "Airbnb",
+    logo: "/images/airbnb.svg",
   },
   {
     name: "Airbnb",
