@@ -3,8 +3,8 @@ import React from "react";
 export default function OursAbout() {
   return (
     <div className="grid grid-cols-12 gap-8 mt-2">
-      {data.map((item) => (
-        <div className="col-span-12 lg:col-span-6 mt-4">
+      {data.map((item, i) => (
+        <div key={i} className="col-span-12 lg:col-span-6 mt-4">
           <h1 className="text-2xl font-[600]">{item.title}</h1>
           <p className="prose text-lg font-light my-2">
             <span dangerouslySetInnerHTML={{ __html: item.description }} />

@@ -73,51 +73,48 @@ export default function TextField({
 
   return (
     <div className={`${styles.flexCol} items-start space-y-2`}>
-      <label htmlFor={name} className="text-gray-400">
+      <label htmlFor={name} className="text-gray-700">
         {label}
       </label>
-      <div className={`relative ${styles.flexRow} items-center`}>
-        {component === "input" ? (
-          <input
-            type={type}
-            name={name}
-            id={name}
-            className={`textfield ${className}`}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            {...getFieldProps?.(name)}
-          />
-        ) : component === "textarea" ? (
-          <textarea
-            name={name}
-            id={name}
-            className={`textfield ${className}`}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            {...getFieldProps?.(name)}
-            rows={rows}
-          />
-        ) : component === Component.select ? (
-          <select
-            name={name}
-            id={name}
-            className={`textfield ${className}`}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            {...getFieldProps?.(name)}
-          >
-            {options?.map((option: Ioption) => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-        ) : null}
-        {startIcon && <div className="absolute left-2">{startIcon}</div>}
-        {endIcon && <div className="absolute right-2">{endIcon}</div>}
-      </div>
-      {/* startIcon and endIcon */}
+      {component === "input" ? (
+        <input
+          type={type}
+          name={name}
+          id={name}
+          className={`textfield ${className}}`}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          {...getFieldProps?.(name)}
+        />
+      ) : component === "textarea" ? (
+        <textarea
+          name={name}
+          id={name}
+          className={`textfield ${className}`}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          {...getFieldProps?.(name)}
+          rows={rows}
+        />
+      ) : component === Component.select ? (
+        <select
+          name={name}
+          id={name}
+          className={`textfield ${className}`}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          {...getFieldProps?.(name)}
+        >
+          {options?.map((option: Ioption) => (
+            <option value={option.value}>{option.label}</option>
+          ))}
+        </select>
+      ) : null}
+      {startIcon && <div className="absolute left-2">{startIcon}</div>}
+      {endIcon && <div className="absolute right-2 top-10">{endIcon}</div>}
 
       {error ? <p className="text-red-500">{errorText}</p> : null}
     </div>

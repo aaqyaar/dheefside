@@ -22,10 +22,45 @@ export type AuthData = {
   user: User;
 };
 
+export type ContactInput = {
+  email: Scalars['String'];
+  message: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+export type ContactResult = {
+  __typename?: 'ContactResult';
+  result: ContactResultData;
+};
+
+export type ContactResultData = {
+  __typename?: 'ContactResultData';
+  accepted: Array<Scalars['String']>;
+  envelope: ContactResultEnvelope;
+  envelopeTime: Scalars['Int'];
+  messageId: Scalars['String'];
+  messageTime: Scalars['Int'];
+  rejected: Array<Scalars['String']>;
+  response: Scalars['String'];
+};
+
+export type ContactResultEnvelope = {
+  __typename?: 'ContactResultEnvelope';
+  from: Scalars['String'];
+  to: Array<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  contact: ContactResult;
   createUser: User;
   login: AuthData;
+};
+
+
+export type MutationContactArgs = {
+  input: ContactInput;
 };
 
 
@@ -74,6 +109,13 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: string, name: string, email: string, avatar: string } };
+
+export type ContactMutationVariables = Exact<{
+  input: ContactInput;
+}>;
+
+
+export type ContactMutation = { __typename?: 'Mutation', contact: { __typename?: 'ContactResult', result: { __typename?: 'ContactResultData', accepted: Array<string>, messageId: string, envelopeTime: number, messageTime: number, response: string, rejected: Array<string>, envelope: { __typename?: 'ContactResultEnvelope', from: string, to: Array<string> } } } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -158,6 +200,50 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const ContactDocument = gql`
+    mutation Contact($input: ContactInput!) {
+  contact(input: $input) {
+    result {
+      accepted
+      messageId
+      envelopeTime
+      envelope {
+        from
+        to
+      }
+      messageTime
+      response
+      rejected
+    }
+  }
+}
+    `;
+export type ContactMutationFn = Apollo.MutationFunction<ContactMutation, ContactMutationVariables>;
+
+/**
+ * __useContactMutation__
+ *
+ * To run a mutation, you first call `useContactMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useContactMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [contactMutation, { data, loading, error }] = useContactMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useContactMutation(baseOptions?: Apollo.MutationHookOptions<ContactMutation, ContactMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ContactMutation, ContactMutationVariables>(ContactDocument, options);
+      }
+export type ContactMutationHookResult = ReturnType<typeof useContactMutation>;
+export type ContactMutationResult = Apollo.MutationResult<ContactMutation>;
+export type ContactMutationOptions = Apollo.BaseMutationOptions<ContactMutation, ContactMutationVariables>;
 export const GetUsersDocument = gql`
     query getUsers {
   users {

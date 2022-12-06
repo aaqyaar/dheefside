@@ -2,6 +2,7 @@ import { TextField, Button } from "components";
 import { ITextField } from "components/TextField";
 import { useFormik, Form, FormikProvider } from "formik";
 import { contactYupSchema } from "validations";
+import { ContactInput } from "__generated__/generated";
 
 const initialState = {
   name: "",
@@ -10,16 +11,21 @@ const initialState = {
   message: "",
 };
 
-export default function ContactForm() {
+export default function ContactForm({
+  onSendEmail,
+}: {
+  onSendEmail: (values: ContactInput) => void;
+}) {
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: contactYupSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values: ContactInput, { resetForm }) => {
+      onSendEmail(values);
+      resetForm();
     },
   });
 
-  const { handleSubmit, getFieldProps, errors, touched } = formik;
+  const { handleSubmit, getFieldProps, errors, touched, isSubmitting } = formik;
   return (
     <FormikProvider value={formik}>
       <Form
@@ -30,21 +36,29 @@ export default function ContactForm() {
       >
         <div className="flex flex-col items-start justify-center space-y-2">
           {formFields.map((field, index) => (
-            <TextField
-              key={index}
-              label={field.label}
-              type={field.type}
-              name={field.name}
-              component={field.component}
-              placeholder={field.placeholder}
-              getFieldProps={getFieldProps}
-              errors={errors}
-              touched={touched}
-            />
+            <div key={index} className="w-96">
+              <TextField
+                key={index}
+                label={field.label}
+                type={field.type}
+                name={field.name}
+                rows={field.rows}
+                component={field.component}
+                placeholder={field.placeholder}
+                getFieldProps={getFieldProps}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
           ))}
         </div>
         <div className="flex justify-end w-full">
-          <Button type="submit" className="bg-secondary">
+          <Button
+            loading={isSubmitting}
+            className="bg-secondary"
+            type="submit"
+            variant={"contained"}
+          >
             Submit
           </Button>
         </div>
@@ -70,7 +84,7 @@ const formFields: ITextField[] = [
   },
   {
     label: "Phone",
-    type: "number",
+    type: "text",
     name: "phone",
     component: "input",
     placeholder: "example ...(1234567890)",
@@ -81,6 +95,6 @@ const formFields: ITextField[] = [
     type: "text",
     name: "message",
     component: "textarea",
-    rows: 4,
+    rows: 5,
   },
 ];

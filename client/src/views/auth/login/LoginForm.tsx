@@ -27,7 +27,7 @@ export default function LoginForm({ onLogin }: Props) {
   const formik = useFormik({
     initialValues: initialState,
     validationSchema: loginYupSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       onLogin(values.email, values.password);
     },
   });
@@ -37,44 +37,46 @@ export default function LoginForm({ onLogin }: Props) {
   return (
     <FormikProvider value={formik}>
       <Form onSubmit={handleSubmit} noValidate autoComplete="off">
-        <div className={`${styles.flexCol} items-center space-y-4 mt-8`}>
-          <div className={`${styles.flexCol} items-start  space-y-4`}>
+        <div className={`space-y-4 mt-8 grid place-self-center`}>
+          <div className={`space-y-4`}>
             {formFields.map((field: ITextField) => (
-              <TextField
-                key={field.name}
-                label={field.label}
-                name={field.name}
-                component={field.component}
-                className={field.className}
-                type={
-                  field.type === "password"
-                    ? showPasword
-                      ? "text"
-                      : "password"
-                    : field.type
-                }
-                placeholder={field.placeholder}
-                onChange={field.onChange}
-                errors={errors}
-                touched={touched}
-                getFieldProps={getFieldProps}
-                endIcon={
-                  field.type === "password" ? (
-                    showPasword ? (
-                      <HiOutlineEye
-                        className="cursor-pointer"
-                        onClick={() => handleShowPassword()}
-                      />
-                    ) : (
-                      <HiOutlineEyeOff
-                        className="cursor-pointer"
-                        onClick={() => handleShowPassword()}
-                      />
-                    )
-                  ) : null
-                }
-                startIcon={field.startIcon}
-              />
+              <div className="relative">
+                <TextField
+                  key={field.name}
+                  label={field.label}
+                  name={field.name}
+                  component={field.component}
+                  className={field.className}
+                  type={
+                    field.type === "password"
+                      ? showPasword
+                        ? "text"
+                        : "password"
+                      : field.type
+                  }
+                  placeholder={field.placeholder}
+                  onChange={field.onChange}
+                  errors={errors}
+                  touched={touched}
+                  getFieldProps={getFieldProps}
+                  endIcon={
+                    field.type === "password" ? (
+                      showPasword ? (
+                        <HiOutlineEye
+                          className="cursor-pointer"
+                          onClick={() => handleShowPassword()}
+                        />
+                      ) : (
+                        <HiOutlineEyeOff
+                          className="cursor-pointer"
+                          onClick={() => handleShowPassword()}
+                        />
+                      )
+                    ) : null
+                  }
+                  startIcon={field.startIcon}
+                />
+              </div>
             ))}
           </div>
 

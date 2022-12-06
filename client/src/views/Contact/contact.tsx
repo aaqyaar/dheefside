@@ -1,11 +1,33 @@
+import toast from "react-hot-toast";
 import {
   HiOutlineLocationMarker,
   HiOutlineMail,
   HiPhone,
 } from "react-icons/hi";
 import ContactForm from "views/Contact/contact-form";
+import { ContactInput, useContactMutation } from "__generated__/generated";
 
 export default function Contact() {
+  const [sendEmailMutation] = useContactMutation();
+
+  const sendEmail = async (values: ContactInput) => {
+    try {
+      const { data, errors } = await sendEmailMutation({
+        variables: {
+          input: values,
+        },
+      });
+      if (data?.contact) {
+        toast.success("Email sent successfully");
+      }
+      if (errors) {
+        toast.error(errors[0].message);
+      }
+    } catch (error: any) {
+      toast.error(error.message as any);
+    }
+  };
+
   return (
     <section id="contact">
       <div className="flex py-28 bg-secondary flex-col items-center justify-center">
@@ -55,7 +77,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <ContactForm />
+        <ContactForm onSendEmail={sendEmail} />
       </div>
     </section>
   );

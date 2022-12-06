@@ -23,12 +23,12 @@ export default function Login() {
   };
 
   return (
-    <section className="h-[90vh] w-full">
-      <div className={`${styles.flexCol} items-center justify-center h-full`}>
+    <section className="grid grid-cols-12 h-[80vh] justify-items-center place-items-center place-content-center">
+      <div className={`col-span-12`}>
         <div
-          className={`${styles.flexCol} items-center justify-center space-y-4`}
+          className={`col-span-12 flex flex-col items-center justify-center space-y-2 mt-8`}
         >
-          <h1 className="text-2xl font-bold text-secondary">Login</h1>
+          <h1 className="text-4xl font-bold text-secondary">Login</h1>
           <p className="text-gray-400">Login to your account</p>
         </div>
         <LoginForm onLogin={handleLogin} />

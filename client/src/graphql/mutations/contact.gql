@@ -1,0 +1,46 @@
+input ContactInput {
+  name: String!
+  email: String!
+  phone: String!
+  message: String!
+}
+
+type ContactResultEnvelope {
+  from: String!
+  to: [String!]!
+}
+
+type ContactResultData {
+  accepted: [String!]!
+  messageId: String!
+  envelopeTime: Int!
+  envelope: ContactResultEnvelope!
+  messageTime: Int!
+  response: String!
+  rejected: [String!]!
+}
+
+type ContactResult {
+  result: ContactResultData!
+}
+
+mutation Contact($input: ContactInput!) {
+  contact(input: $input) {
+    result {
+      accepted
+      messageId
+      envelopeTime
+      envelope {
+        from
+        to
+      }
+      messageTime
+      response
+      rejected
+    }
+  }
+}
+
+type Mutation {
+  contact(input: ContactInput!): ContactResult!
+}

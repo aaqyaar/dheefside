@@ -42,7 +42,7 @@ ul li {
   }
 
   .textfield {
-    @apply block w-96 py-2.5 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-primary;
+    @apply block w-full py-2.5 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-primary;
   }
 }
 
