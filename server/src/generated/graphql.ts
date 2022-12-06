@@ -35,6 +35,12 @@ export type ContactInput = {
   phone: Scalars['String'];
 };
 
+export type Envelope = {
+  __typename?: 'Envelope';
+  from?: Maybe<Scalars['String']>;
+  to?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -42,7 +48,7 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  contact: Contact;
+  contact: ReturnData;
   createService: Service;
   createTeam: Team;
   createUser: User;
@@ -100,6 +106,23 @@ export type QueryServiceArgs = {
 
 export type QueryTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+export type Result = {
+  __typename?: 'Result';
+  accepted?: Maybe<Array<Maybe<Scalars['String']>>>;
+  envelope?: Maybe<Envelope>;
+  envelopeTime?: Maybe<Scalars['Int']>;
+  messageId?: Maybe<Scalars['String']>;
+  messageSize?: Maybe<Scalars['Int']>;
+  messageTime?: Maybe<Scalars['Int']>;
+  rejected?: Maybe<Array<Maybe<Scalars['String']>>>;
+  response?: Maybe<Scalars['String']>;
+};
+
+export type ReturnData = {
+  __typename?: 'ReturnData';
+  result?: Maybe<Result>;
 };
 
 export type Service = {
@@ -234,10 +257,14 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Contact: ResolverTypeWrapper<Contact>;
   ContactInput: ContactInput;
+  Envelope: ResolverTypeWrapper<Envelope>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
+  Result: ResolverTypeWrapper<Result>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  ReturnData: ResolverTypeWrapper<ReturnData>;
   Service: ResolverTypeWrapper<Service>;
   ServiceInput: ServiceInput;
   Team: ResolverTypeWrapper<Team>;
@@ -254,10 +281,14 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Contact: Contact;
   ContactInput: ContactInput;
+  Envelope: Envelope;
   LoginInput: LoginInput;
   Mutation: {};
   ID: Scalars['ID'];
   Query: {};
+  Result: Result;
+  Int: Scalars['Int'];
+  ReturnData: ReturnData;
   Service: Service;
   ServiceInput: ServiceInput;
   Team: Team;
@@ -329,8 +360,14 @@ export type ContactResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EnvelopeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Envelope'] = ResolversParentTypes['Envelope']> = {
+  from?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  to?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  contact?: Resolver<ResolversTypes['Contact'], ParentType, ContextType, RequireFields<MutationContactArgs, 'input'>>;
+  contact?: Resolver<ResolversTypes['ReturnData'], ParentType, ContextType, RequireFields<MutationContactArgs, 'input'>>;
   createService?: Resolver<ResolversTypes['Service'], ParentType, ContextType, Partial<MutationCreateServiceArgs>>;
   createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
@@ -345,6 +382,23 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   teams?: Resolver<Array<ResolversTypes['Team']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
+  accepted?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  envelope?: Resolver<Maybe<ResolversTypes['Envelope']>, ParentType, ContextType>;
+  envelopeTime?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  messageId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  messageSize?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  messageTime?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  rejected?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  response?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ReturnDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReturnData'] = ResolversParentTypes['ReturnData']> = {
+  result?: Resolver<Maybe<ResolversTypes['Result']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ServiceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Service'] = ResolversParentTypes['Service']> = {
@@ -380,8 +434,11 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
   Contact?: ContactResolvers<ContextType>;
+  Envelope?: EnvelopeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Result?: ResultResolvers<ContextType>;
+  ReturnData?: ReturnDataResolvers<ContextType>;
   Service?: ServiceResolvers<ContextType>;
   Team?: TeamResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

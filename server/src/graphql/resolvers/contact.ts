@@ -1,4 +1,4 @@
-import { Contact, ContactInput } from "../../generated/graphql";
+import { ContactInput, Result } from "../../generated/graphql";
 import { sendEmail } from "../../documents/nodemailer";
 import { email_template } from "../../documents/emailTemplate";
 
@@ -6,7 +6,7 @@ const Mutation = {
   contact: async (
     _: any,
     { input }: { input: ContactInput }
-  ): Promise<Contact> => {
+  ): Promise<Result> => {
     try {
       const result = await sendEmail({
         from: input.email,
