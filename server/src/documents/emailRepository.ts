@@ -1,8 +1,13 @@
-import { booked_Template } from "./booked-template";
+import { booked_Template } from "./booking-template";
 import { email_template } from "./emailTemplate";
 
 import { sendEmail } from "../documents/nodemailer";
-import { BookedDemos } from "../generated/graphql";
+import { Bookings } from "../generated/graphql";
+
+interface BookedDemosProps extends Bookings {
+  createdAt: string;
+  updatedAt: string;
+}
 
 const emailRepository = {
   sendEmail: async (input: any) => {
@@ -17,12 +22,12 @@ const emailRepository = {
       throw err;
     }
   },
-  sendBookedEmail: async (input: BookedDemos) => {
+  sendBookedEmail: async (input: Bookings) => {
     try {
       const result = await sendEmail({
         to: input.email,
         subject: `Welcome to Dheefside Softwares - ${input.firstName}} - you have booked a demo for ${input.software}`,
-        text: booked_Template(input),
+        text: booked_Template(input as BookedDemosProps),
       });
       return result;
     } catch (err) {

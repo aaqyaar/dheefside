@@ -1,5 +1,5 @@
 export default `
-    type BookedDemos {
+    type Bookings {
         id: ID!
         firstName: String!
         lastName: String!
@@ -10,7 +10,7 @@ export default `
         address: String!
     }
 
-    input BookedDemosInput {
+    input BookingInput {
         firstName: String!
         lastName: String!
         email: String!
@@ -38,13 +38,15 @@ export default `
 
     type ReturnData {
         result: Result
+        data: Bookings
     }
 
     type Mutation {
-        bookedDemos(input: BookedDemosInput!): ReturnData!
+        createBookings(input: BookingInput!): ReturnData!
     }
 
     type Query {
-        bookedDemos: [BookedDemos!]!
+        bookings: [Bookings!]!
+        booking(email:String!): [Bookings!]!
     }
     `;

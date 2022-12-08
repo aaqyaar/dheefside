@@ -1,6 +1,11 @@
-import { BookedDemos } from "../generated/graphql";
+import { Bookings } from "../generated/graphql";
 
-export const booked_Template = (input: BookedDemos) => {
+interface IBookings extends Bookings {
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const booked_Template = (input: IBookings) => {
   return `
       <body style="margin: 0; padding: 0;">
           <table border="0" cellpadding="0" cellspacing="0" width="100%" style={
@@ -44,8 +49,11 @@ export const booked_Template = (input: BookedDemos) => {
                                                 <p>Booked Company: ${
                                                   input.company
                                                 }</p>
+                                                <p>Booked Phone: ${
+                                                  input.phone
+                                                }</p>
                                                 <p>Booked Date: ${
-                                                  input.createdAt
+                                                  input.createdAt as string
                                                 }</p>
                                                 
                                           </td>

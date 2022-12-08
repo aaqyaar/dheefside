@@ -1,6 +1,6 @@
 import { model, Schema, Document } from "mongoose";
 
-export interface IBookedDemo extends Document {
+export interface IBookings extends Document {
   firstName: string;
   lastName: string;
   email: string;
@@ -10,7 +10,7 @@ export interface IBookedDemo extends Document {
   address: string;
 }
 
-const BookedDemoSchema: Schema = new Schema({
+const BookingsSchema: Schema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
@@ -20,4 +20,4 @@ const BookedDemoSchema: Schema = new Schema({
   address: { type: String, required: true },
 });
 
-export default model<IBookedDemo>("BookedDemo", BookedDemoSchema);
+export default model<IBookings>("Booking", BookingsSchema);

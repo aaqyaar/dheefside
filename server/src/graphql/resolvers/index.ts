@@ -2,7 +2,7 @@ import { userResolvers } from "./user";
 import { serviceResolvers } from "./service";
 import { teamResolvers } from "./team";
 import { contactResolvers } from "./contact";
-import { bookedDemosResolvers } from "./booked_demos";
+import { bookingsResolvers } from "./bookings";
 
 export const resolvers = {
   Query: {
@@ -10,13 +10,13 @@ export const resolvers = {
     ...serviceResolvers.Query,
     ...teamResolvers.Query,
     ...contactResolvers.Query,
-    ...bookedDemosResolvers.Query,
+    ...bookingsResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,
     ...serviceResolvers.Mutation,
     ...teamResolvers.Mutation,
     ...contactResolvers.Mutation,
-    ...bookedDemosResolvers.Mutation,
+    ...bookingsResolvers.Mutation,
   },
 };

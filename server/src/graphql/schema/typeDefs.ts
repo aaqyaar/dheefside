@@ -3,7 +3,7 @@ import {
   userSchema,
   teamSchema,
   contactSchema,
-  bookedDemosSchema,
+  bookingsSchema,
 } from ".";
 
 export const typeDefs = `#graphql
@@ -11,5 +11,5 @@ export const typeDefs = `#graphql
   ${userSchema}
   ${teamSchema}
   ${contactSchema}
-  ${bookedDemosSchema}
+  ${bookingsSchema}
 `;
