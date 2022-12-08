@@ -1,10 +1,6 @@
 import React from "react";
+import "styles/Button.module.css";
 
-enum variants {
-  "text",
-  "outlined",
-  "contained",
-}
 type Props = {
   children: React.ReactNode;
   className?: string;
@@ -13,7 +9,7 @@ type Props = {
   type?: "button" | "submit" | "reset";
   fullWidth?: boolean;
   size?: "sm" | "md" | "lg";
-  variant?: variants | "text" | "outlined" | "contained";
+  variant?: "text" | "outlined" | "contained";
   onClick?: () => void;
   loading?: boolean;
   startIcon?: React.ReactNode;
@@ -34,13 +30,25 @@ export default function Button({ children, ...props }: Props) {
     startIcon,
     endIcon,
   } = props;
+
+  const classNames = (...classes: any) => {
+    return classes.filter(Boolean).join(" ");
+  };
+
+  const classes = classNames(
+    className,
+    "flex gap-3 btn",
+    color !== undefined && `btn-${color}`,
+    variant !== undefined && `btn-${variant}`,
+    size !== undefined && `btn-${size}`,
+    fullWidth !== undefined && `btn-block`,
+    disabled || loading ? "disabled" : ""
+  );
+
   return (
     <button
       onClick={onClick}
-      className={`flex gap-3 btn ${className} ${color ? `btn-${color}` : ""}
-    } ${disabled || loading ? "disabled" : ""} ${fullWidth ? "btn-block" : ""} 
-    } ${size ? `btn-${size}` : ""} ${variant ? `btn-${variant}` : ""}
-      `}
+      className={classes}
       type={type}
       disabled={disabled}
     >

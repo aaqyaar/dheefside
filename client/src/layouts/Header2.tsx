@@ -9,6 +9,8 @@ import {
 import { PATH } from "routes/paths";
 import { Link } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
+import { Button } from "components";
+import { HiLogout } from "react-icons/hi";
 
 const resources = [
   {
@@ -46,7 +48,7 @@ function classNames(...classes: any) {
 }
 
 export default function Header2() {
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
   return (
     <Popover className="z-50 relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -81,7 +83,7 @@ export default function Header2() {
                 Sign in
               </Link>
             ) : (
-              <Popover.Group as="div">
+              <Popover.Group as="div" className={"flex items-center gap-4"}>
                 <Popover className="relative whitespace-nowrap">
                   {({ open }) => (
                     <>
@@ -130,6 +132,13 @@ export default function Header2() {
                                   </div>
                                 </a>
                               ))}
+                              <Button
+                                onClick={() => logout()}
+                                startIcon={<HiLogout />}
+                                className="btn-outlined"
+                              >
+                                Logout
+                              </Button>
                             </div>
                           </div>
                         </Popover.Panel>

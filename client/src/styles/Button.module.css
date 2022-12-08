@@ -14,6 +14,8 @@
       text-sm
       font-medium
       rounded-md
+      transition ease-in-out
+      duration-300
       text-white
     bg-secondary      hover:bg-secondary      focus:outline-none
       focus:ring-2
@@ -34,7 +36,7 @@
   }
 
   .btn-secondary {
-    @apply bg-secondary      hover:bg-secondary      focus:ring-secondary;
+    @apply bg-secondary  hover:bg-secondary  focus:ring-secondary;
   }
 
   .btn-tertiary {
@@ -64,13 +66,13 @@
   }
   .btn-outlined {
     @apply bg-white
-      text-green-700
-      border-green-500
-      hover:bg-green-50;
+      text-secondary
+      border-secondary
+      hover:bg-secondary hover:text-white;
   }
   .btn-text {
     @apply bg-transparent
-      text-green-700
+      text-primary
       border-transparent
       hover:bg-green-50
       focus:ring-green-500;
