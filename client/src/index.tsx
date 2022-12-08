@@ -8,14 +8,17 @@ import React from "react";
 import { ApolloProvider } from "@apollo/client";
 import apolloClient from "graphql/apollo";
 import { AuthProvider } from "contexts/AuthContext";
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={apolloClient}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ApolloProvider>
+    </Router>
   </React.StrictMode>
 );
 

@@ -1,6 +1,6 @@
 import { AUTH_LOCAL_STORAGE } from "constants/app-constants";
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { setSession } from "utils/jwt";
+import { setSession, isValidToken } from "utils/jwt";
 import {
   AuthData,
   useLoginMutation,
@@ -41,14 +41,9 @@ const initialState = {
 
 const handlers: any = {
   INITIALIZE: (state: AuthContextProps, action: any) => {
-    const { token, user, isAuth } = action.payload;
     return {
       ...state,
-      auth: {
-        token,
-        user,
-        isAuth,
-      },
+      auth: action.payload.auth,
     };
   },
 
@@ -118,31 +113,35 @@ export const AuthProvider = ({ children }: any) => {
       token,
     };
     setSession(authData);
-    dispatch({ type: "LOGIN", ...data?.login });
+    await dispatch({ type: "LOGIN", ...data?.login });
 
     return { data: authData, error: errors?.[0].message };
   };
 
-  const logout = () => {
+  const logout = async () => {
     setSession(null);
-    dispatch({ type: "LOGOUT" });
+    await dispatch({ type: "LOGOUT" });
   };
 
   useEffect(() => {
     const initialize = async () => {
       try {
         const auth = localStorage.getItem(AUTH_LOCAL_STORAGE.auth);
-        if (auth) {
-          dispatch({
+        const decoded = JSON.parse(auth as any);
+        const isValid = isValidToken(decoded.token);
+
+        if (decoded && isValid) {
+          await dispatch({
             type: "INITIALIZE",
             payload: {
-              ...JSON.parse(auth),
+              auth: decoded,
             },
           } as any);
         } else {
-          dispatch({ type: "LOGOUT" });
+          await dispatch({ type: "LOGOUT" });
         }
       } catch (error) {
+        await dispatch({ type: "LOGOUT" });
         throw new Error(error as any);
       }
     };
