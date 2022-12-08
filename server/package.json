@@ -2,11 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "build/server.js",
   "scripts": {
-    "start": "nodemon src/server.ts",
     "build": "tsc",
-    "prod": "node src/server.ts",
+    "start": "node build/server.js",
     "generate": "graphql-codegen --config codegen.yml",
     "dev": "concurrently \"nodemon src/server.ts\" \"npm run generate --watch\""
   },

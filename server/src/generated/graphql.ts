@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
 };
 
 export type AuthData = {
@@ -34,7 +35,7 @@ export type Bookings = {
   __typename?: 'Bookings';
   address: Scalars['String'];
   company: Scalars['String'];
-  createdAt: Scalars['String'];
+  createdAt: Scalars['Date'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   id: Scalars['ID'];
@@ -297,6 +298,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Contact: ResolverTypeWrapper<Contact>;
   ContactInput: ContactInput;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   Envelope: ResolverTypeWrapper<Envelope>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -323,6 +325,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Contact: Contact;
   ContactInput: ContactInput;
+  Date: Scalars['Date'];
   Envelope: Envelope;
   LoginInput: LoginInput;
   Mutation: {};
@@ -396,7 +399,7 @@ export type AuthDataResolvers<ContextType = any, ParentType extends ResolversPar
 export type BookingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bookings'] = ResolversParentTypes['Bookings']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   company?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -413,6 +416,10 @@ export type ContactResolvers<ContextType = any, ParentType extends ResolversPare
   phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export type EnvelopeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Envelope'] = ResolversParentTypes['Envelope']> = {
   from?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -493,6 +500,7 @@ export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
   Bookings?: BookingsResolvers<ContextType>;
   Contact?: ContactResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   Envelope?: EnvelopeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
