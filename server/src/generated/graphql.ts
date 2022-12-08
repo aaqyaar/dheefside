@@ -34,6 +34,7 @@ export type Bookings = {
   __typename?: 'Bookings';
   address: Scalars['String'];
   company: Scalars['String'];
+  createdAt: Scalars['String'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   id: Scalars['ID'];
@@ -395,6 +396,7 @@ export type AuthDataResolvers<ContextType = any, ParentType extends ResolversPar
 export type BookingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bookings'] = ResolversParentTypes['Bookings']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   company?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

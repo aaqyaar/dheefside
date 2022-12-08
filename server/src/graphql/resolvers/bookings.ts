@@ -46,7 +46,7 @@ const Query = {
     { email }: QueryBookingArgs
   ): Promise<IBookings[]> => {
     try {
-      const res: any = await Bookings.findOne({
+      const res: any = await Bookings.find({
         email,
       }).exec();
       return res;

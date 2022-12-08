@@ -10,14 +10,19 @@ export interface IBookings extends Document {
   address: string;
 }
 
-const BookingsSchema: Schema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-  software: { type: String, required: true },
-  company: { type: String, required: true },
-  address: { type: String, required: true },
-});
+const BookingsSchema: Schema = new Schema(
+  {
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    software: { type: String, required: true },
+    company: { type: String, required: true },
+    address: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export default model<IBookings>("Booking", BookingsSchema);

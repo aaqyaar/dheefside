@@ -1,4 +1,5 @@
 export default `
+    scalar Date
     type Bookings {
         id: ID!
         firstName: String!
@@ -8,6 +9,7 @@ export default `
         software: String!
         company: String!
         address: String!
+        createdAt: Date!
     }
 
     input BookingInput {
@@ -47,6 +49,7 @@ export default `
 
     type Query {
         bookings: [Bookings!]!
-        booking(email:String!): [Bookings!]!
+        booking(email: String!): [Bookings!]!
     }
-    `;
+
+`;
