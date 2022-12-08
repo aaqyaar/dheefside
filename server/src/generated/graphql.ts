@@ -20,6 +20,28 @@ export type AuthData = {
   user: User;
 };
 
+export type BookedDemos = {
+  __typename?: 'BookedDemos';
+  address: Scalars['String'];
+  company: Scalars['String'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
+  phone: Scalars['String'];
+  software: Scalars['String'];
+};
+
+export type BookedDemosInput = {
+  address: Scalars['String'];
+  company: Scalars['String'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  phone: Scalars['String'];
+  software: Scalars['String'];
+};
+
 export type Contact = {
   __typename?: 'Contact';
   email: Scalars['String'];
@@ -48,12 +70,18 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  bookedDemos: ReturnData;
   contact: ReturnData;
   createService: Service;
   createTeam: Team;
   createUser: User;
   login: AuthData;
   updateTeam: Team;
+};
+
+
+export type MutationBookedDemosArgs = {
+  input: BookedDemosInput;
 };
 
 
@@ -90,6 +118,7 @@ export type MutationUpdateTeamArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  bookedDemos: Array<BookedDemos>;
   service: Service;
   services: Array<Service>;
   team: Team;
@@ -255,12 +284,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AuthData: ResolverTypeWrapper<AuthData>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  BookedDemos: ResolverTypeWrapper<BookedDemos>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  BookedDemosInput: BookedDemosInput;
   Contact: ResolverTypeWrapper<Contact>;
   ContactInput: ContactInput;
   Envelope: ResolverTypeWrapper<Envelope>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   Result: ResolverTypeWrapper<Result>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -279,12 +310,14 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AuthData: AuthData;
   String: Scalars['String'];
+  BookedDemos: BookedDemos;
+  ID: Scalars['ID'];
+  BookedDemosInput: BookedDemosInput;
   Contact: Contact;
   ContactInput: ContactInput;
   Envelope: Envelope;
   LoginInput: LoginInput;
   Mutation: {};
-  ID: Scalars['ID'];
   Query: {};
   Result: Result;
   Int: Scalars['Int'];
@@ -352,6 +385,18 @@ export type AuthDataResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type BookedDemosResolvers<ContextType = any, ParentType extends ResolversParentTypes['BookedDemos'] = ResolversParentTypes['BookedDemos']> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  company?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  software?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ContactResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contact'] = ResolversParentTypes['Contact']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -367,6 +412,7 @@ export type EnvelopeResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  bookedDemos?: Resolver<ResolversTypes['ReturnData'], ParentType, ContextType, RequireFields<MutationBookedDemosArgs, 'input'>>;
   contact?: Resolver<ResolversTypes['ReturnData'], ParentType, ContextType, RequireFields<MutationContactArgs, 'input'>>;
   createService?: Resolver<ResolversTypes['Service'], ParentType, ContextType, Partial<MutationCreateServiceArgs>>;
   createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
@@ -376,6 +422,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  bookedDemos?: Resolver<Array<ResolversTypes['BookedDemos']>, ParentType, ContextType>;
   service?: Resolver<ResolversTypes['Service'], ParentType, ContextType, RequireFields<QueryServiceArgs, 'serviceId'>>;
   services?: Resolver<Array<ResolversTypes['Service']>, ParentType, ContextType>;
   team?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<QueryTeamArgs, 'teamId'>>;
@@ -433,6 +480,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
+  BookedDemos?: BookedDemosResolvers<ContextType>;
   Contact?: ContactResolvers<ContextType>;
   Envelope?: EnvelopeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

@@ -29,8 +29,8 @@ export const sendEmail = (options: any) => {
   } as any);
 
   const mailOptions = {
-    from: options.from,
-    to: `"To " <${process.env.SMTP_USER}>`,
+    from: options.from || `"From " <${process.env.SMTP_USER}>`,
+    to: options.to || `"To " <${process.env.SMTP_USER}>`,
     subject: options.subject,
     html: options.text,
   };
