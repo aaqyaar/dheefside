@@ -1,23 +1,43 @@
 import { Button, Grid } from "components";
 import TextField, { ITextField } from "components/TextField";
+import { useAuth } from "contexts/AuthContext";
 import { FormikProvider, Form, useFormik } from "formik";
+import toast from "react-hot-toast";
 import { bookDemoValidationSchema } from "validations";
+import { BookingInput } from "__generated__/generated";
 
-const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  company: "",
-  address: "",
-};
+interface BookDemoFormProps {
+  onBookDemo: (values: BookingInput) => void;
+  isLoading: boolean;
+  isSuccess: boolean;
+}
 
-export default function BookDemoForm() {
+export default function BookDemoForm({
+  onBookDemo,
+  isLoading,
+  isSuccess,
+}: BookDemoFormProps) {
+  const { auth } = useAuth();
   const formik = useFormik({
-    initialValues: initialState,
+    initialValues: {
+      firstName: auth?.user?.name || "",
+      lastName: auth?.user?.name || "",
+      email: auth?.user?.email || "",
+      phone: "",
+      company: "",
+      address: "",
+      software: "",
+    },
     validationSchema: bookDemoValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, { resetForm }) => {
+      try {
+        onBookDemo(values);
+        if (isSuccess) {
+          resetForm();
+        }
+      } catch (error: any) {
+        toast.error(error.message);
+      }
     },
   });
 
@@ -52,7 +72,11 @@ export default function BookDemoForm() {
             </div>
           ))}
           <div className="mt-2 col-span-2 flex justify-end">
-            <Button type="submit" className="bg-secondary">
+            <Button
+              type="submit"
+              className={`bg-secondary ${isLoading && "disabled"}`}
+              loading={isLoading}
+            >
               Book Demo
             </Button>
           </div>
@@ -87,21 +111,32 @@ const formFields: ITextField[] = [
     className: "col-span-2 lg:col-span-1",
     placeholder: "Enter your email",
   },
-  {
-    name: "phone",
-    label: "Phone *",
-    type: "text",
-    component: "input",
-    className: "col-span-2 lg:col-span-1",
-    placeholder: "Enter your phone number",
-  },
+
   {
     name: "company",
     label: "Company *",
     type: "text",
     component: "input",
-    className: "col-span-2",
+    className: "col-span-2 lg:col-span-1",
     placeholder: "Enter your company name",
+  },
+
+  {
+    name: "software",
+    label: "Software *",
+    type: "text",
+    component: "input",
+    className: "col-span-2",
+    placeholder: "Enter software",
+  },
+
+  {
+    name: "phone",
+    label: "Phone *",
+    type: "text",
+    component: "input",
+    className: "col-span-2",
+    placeholder: "Enter your phone number",
   },
   {
     name: "address",

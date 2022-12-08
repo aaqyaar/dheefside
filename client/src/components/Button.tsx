@@ -42,7 +42,8 @@ export default function Button({ children, ...props }: Props) {
     variant !== undefined && `btn-${variant}`,
     size !== undefined && `btn-${size}`,
     fullWidth !== undefined && `btn-block`,
-    disabled || loading ? "disabled" : ""
+    disabled ? "disabled" : "",
+    loading ? "disabled" : ""
   );
 
   return (
@@ -50,7 +51,7 @@ export default function Button({ children, ...props }: Props) {
       onClick={onClick}
       className={classes}
       type={type}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
       {loading ? (
         <>

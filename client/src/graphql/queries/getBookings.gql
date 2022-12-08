@@ -1,0 +1,39 @@
+type Bookings {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  software: String!
+  company: String!
+  address: String!
+}
+
+query getBookings {
+  bookings {
+    firstName
+    lastName
+    email
+    phone
+    company
+    software
+    address
+  }
+}
+
+query getBooking($email: String!) {
+  booking(email: $email) {
+    firstName
+    lastName
+    email
+    phone
+    company
+    software
+    address
+  }
+}
+
+type Query {
+  bookings: [Bookings!]!
+  booking(email: String!): Bookings!
+}

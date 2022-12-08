@@ -1,0 +1,70 @@
+type Bookings {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  software: String!
+  company: String!
+  address: String!
+}
+
+input BookingInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  software: String!
+  company: String!
+  address: String!
+}
+
+type BookingsResultEnvelope {
+  from: String!
+  to: [String!]!
+}
+
+type BookingsResultData {
+  accepted: [String!]!
+  messageId: String!
+  envelopeTime: Int!
+  envelope: BookingsResultEnvelope!
+  messageTime: Int!
+  response: String!
+  rejected: [String!]!
+}
+
+type ReturnData {
+  result: BookingsResultData!
+  data: Bookings!
+}
+
+mutation BookDemo($input: BookingInput!) {
+  createBookings(input: $input) {
+    data {
+      firstName
+      lastName
+      email
+      phone
+      address
+      company
+      software
+    }
+    result {
+      accepted
+      messageId
+      envelopeTime
+      envelope {
+        from
+        to
+      }
+      messageTime
+      response
+      rejected
+    }
+  }
+}
+
+type Mutation {
+  createBookings(input: BookingInput!): ReturnData!
+}

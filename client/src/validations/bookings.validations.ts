@@ -7,4 +7,5 @@ export const bookDemoValidationSchema = Yup.object().shape({
   phone: Yup.string().required("Phone is required"),
   company: Yup.string().required("Company is required"),
   address: Yup.string().required("Address is required"),
+  software: Yup.string().required("Software is required"),
 });

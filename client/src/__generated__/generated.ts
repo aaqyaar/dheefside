@@ -22,6 +22,45 @@ export type AuthData = {
   user: User;
 };
 
+export type BookingInput = {
+  address: Scalars['String'];
+  company: Scalars['String'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  phone: Scalars['String'];
+  software: Scalars['String'];
+};
+
+export type Bookings = {
+  __typename?: 'Bookings';
+  address: Scalars['String'];
+  company: Scalars['String'];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
+  phone: Scalars['String'];
+  software: Scalars['String'];
+};
+
+export type BookingsResultData = {
+  __typename?: 'BookingsResultData';
+  accepted: Array<Scalars['String']>;
+  envelope: BookingsResultEnvelope;
+  envelopeTime: Scalars['Int'];
+  messageId: Scalars['String'];
+  messageTime: Scalars['Int'];
+  rejected: Array<Scalars['String']>;
+  response: Scalars['String'];
+};
+
+export type BookingsResultEnvelope = {
+  __typename?: 'BookingsResultEnvelope';
+  from: Scalars['String'];
+  to: Array<Scalars['String']>;
+};
+
 export type ContactInput = {
   email: Scalars['String'];
   message: Scalars['String'];
@@ -54,6 +93,7 @@ export type ContactResultEnvelope = {
 export type Mutation = {
   __typename?: 'Mutation';
   contact: ContactResult;
+  createBookings: ReturnData;
   createUser: User;
   login: AuthData;
 };
@@ -61,6 +101,11 @@ export type Mutation = {
 
 export type MutationContactArgs = {
   input: ContactInput;
+};
+
+
+export type MutationCreateBookingsArgs = {
+  input: BookingInput;
 };
 
 
@@ -76,7 +121,20 @@ export type MutationLoginArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  booking: Bookings;
+  bookings: Array<Bookings>;
   users: Array<User>;
+};
+
+
+export type QueryBookingArgs = {
+  email: Scalars['String'];
+};
+
+export type ReturnData = {
+  __typename?: 'ReturnData';
+  data: Bookings;
+  result: BookingsResultData;
 };
 
 export type User = {
@@ -110,12 +168,31 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: string, name: string, email: string, avatar: string } };
 
+export type BookDemoMutationVariables = Exact<{
+  input: BookingInput;
+}>;
+
+
+export type BookDemoMutation = { __typename?: 'Mutation', createBookings: { __typename?: 'ReturnData', data: { __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, address: string, company: string, software: string }, result: { __typename?: 'BookingsResultData', accepted: Array<string>, messageId: string, envelopeTime: number, messageTime: number, response: string, rejected: Array<string>, envelope: { __typename?: 'BookingsResultEnvelope', from: string, to: Array<string> } } } };
+
 export type ContactMutationVariables = Exact<{
   input: ContactInput;
 }>;
 
 
 export type ContactMutation = { __typename?: 'Mutation', contact: { __typename?: 'ContactResult', result: { __typename?: 'ContactResultData', accepted: Array<string>, messageId: string, envelopeTime: number, messageTime: number, response: string, rejected: Array<string>, envelope: { __typename?: 'ContactResultEnvelope', from: string, to: Array<string> } } } };
+
+export type GetBookingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBookingsQuery = { __typename?: 'Query', bookings: Array<{ __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string }> };
+
+export type GetBookingQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetBookingQuery = { __typename?: 'Query', booking: { __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -200,6 +277,59 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const BookDemoDocument = gql`
+    mutation BookDemo($input: BookingInput!) {
+  createBookings(input: $input) {
+    data {
+      firstName
+      lastName
+      email
+      phone
+      address
+      company
+      software
+    }
+    result {
+      accepted
+      messageId
+      envelopeTime
+      envelope {
+        from
+        to
+      }
+      messageTime
+      response
+      rejected
+    }
+  }
+}
+    `;
+export type BookDemoMutationFn = Apollo.MutationFunction<BookDemoMutation, BookDemoMutationVariables>;
+
+/**
+ * __useBookDemoMutation__
+ *
+ * To run a mutation, you first call `useBookDemoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBookDemoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [bookDemoMutation, { data, loading, error }] = useBookDemoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBookDemoMutation(baseOptions?: Apollo.MutationHookOptions<BookDemoMutation, BookDemoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BookDemoMutation, BookDemoMutationVariables>(BookDemoDocument, options);
+      }
+export type BookDemoMutationHookResult = ReturnType<typeof useBookDemoMutation>;
+export type BookDemoMutationResult = Apollo.MutationResult<BookDemoMutation>;
+export type BookDemoMutationOptions = Apollo.BaseMutationOptions<BookDemoMutation, BookDemoMutationVariables>;
 export const ContactDocument = gql`
     mutation Contact($input: ContactInput!) {
   contact(input: $input) {
@@ -244,6 +374,87 @@ export function useContactMutation(baseOptions?: Apollo.MutationHookOptions<Cont
 export type ContactMutationHookResult = ReturnType<typeof useContactMutation>;
 export type ContactMutationResult = Apollo.MutationResult<ContactMutation>;
 export type ContactMutationOptions = Apollo.BaseMutationOptions<ContactMutation, ContactMutationVariables>;
+export const GetBookingsDocument = gql`
+    query getBookings {
+  bookings {
+    firstName
+    lastName
+    email
+    phone
+    company
+    software
+    address
+  }
+}
+    `;
+
+/**
+ * __useGetBookingsQuery__
+ *
+ * To run a query within a React component, call `useGetBookingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookingsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBookingsQuery(baseOptions?: Apollo.QueryHookOptions<GetBookingsQuery, GetBookingsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBookingsQuery, GetBookingsQueryVariables>(GetBookingsDocument, options);
+      }
+export function useGetBookingsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookingsQuery, GetBookingsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBookingsQuery, GetBookingsQueryVariables>(GetBookingsDocument, options);
+        }
+export type GetBookingsQueryHookResult = ReturnType<typeof useGetBookingsQuery>;
+export type GetBookingsLazyQueryHookResult = ReturnType<typeof useGetBookingsLazyQuery>;
+export type GetBookingsQueryResult = Apollo.QueryResult<GetBookingsQuery, GetBookingsQueryVariables>;
+export const GetBookingDocument = gql`
+    query getBooking($email: String!) {
+  booking(email: $email) {
+    firstName
+    lastName
+    email
+    phone
+    company
+    software
+    address
+  }
+}
+    `;
+
+/**
+ * __useGetBookingQuery__
+ *
+ * To run a query within a React component, call `useGetBookingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookingQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetBookingQuery(baseOptions: Apollo.QueryHookOptions<GetBookingQuery, GetBookingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBookingQuery, GetBookingQueryVariables>(GetBookingDocument, options);
+      }
+export function useGetBookingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookingQuery, GetBookingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBookingQuery, GetBookingQueryVariables>(GetBookingDocument, options);
+        }
+export type GetBookingQueryHookResult = ReturnType<typeof useGetBookingQuery>;
+export type GetBookingLazyQueryHookResult = ReturnType<typeof useGetBookingLazyQuery>;
+export type GetBookingQueryResult = Apollo.QueryResult<GetBookingQuery, GetBookingQueryVariables>;
 export const GetUsersDocument = gql`
     query getUsers {
   users {

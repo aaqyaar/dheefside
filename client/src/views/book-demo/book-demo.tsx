@@ -1,8 +1,35 @@
 import { Grid } from "components";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FiCheck } from "react-icons/fi";
+import { useBookDemoMutation } from "__generated__/generated";
 import BookDemoForm from "./book-form";
 
 export default function BookDemo() {
+  const [BookDemoMutation] = useBookDemoMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleBookDemo = async (values: any) => {
+    setIsLoading(true);
+    await BookDemoMutation({
+      variables: {
+        input: values,
+      },
+      onError: (error) => {
+        setIsSuccess(false);
+        toast.error(error.message);
+        setIsLoading(false);
+      },
+
+      onCompleted: () => {
+        setIsSuccess(true);
+        setIsLoading(false);
+        toast.success("Booked Demo Successfully");
+      },
+    });
+  };
+
   return (
     <div className="max-w-screen-xl p-4 mx-auto">
       <Grid
@@ -15,7 +42,11 @@ export default function BookDemo() {
         // className={"max-w-screen-xl p-4"}
       >
         <LeftItems />
-        <BookDemoForm />
+        <BookDemoForm
+          onBookDemo={handleBookDemo}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
       </Grid>
     </div>
   );
