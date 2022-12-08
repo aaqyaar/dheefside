@@ -81,7 +81,7 @@ export default function TextField({
           type={type}
           name={name}
           id={name}
-          className={`textfield ${className}}`}
+          className={`textfield ${error ? "error" : ""} ${className}}`}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -91,7 +91,7 @@ export default function TextField({
         <textarea
           name={name}
           id={name}
-          className={`textfield ${className}`}
+          className={`textfield ${error ? "error" : ""} ${className}`}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -102,7 +102,7 @@ export default function TextField({
         <select
           name={name}
           id={name}
-          className={`textfield ${className}`}
+          className={`textfield ${error ? "error" : ""} ${className}`}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -116,7 +116,7 @@ export default function TextField({
       {startIcon && <div className="absolute left-2">{startIcon}</div>}
       {endIcon && <div className="absolute right-2 top-10">{endIcon}</div>}
 
-      {error ? <p className="text-red-500">{errorText}</p> : null}
+      {error ? <p className="text-red-500 mb-2">{errorText}</p> : null}
     </div>
   );
 }

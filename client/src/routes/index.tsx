@@ -60,19 +60,8 @@ const renderRoutes = (routes: any) => {
 };
 
 export default function AppRoutes() {
-  const [_, startTransition] = useTransition();
   return (
-    <Suspense
-      fallback={
-        <LoadingScreen
-          onReady={() => {
-            startTransition(() => {});
-          }}
-        />
-      }
-    >
-      {renderRoutes(routes)}
-    </Suspense>
+    <Suspense fallback={<LoadingScreen />}>{renderRoutes(routes)}</Suspense>
   );
 }
 
@@ -103,7 +92,7 @@ const routes = [
     exact: true,
     requireAuth: false,
     layout: Main,
-    element: lazy(async () => await import("../pages/BookDemo")),
+    element: lazy(async () => await import("../pages/BookDemoPage")),
   },
   {
     path: PATH.notFound,
