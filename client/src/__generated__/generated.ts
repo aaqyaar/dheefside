@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
 };
 
 export type AuthData = {
@@ -36,6 +37,7 @@ export type Bookings = {
   __typename?: 'Bookings';
   address: Scalars['String'];
   company: Scalars['String'];
+  createdAt: Scalars['Date'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   id: Scalars['ID'];
@@ -121,7 +123,7 @@ export type MutationLoginArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  booking: Bookings;
+  booking: Array<Bookings>;
   bookings: Array<Bookings>;
   users: Array<User>;
 };
@@ -185,14 +187,14 @@ export type ContactMutation = { __typename?: 'Mutation', contact: { __typename?:
 export type GetBookingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetBookingsQuery = { __typename?: 'Query', bookings: Array<{ __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string }> };
+export type GetBookingsQuery = { __typename?: 'Query', bookings: Array<{ __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string, createdAt: any }> };
 
 export type GetBookingQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetBookingQuery = { __typename?: 'Query', booking: { __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string } };
+export type GetBookingQuery = { __typename?: 'Query', booking: Array<{ __typename?: 'Bookings', firstName: string, lastName: string, email: string, phone: string, company: string, software: string, address: string, createdAt: any }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -384,6 +386,7 @@ export const GetBookingsDocument = gql`
     company
     software
     address
+    createdAt
   }
 }
     `;
@@ -424,6 +427,7 @@ export const GetBookingDocument = gql`
     company
     software
     address
+    createdAt
   }
 }
     `;
