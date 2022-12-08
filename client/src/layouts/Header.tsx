@@ -1,6 +1,6 @@
 import { Button } from "components";
 import { useState } from "react";
-import { Link, useLocation, matchPath } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   HiOutlineChevronDown,
   HiOutlineMenuAlt3,
@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { useAuth } from "contexts/AuthContext";
 import { generateNavItems } from "constants/navs";
+import { PATH } from "routes/paths";
 
 interface NavItem {
   title: string;
@@ -17,7 +18,6 @@ interface NavItem {
 }
 
 export default function Header() {
-  const location = useLocation();
   const { auth } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
@@ -26,9 +26,6 @@ export default function Header() {
     auth?.isAuth === true
       ? generateNavItems("private")
       : generateNavItems("public");
-
-  const match = (path: string) =>
-    path ? !!matchPath({ path, end: false }, location.pathname) : false;
 
   return (
     <header className="relative shadow-none">
@@ -77,9 +74,11 @@ function DesktopNav({
       <ul className="flex space-x-6 justify-center items-center">
         {navItems.map((nav) => renderNav(nav, openDropDown, setOpenDropDown))}
         <li>
-          <Button size="md" variant="contained">
-            Book A Demo
-          </Button>
+          <Link to={PATH.bookDemo}>
+            <Button size="md" variant="contained">
+              Book A Demo
+            </Button>
+          </Link>
         </li>
       </ul>
     </nav>
@@ -100,9 +99,11 @@ function MobileNav({ navItems }: { navItems: NavItem[] }) {
             {navItems.map((item) => renderNav(item))}
             <hr />
             <li>
-              <Button size="md" variant="contained">
-                Get Started
-              </Button>
+              <Link to={PATH.bookDemo}>
+                <Button size="md" variant="contained">
+                  Book Demo
+                </Button>
+              </Link>
             </li>
           </ul>
         </motion.div>

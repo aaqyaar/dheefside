@@ -39,8 +39,8 @@ export default function LoginForm({ onLogin }: Props) {
       <Form onSubmit={handleSubmit} noValidate autoComplete="off">
         <div className={`space-y-4 mt-8 grid place-self-center`}>
           <div className={`space-y-4`}>
-            {formFields.map((field: ITextField) => (
-              <div className="relative">
+            {formFields.map((field: ITextField, i) => (
+              <div className="relative" key={i}>
                 <TextField
                   key={field.name}
                   label={field.label}

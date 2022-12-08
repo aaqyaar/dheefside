@@ -7,6 +7,7 @@ export const PATH = {
   },
   about: "/about",
   contact: "/contact",
+  bookDemo: "/book-demo",
   notFound: "*",
   user: {
     profile: "/user/profile",

@@ -42,7 +42,6 @@ const initialState = {
 const handlers: any = {
   INITIALIZE: (state: AuthContextProps, action: any) => {
     const { token, user, isAuth } = action.payload;
-
     return {
       ...state,
       auth: {
@@ -53,7 +52,7 @@ const handlers: any = {
     };
   },
 
-  LOGIN: (state: AuthContextProps, action: AuthData) => {
+  LOGIN: (state: AuthContextProps, action: any) => {
     const { token, user } = action;
     return {
       ...state,
@@ -67,7 +66,11 @@ const handlers: any = {
 
   LOGOUT: (state: AuthContextProps) => ({
     ...state,
-    auth: null,
+    auth: {
+      token: "",
+      user: null,
+      isAuth: false,
+    },
   }),
 };
 
@@ -76,7 +79,7 @@ const reducer = (state: any, action: { type: string | number }) =>
   handlers[action.type] ? handlers[action.type](state, action) : state;
 
 const AuthContext = createContext<AuthContextProps>({
-  ...initialState,
+  auth: initialState.auth as AuthData,
   login: () => Promise.resolve({ data: null, error: null }),
   logout: () => {},
   register: () =>

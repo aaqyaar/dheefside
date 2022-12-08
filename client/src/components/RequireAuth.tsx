@@ -4,5 +4,6 @@ import { PATH } from "routes/paths";
 
 export default function RequireAuth() {
   const { auth } = useAuth();
-  return auth?.isAuth === true ? <Outlet /> : <Navigate to={PATH.auth.login} />;
+  // console.log(JSON.parse(localStorage.getItem("auth"), null, 2));
+  return auth.isAuth === true ? <Outlet /> : <Navigate to={PATH.auth.login} />;
 }

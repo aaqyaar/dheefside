@@ -99,6 +99,13 @@ const routes = [
     exact: true,
   },
   {
+    path: PATH.bookDemo,
+    exact: true,
+    requireAuth: false,
+    layout: Main,
+    element: lazy(async () => await import("../pages/BookDemo")),
+  },
+  {
     path: PATH.notFound,
     exact: true,
     requireAuth: false,
