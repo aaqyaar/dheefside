@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }: any) => {
       token,
     };
     setSession(authData);
-    await dispatch({ type: "LOGIN", ...data?.login });
+    await dispatch({ type: "LOGIN", ...authData });
 
     return { data: authData, error: errors?.[0].message };
   };
@@ -127,7 +127,7 @@ export const AuthProvider = ({ children }: any) => {
     const initialize = async () => {
       try {
         const auth = localStorage.getItem(AUTH_LOCAL_STORAGE.auth);
-        const decoded = JSON.parse(auth as any);
+        const decoded: AuthData = JSON.parse(auth as any);
         const isValid = isValidToken(decoded.token);
 
         if (decoded && isValid) {

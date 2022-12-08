@@ -29,7 +29,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact">
+    <section id="contact" className="relative">
       <div className="flex py-28 bg-secondary flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center space-y-4">
           <h1 className="text-7xl font-bold text-center text-gray-200">

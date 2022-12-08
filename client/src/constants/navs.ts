@@ -45,6 +45,7 @@ const navItems: NavItem[] = [
 ];
 
 export const generateNavItems = (type: "private" | "public") => {
+  // eslint-disable-next-line array-callback-return
   const filteredNavItems = navItems.filter((item) => {
     if (item.access === type) {
       return item;
