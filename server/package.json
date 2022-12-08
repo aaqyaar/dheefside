@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node build/server.js",
     "generate": "graphql-codegen --config codegen.yml",
     "dev": "concurrently \"nodemon src/server.ts\" \"npm run generate --watch\""
