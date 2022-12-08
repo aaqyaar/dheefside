@@ -14,13 +14,16 @@ const Mutation = {
     try {
       const bookedDemos = await BookedDemos.findOne({
         software: input.software,
+        email: input.email,
       });
       if (bookedDemos) {
-        throw new Error("Software already booked");
+        throw new Error("Your already booked for this Software");
       }
       const newBookedDemos = new BookedDemos(input);
       await newBookedDemos.save();
-      const result = await EmailRepository.sendBookedEmail(newBookedDemos);
+      const result = await EmailRepository.sendBookedEmail(
+        newBookedDemos as BookedDemosType
+      );
       return { ...result };
     } catch (err) {
       throw err;

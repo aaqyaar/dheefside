@@ -2,6 +2,7 @@ import { booked_Template } from "./booked-template";
 import { email_template } from "./emailTemplate";
 
 import { sendEmail } from "../documents/nodemailer";
+import { BookedDemos } from "../generated/graphql";
 
 const emailRepository = {
   sendEmail: async (input: any) => {
@@ -16,11 +17,11 @@ const emailRepository = {
       throw err;
     }
   },
-  sendBookedEmail: async (input: any) => {
+  sendBookedEmail: async (input: BookedDemos) => {
     try {
       const result = await sendEmail({
         to: input.email,
-        subject: `Welcome to Dheefside Softwares - ${input.name}} - you have booked a demo for ${input.software}`,
+        subject: `Welcome to Dheefside Softwares - ${input.firstName}} - you have booked a demo for ${input.software}`,
         text: booked_Template(input),
       });
       return result;
