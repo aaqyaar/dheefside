@@ -10,6 +10,7 @@ import TextField, { ITextField } from "components/TextField";
 
 type Props = {
   onLogin: (email: string, password: string) => void;
+  loading: boolean;
 };
 
 const initialState = {
@@ -17,7 +18,7 @@ const initialState = {
   password: "",
 };
 
-export default function LoginForm({ onLogin }: Props) {
+export default function LoginForm({ onLogin, loading }: Props) {
   const [showPasword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -104,6 +105,8 @@ export default function LoginForm({ onLogin }: Props) {
               className="w-96 h-12 bg-secondary"
               type="submit"
               variant={"contained"}
+              loading={loading}
+              disabled={loading}
             >
               Login
             </Button>

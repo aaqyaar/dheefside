@@ -6,7 +6,7 @@ import RegisterForm from "./RegisterForm";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, loading } = useAuth();
 
   const handleRegister = async (values: any) => {
     try {
@@ -23,7 +23,7 @@ export default function Register() {
   };
   return (
     <section className="grid grid-cols-12 justify-items-center place-content-center">
-      <RegisterForm onRegister={handleRegister} />
+      <RegisterForm onRegister={handleRegister} loading={loading} />
     </section>
   );
 }

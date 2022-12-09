@@ -18,8 +18,10 @@ const initialState = {
 
 export default function RegisterForm({
   onRegister,
+  loading,
 }: {
   onRegister: (values: any) => void;
+  loading: boolean;
 }) {
   const [showPasword, setShowPassword] = useState(false);
 
@@ -104,6 +106,8 @@ export default function RegisterForm({
             variant="contained"
             color="primary"
             className="bg-secondary hover:bg-emerald-800 transition ease-in-out hover:-translate-y-1"
+            loading={loading}
+            disabled={loading}
           >
             Register
           </Button>

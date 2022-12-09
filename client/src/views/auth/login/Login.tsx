@@ -2,12 +2,11 @@ import { useAuth } from "contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "routes/paths";
-import styles from "styles/style";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const handleLogin = async (email: string, password: string) => {
     try {
       const { data, error } = await login(email, password);
@@ -31,7 +30,7 @@ export default function Login() {
           <h1 className="text-4xl font-bold text-secondary">Login</h1>
           <p className="text-gray-400">Login to your account</p>
         </div>
-        <LoginForm onLogin={handleLogin} />
+        <LoginForm onLogin={handleLogin} loading={loading} />
       </div>
     </section>
   );

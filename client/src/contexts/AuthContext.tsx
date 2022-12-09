@@ -1,5 +1,11 @@
 import { AUTH_LOCAL_STORAGE } from "constants/app-constants";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { setSession, isValidToken } from "utils/jwt";
 import {
   AuthData,
@@ -23,6 +29,8 @@ interface AuthContextProps {
     data: UserTypes | null;
     error: any;
   }>;
+  loading: boolean;
+  success: boolean;
 }
 
 const initialState = {
@@ -82,28 +90,55 @@ const AuthContext = createContext<AuthContextProps>({
       data: null,
       error: null,
     }),
+
+  loading: false,
+  success: false,
 });
 
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [registerMutation] = useRegisterMutation();
   const [loginMutation] = useLoginMutation();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const register = async (userInput: any) => {
+    setLoading(true);
     const { data, errors } = await registerMutation({
       variables: {
         userInput,
       },
+      onError: (error) => {
+        setLoading(false);
+        setSuccess(false);
+      },
+      onCompleted: () => {
+        setLoading(false);
+        setSuccess(true);
+      },
     });
+    if (errors) {
+      setLoading(false);
+    }
     return {
       data: data?.createUser,
-      error: errors?.[0].message,
+      error: errors?.[0]?.message,
     };
   };
   const login = async (email: string, password: string) => {
+    setLoading(true);
     const { data, errors } = await loginMutation({
       variables: {
         email,
         password,
+      },
+      onError: (error) => {
+        setLoading(false);
+        setSuccess(false);
+      },
+      onCompleted: () => {
+        setLoading(false);
+        setSuccess(true);
       },
     });
     const { user, token } = data?.login as AuthData;
@@ -114,7 +149,7 @@ export const AuthProvider = ({ children }: any) => {
     };
     setSession(authData);
     await dispatch({ type: "LOGIN", ...authData });
-
+    setLoading(false);
     return { data: authData, error: errors?.[0].message };
   };
 
@@ -149,7 +184,9 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ ...state, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ ...state, loading, success, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

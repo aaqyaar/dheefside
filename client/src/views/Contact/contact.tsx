@@ -1,3 +1,4 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   HiOutlineLocationMarker,
@@ -9,20 +10,24 @@ import { ContactInput, useContactMutation } from "__generated__/generated";
 
 export default function Contact() {
   const [sendEmailMutation] = useContactMutation();
+  const [loading, setLoading] = useState(false);
 
   const sendEmail = async (values: ContactInput) => {
     try {
-      const { data, errors } = await sendEmailMutation({
+      setLoading(true);
+      await sendEmailMutation({
         variables: {
           input: values,
         },
+        onError: (error) => {
+          setLoading(false);
+          toast.error(error.message);
+        },
+        onCompleted: () => {
+          setLoading(false);
+          toast.success("Email sent successfully");
+        },
       });
-      if (data?.contact) {
-        toast.success("Email sent successfully");
-      }
-      if (errors) {
-        toast.error(errors[0].message);
-      }
     } catch (error: any) {
       toast.error(error.message as any);
     }
@@ -77,7 +82,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <ContactForm onSendEmail={sendEmail} />
+        <ContactForm onSendEmail={sendEmail} loading={loading} />
       </div>
     </section>
   );

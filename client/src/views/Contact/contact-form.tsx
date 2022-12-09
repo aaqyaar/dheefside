@@ -13,8 +13,10 @@ const initialState = {
 
 export default function ContactForm({
   onSendEmail,
+  loading,
 }: {
   onSendEmail: (values: ContactInput) => void;
+  loading: boolean;
 }) {
   const formik = useFormik({
     initialValues: initialState,
@@ -25,7 +27,7 @@ export default function ContactForm({
     },
   });
 
-  const { handleSubmit, getFieldProps, errors, touched, isSubmitting } = formik;
+  const { handleSubmit, getFieldProps, errors, touched } = formik;
   return (
     <FormikProvider value={formik}>
       <Form
@@ -54,7 +56,7 @@ export default function ContactForm({
         </div>
         <div className="flex justify-end w-full">
           <Button
-            loading={isSubmitting}
+            loading={loading}
             className="bg-secondary"
             type="submit"
             variant={"contained"}
