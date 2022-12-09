@@ -1,15 +1,28 @@
 import { Button } from "components";
-import svg from "constants/svg-exports";
 import { motion } from "framer-motion";
 import styles from "styles/style";
-
+import {
+  fadeIn,
+  imageRotationVariant,
+  staggerContainer,
+  textVariant,
+} from "components/animate";
 export default function About() {
   return (
-    <section className={`bg-gray-100 relative`}>
-      <div className={`py-20`}>
+    <section className={`bg-gray-100 relative overflow-hidden`}>
+      <motion.div
+        variants={staggerContainer as any}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.25 }}
+        className={`py-20`}
+      >
         {/* grid */}
         <div className={`grid lg:grid-cols-12 gap-y-4 gap-4 lg:gap-y-0`}>
-          <motion.div className="col-span-12 px-4 lg:col-span-6">
+          <motion.div
+            variants={imageRotationVariant("left")}
+            className="col-span-12 px-4 lg:col-span-6"
+          >
             <img
               src="/images/about.jpg"
               alt="developer planning project user experience"
@@ -17,10 +30,16 @@ export default function About() {
             />
           </motion.div>
 
-          <div
+          <motion.div
+            variants={fadeIn("left", "tween", 0.2, 1) as any}
             className={`col-span-12 lg:col-span-6 overflow-hidden  sm:${styles.paddingX}`}
           >
-            <h1 className={`text-5xl text-gray-700 font-bold`}>About Us</h1>
+            <motion.h1
+              variants={textVariant(1.2) as any}
+              className={`text-5xl text-gray-700 font-bold`}
+            >
+              About Us
+            </motion.h1>
             <p className={`text-gray-700 text-2xl my-4`}>
               From digital customer experience to trust and safety, AI services,
               and consulting, we believe we are responsible for supporting our
@@ -45,9 +64,9 @@ export default function About() {
             <Button className="bg-white text-black/95 hover:bg-gray-50">
               Learn more......
             </Button>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

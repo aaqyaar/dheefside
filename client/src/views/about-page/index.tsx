@@ -2,17 +2,33 @@ import svg from "constants/svg-exports";
 import { HiPlay } from "react-icons/hi";
 import styles from "styles/style";
 import OursAbout from "./ours";
-
+import { motion } from "framer-motion";
+import { staggerContainer } from "components/animate";
+import { TypingText } from "views/Home/Guidence";
 export default function About() {
   return (
-    <section className="pt-28">
+    <motion.section
+      variants={staggerContainer as any}
+      initial="hidden"
+      whileInView={"show"}
+      viewport={{
+        once: false,
+        amount: 0.25,
+      }}
+      className="pt-28"
+    >
       <div className="flex items-center justify-center flex-col">
         <h1 className="text-5xl  text-center lg:text-7xl  font-bold text-secondary">
           Our mission is to offer <br />
         </h1>
-        <h2 className="font-normal text-center lg:text-4xl text-3xl capitalize py-4 text-gray-700">
-          next generation solutions to our clients.
-        </h2>
+        <TypingText
+          title="next generation solutions to our clients."
+          textStyles="font-normal text-center lg:text-4xl text-3xl capitalize py-4 text-gray-700"
+        />
+
+        {/* <h2 className="font-normal text-center lg:text-4xl text-3xl capitalize py-4 text-gray-700">
+            next generation solutions to our clients.
+          </h2> */}
         <p className="prose text-center py-4 text-xl max-w-2xl font-light text-gray-900">
           We are digital partners focused on helping it businesses protect,
           represent, and nurture their brands. Whether you're just stepping in
@@ -108,6 +124,6 @@ export default function About() {
         <OursAbout />
         <hr className="mt-8" />
       </div>
-    </section>
+    </motion.section>
   );
 }

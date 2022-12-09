@@ -7,7 +7,7 @@ import { useGetBookingQuery } from "__generated__/generated";
 
 export default function UserProfile() {
   const { auth } = useAuth();
-  const { data, loading, error } = useGetBookingQuery({
+  const { data, loading } = useGetBookingQuery({
     variables: { email: auth.user.email },
   });
 

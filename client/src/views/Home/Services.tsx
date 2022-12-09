@@ -1,5 +1,7 @@
-import svg from "constants/svg-exports";
+import { staggerContainer, zoomIn } from "components/animate";
+import { motion } from "framer-motion";
 import styles from "styles/style";
+import { TitleText, TypingText } from "./Guidence";
 
 const services = [
   {
@@ -46,32 +48,43 @@ const services = [
 export default function Services() {
   return (
     <section className={`relative bg-white`}>
-      <div className={`${styles.boxWidth} px-8 py-20 mx-auto`}>
+      <motion.div
+        variants={staggerContainer as any}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{
+          once: false,
+          amount: 0.25,
+        }}
+        className={`${styles.boxWidth} px-8 py-20 mx-auto`}
+      >
         <div className="flex flex-col items-center justify-center font-poppins py-4">
-          <h1 className="text-4xl font-bold text-center prose">
-            Save Time Managing Your Business
-            <br />
-            With <span className="text-secondary">Dheefside Services</span>
-          </h1>
-          <p className="text-lg text-center prose py-4">
-            We offer a wide range of services to help you grow your business and
-            increase your revenue. Our services are designed to help you save
-            time and money.
-          </p>
+          <TitleText
+            title={`Save Time Managing Your Business <br /> With <span className="text-secondary">Dheefside Services</span>`}
+            textStyles="text-4xl font-bold text-center prose"
+          />
+
+          <TypingText
+            title="We offer a wide range of services to help you grow your business and
+          increase your revenue. Our services are designed to help you save
+          time and money."
+            textStyles="text-lg text-center prose py-4"
+          />
         </div>
         <div
           className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 place-content-center place-items-center justify-items-center`}
         >
           {services.map((service: any) => renderService(service))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
 
 function renderService(service: any) {
   return (
-    <div
+    <motion.div
+      variants={zoomIn(0.5, 1)}
       key={service.id}
       className={`max-w-sm bg-white duration-150 transition ease-in hover:shadow-2xl hover:shadow-gray-300 px-2 py-10 rounded-md font-poppins`}
     >
@@ -97,6 +110,6 @@ function renderService(service: any) {
           }
         `}</style>
       </div>
-    </div>
+    </motion.div>
   );
 }
