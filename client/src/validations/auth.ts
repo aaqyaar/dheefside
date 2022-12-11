@@ -17,3 +17,12 @@ export const registerYupSchema = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Confirm Password is required"),
 });
+
+export const verifyCodeValidationSchema = Yup.object().shape({
+  code1: Yup.string().required(),
+  code2: Yup.string().required(),
+  code3: Yup.string().required(),
+  code4: Yup.string().required(),
+  code5: Yup.string().required(),
+  code6: Yup.string().required(),
+});

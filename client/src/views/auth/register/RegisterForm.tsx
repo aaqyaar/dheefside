@@ -84,6 +84,7 @@ export default function RegisterForm({
             />
           </div>
         ))}
+         
         <div className={`col-span-2 justify-end flex`}>
           <Button
             type="submit"

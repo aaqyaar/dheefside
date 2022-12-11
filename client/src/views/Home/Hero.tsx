@@ -17,7 +17,7 @@ export default function Hero() {
       >
         <motion.div
           variants={fadeIn("right", "tween", 0.2, 1) as any}
-          className={`col-span-12 lg:col-span-6 ${styles.paddingY} ${styles.paddingX}`}
+          className={`2xl:mt-20 col-span-12 lg:col-span-6 ${styles.paddingY} ${styles.paddingX}`}
         >
           <h1
             className={`2xl:text-8xl lg:text-7xl md:text-5xl text-4xl font-extrabold prose`}

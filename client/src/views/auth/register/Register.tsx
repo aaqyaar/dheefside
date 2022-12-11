@@ -14,6 +14,7 @@ export default function Register() {
     if (res?.data) {
       navigate(PATH.auth.login);
     }
+
     if (res?.error) {
       toast.error(res?.error?.message);
     }
@@ -30,16 +31,21 @@ export default function Register() {
           <RegisterForm onRegister={handleRegister} loading={loading} />
 
           <p className="text-gray-400">
-            Already have an account? <Link to={PATH.auth.login}>Login</Link>
+            Already have an account?{" "}
+            <Link to={PATH.auth.login} className="text-secondary">
+              Login
+            </Link>
             {" or "}
-            <Link to={PATH.auth.forgotPassword}>Forgot Password</Link>
+            <Link to={PATH.auth.forgotPassword} className="text-secondary">
+              Forgot Password
+            </Link>
           </p>
         </div>
 
         <div className="lg:col-span-6 mx-4 col-span-12">
           <img
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg"
-            alt="illustration"
+            src="/images/register-illustration.svg"
+            alt="Registration Illustration"
             className="w-full"
           />
         </div>

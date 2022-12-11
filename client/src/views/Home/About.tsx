@@ -18,11 +18,10 @@ export default function About() {
         className={`py-20`}
       >
         {/* grid */}
-        <div className={`grid lg:grid-cols-12 gap-y-4 gap-4 lg:gap-y-0`}>
-          <motion.div
-            variants={imageRotationVariant("left")}
-            className="col-span-12 px-4 lg:col-span-6"
-          >
+        <div
+          className={`flex justify-center items-center lg:flex-row flex-col gap-y-4`}
+        >
+          <motion.div variants={imageRotationVariant("left")} className="px-4 ">
             <img
               src="/images/about.jpg"
               alt="developer planning project user experience"
@@ -32,7 +31,7 @@ export default function About() {
 
           <motion.div
             variants={fadeIn("left", "tween", 0.2, 1) as any}
-            className={`col-span-12 lg:col-span-6 overflow-hidden  sm:${styles.paddingX}`}
+            className={`overflow-hidden  sm:${styles.paddingX}`}
           >
             <motion.h1
               variants={textVariant(1.2) as any}
@@ -40,27 +39,28 @@ export default function About() {
             >
               About Us
             </motion.h1>
-            <p className={`text-gray-700 text-2xl my-4`}>
+            <p className={`text-gray-700 text-2xl my-4 2xl:text-3xl`}>
               From digital customer experience to trust and safety, AI services,
               and consulting, we believe we are responsible for supporting our
               partner's success in protecting their interests through innovation
               and technology.
-              <blockquote
-                className={`my-4 text-xl border-l-4 border-primary pl-4`}
-              >
-                <q>
-                  We protect what matters most to us, you, and citizens
-                  worldwide.
-                </q>
-              </blockquote>
-              A perfect blend of people and technology We see business as a set
-              of challenges and solutions. We don't like technology over the
-              human mind. Instead, the right solution determines the right
-              balance. For us, it takes the perfect mix of highly talented
-              people, technology, and data to produce tremendously impressive
-              results.
             </p>
-
+            <blockquote
+              className={`my-4 text-xl xl:text-2xl border-l-4 border-primary pl-4`}
+            >
+              <q>
+                We protect what matters most to us, you, and citizens worldwide.
+              </q>
+            </blockquote>
+            <p className="text-gray-700 text-2xl 2xl:text-3xl my-4">
+              A perfect blend of technology and human intelligence, we are a
+              team of experts who are passionate about protecting our clients
+              and their customers. We are a team of experts who are passionate
+              about protecting our clients and their customers. We are a team of
+              experts who are passionate about protecting our clients and their
+              customers. We are a team of experts who are passionate about
+              protecting our clients and their customers.
+            </p>
             <Button className="bg-white text-black/95 hover:bg-gray-50">
               Learn more......
             </Button>

@@ -49,6 +49,10 @@ export interface ITextField {
 
   options?: OptionsT;
   colSpan?: number;
+
+  maxLength?: number;
+
+  showError?: boolean;
 }
 
 export default function TextField({
@@ -67,6 +71,8 @@ export default function TextField({
   endIcon,
   startIcon,
   options,
+  maxLength,
+  showError,
 }: ITextField) {
   const error = errors && touched && errors[name] && touched[name];
   const errorText = error ? errors[name] : "";
@@ -85,6 +91,7 @@ export default function TextField({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          maxLength={maxLength}
           {...getFieldProps?.(name)}
         />
       ) : component === "textarea" ? (
@@ -116,7 +123,9 @@ export default function TextField({
       {startIcon && <div className="absolute left-2">{startIcon}</div>}
       {endIcon && <div className="absolute right-2 top-10">{endIcon}</div>}
 
-      {error ? <p className="text-red-500 mb-2">{errorText}</p> : null}
+      {error && showError !== false ? (
+        <p className="text-red-500 mb-2">{errorText}</p>
+      ) : null}
     </div>
   );
 }

@@ -116,6 +116,13 @@ const routes = [
     exact: true,
   },
   {
+    path: PATH.auth.verifyCode,
+    layout: Main,
+    requireAuth: false,
+    element: Loadable(lazy(() => import("../pages/VerifyCodePage"))),
+    exact: true,
+  },
+  {
     path: PATH.user.profile,
     layout: Main,
     requireAuth: true,

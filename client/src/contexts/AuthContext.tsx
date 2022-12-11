@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }: any) => {
 
       return {
         data: data?.createUser,
-        error: errors?.[0]?.message,
+        error: errors,
       };
     } catch (error) {
       throw new Error(error as any);
