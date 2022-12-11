@@ -8,16 +8,12 @@ export default function Login() {
   const navigate = useNavigate();
   const { login, loading } = useAuth();
   const handleLogin = async (email: string, password: string) => {
-    try {
-      const { data, error } = await login(email, password);
-      if (data) {
-        navigate(PATH.user.profile);
-      }
-      if (error) {
-        toast.error(error);
-      }
-    } catch (error: any) {
-      toast.error(error.message);
+    const res = await login(email, password);
+    if (res?.data) {
+      navigate(PATH.user.profile);
+    }
+    if (res?.error) {
+      toast.error(res?.error?.message);
     }
   };
 

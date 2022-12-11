@@ -103,54 +103,66 @@ export const AuthProvider = ({ children }: any) => {
   const [success, setSuccess] = useState(false);
 
   const register = async (userInput: any) => {
-    setLoading(true);
-    const { data, errors } = await registerMutation({
-      variables: {
-        userInput,
-      },
-      onError: (error) => {
+    try {
+      setLoading(true);
+      const { data, errors } = await registerMutation({
+        variables: {
+          userInput,
+        },
+        onError: () => {
+          setLoading(false);
+          setSuccess(false);
+        },
+        onCompleted: () => {
+          setLoading(false);
+          setSuccess(true);
+        },
+      });
+      if (errors) {
         setLoading(false);
-        setSuccess(false);
-      },
-      onCompleted: () => {
-        setLoading(false);
-        setSuccess(true);
-      },
-    });
-    if (errors) {
-      setLoading(false);
+      }
+
+      return {
+        data: data?.createUser,
+        error: errors?.[0]?.message,
+      };
+    } catch (error) {
+      throw new Error(error as any);
     }
-    return {
-      data: data?.createUser,
-      error: errors?.[0]?.message,
-    };
   };
   const login = async (email: string, password: string) => {
-    setLoading(true);
-    const { data, errors } = await loginMutation({
-      variables: {
-        email,
-        password,
-      },
-      onError: (error) => {
+    try {
+      setLoading(true);
+      const { data, errors } = await loginMutation({
+        variables: {
+          email,
+          password,
+        },
+        onError: () => {
+          setLoading(false);
+          setSuccess(false);
+        },
+        onCompleted: () => {
+          setLoading(false);
+          setSuccess(true);
+        },
+      });
+      if (errors) {
         setLoading(false);
-        setSuccess(false);
-      },
-      onCompleted: () => {
-        setLoading(false);
-        setSuccess(true);
-      },
-    });
-    const { user, token } = data?.login as AuthData;
-    const authData = {
-      user,
-      isAuth: true,
-      token,
-    };
-    setSession(authData);
-    await dispatch({ type: "LOGIN", ...authData });
-    setLoading(false);
-    return { data: authData, error: errors?.[0].message };
+      }
+
+      const res = data?.login as AuthData;
+      const authData = {
+        user: res?.user,
+        isAuth: true,
+        token: res?.token,
+      };
+      setSession(authData);
+      await dispatch({ type: "LOGIN", ...authData });
+      return { data: authData, error: errors };
+    } catch (error) {
+      throw new Error(error as any);
+    }
   };
 
   const logout = async () => {
@@ -163,7 +175,7 @@ export const AuthProvider = ({ children }: any) => {
       try {
         const auth = localStorage.getItem(AUTH_LOCAL_STORAGE.auth);
         const decoded: AuthData = JSON.parse(auth as any);
-        const isValid = isValidToken(decoded.token);
+        const isValid = isValidToken(decoded?.token);
 
         if (decoded && isValid) {
           await dispatch({

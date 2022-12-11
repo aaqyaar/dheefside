@@ -4,7 +4,6 @@ import { registerYupSchema } from "validations";
 import { Button, TextField } from "components";
 import { ITextField } from "components/TextField";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
-import styles from "styles/style";
 import { Link } from "react-router-dom";
 import { PATH } from "routes/paths";
 
@@ -47,21 +46,8 @@ export default function RegisterForm({
         autoComplete="off"
         className="m-4 pt-6 gap-4 grid grid-cols-2 col-span-12"
       >
-        <div className="col-span-2 space-y-2 justify-center flex items-center flex-col">
-          <h1 className="text-4xl  font-bold text-secondary">
-            Create a new account
-          </h1>
-          <h3 className="prose text-gray-600">
-            It's quick and easy. We promise you won't regret it.{" "}
-          </h3>
-          <div className="flex flex-row items-center gap-4">
-            <div className="bg-gray-500 rounded-sm w-40 h-1" />
-            <h1>Sign up with</h1>
-            <div className="bg-gray-500 w-40 h-1 rounded-sm" />
-          </div>
-        </div>
         {formFields.map((field: ITextField, i) => (
-          <div className={`${field.className} relative`}>
+          <div className={`${field.className} relative `} key={i}>
             <TextField
               key={field.name}
               label={field.label}
@@ -111,14 +97,6 @@ export default function RegisterForm({
           >
             Register
           </Button>
-        </div>
-        <div className="col-span-2 justify-center flex">
-          <h1>
-            Already have an account?{" "}
-            <Link to={PATH.auth.login} className="text-secondary">
-              Login
-            </Link>
-          </h1>
         </div>
       </Form>
     </FormikProvider>

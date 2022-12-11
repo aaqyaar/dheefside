@@ -64,14 +64,11 @@ export default function Services() {
             textStyles="text-4xl font-bold text-center prose"
           />
 
-          <div className="max-w-lg">
-            <TypingText
-              title="We offer a wide range of services to help you grow your business and
-          increase your revenue. Our services are designed to help you save
-          time and money."
-              textStyles="text-lg text-center prose py-4 max-w-md mx-auto"
-            />
-          </div>
+          <p className="text-lg text-center prose py-4 max-w-lg mx-auto">
+            We offer a wide range of services to help you grow your business and
+            increase your revenue. Our services are designed to help you save
+            time and money.
+          </p>
         </div>
         <div
           className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 place-content-center place-items-center justify-items-center`}
