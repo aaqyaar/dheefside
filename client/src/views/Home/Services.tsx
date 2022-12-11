@@ -68,7 +68,7 @@ export default function Services() {
             title="We offer a wide range of services to help you grow your business and
           increase your revenue. Our services are designed to help you save
           time and money."
-            textStyles="text-lg text-center prose py-4"
+            textStyles="text-lg max-w-lg text-center prose py-4"
           />
         </div>
         <div
@@ -86,7 +86,9 @@ function renderService(service: any) {
     <motion.div
       variants={zoomIn(0.5, 1)}
       key={service.id}
-      className={`max-w-sm bg-white duration-150 transition ease-in hover:shadow-2xl hover:shadow-gray-300 px-2 py-10 rounded-md font-poppins`}
+      className={`${
+        service.id === 2 && "shadow-2xl shadow-gray-300"
+      } max-w-sm bg-white duration-150 transition ease-in hover:shadow-2xl hover:shadow-gray-300 px-2 py-10 rounded-md font-poppins`}
     >
       <div className=" flex flex-col items-center justify-center space-y-4">
         <div className="flex items-center justify-center p-4">
@@ -95,20 +97,9 @@ function renderService(service: any) {
         <h1 className="text-2xl font-bold text-center text-gray-800">
           {service.title}
         </h1>
-        <p id="limit" className="max-w-md text-lg text-center text-gray-600">
+        <p className="line-clamp-4 max-w-md text-lg text-center text-gray-600">
           {service.desc}
         </p>
-
-        <style>{`
-          #limit {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-
-          }
-        `}</style>
       </div>
     </motion.div>
   );
