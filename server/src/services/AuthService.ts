@@ -50,8 +50,7 @@ export default class AuthService {
       SecretHash: this.hashSecret(email),
     };
     try {
-      const response = await cognitoIdentity.confirmSignUp(params).promise();
-      console.log(response);
+      await cognitoIdentity.confirmSignUp(params).promise();
       return true;
     } catch (error) {
       console.log(error);
@@ -78,13 +77,19 @@ export default class AuthService {
       return error;
     }
   }
-}
 
-// const cognitoIdentityParams = {
-//   AuthFlow: "USER_PASSWORD_AUTH",
-//   ClientId: auth.clientId,
-//   AuthParameters: {
-//     USERNAME: "",
-//     PASSWORD: "",
-//   },
-// };
+  static async resendCode(email: string): Promise<boolean> {
+    const params = {
+      ClientId: this.ClientId,
+      Username: email,
+      SecretHash: this.hashSecret(email),
+    };
+    try {
+      await cognitoIdentity.resendConfirmationCode(params).promise();
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+}

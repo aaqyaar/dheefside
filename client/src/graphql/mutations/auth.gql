@@ -41,7 +41,22 @@ mutation Register($userInput: UserInput!) {
   }
 }
 
+type MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
+mutation verifyCode($email: String!, $code: String!) {
+  verifyCode(email: $email, code: $code) {
+    code
+    success
+    message
+  }
+}
+
 type Mutation {
   login(email: String!, password: String!): AuthData!
   createUser(userInput: UserInput!): User!
+  verifyCode(email: String!, code: String!): MutationResponse!
 }

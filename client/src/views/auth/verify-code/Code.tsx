@@ -4,7 +4,15 @@ import { FormikProvider, useFormik, Form } from "formik";
 import { Button, TextField } from "components";
 import { verifyCodeValidationSchema } from "validations/auth";
 
-export default function Code() {
+export default function Code({
+  onVerifyCode,
+  loading,
+  success,
+}: {
+  onVerifyCode: (values: any) => void;
+  loading: boolean;
+  success: boolean;
+}) {
   const formik = useFormik({
     initialValues: {
       code1: "",
@@ -17,7 +25,9 @@ export default function Code() {
     validationSchema: verifyCodeValidationSchema,
     onSubmit: (values) => {
       const code = Object.values(values).join("");
-      console.log(code);
+      onVerifyCode(code);
+      formik.setSubmitting(false);
+      success && formik.resetForm();
     },
   });
   const { handleSubmit, errors, touched } = formik;
@@ -46,7 +56,7 @@ export default function Code() {
           ))}
         </div>
         <div className="flex justify-center text-center my-5">
-          <Button type="submit" className="bg-secondary">
+          <Button loading={loading} type="submit" className="bg-secondary">
             Verify
           </Button>
         </div>

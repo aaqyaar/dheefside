@@ -23,7 +23,6 @@ export default function ContactForm({
     validationSchema: contactYupSchema,
     onSubmit: (values: ContactInput, { resetForm }) => {
       onSendEmail(values);
-      resetForm();
     },
   });
 

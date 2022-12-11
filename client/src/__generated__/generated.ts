@@ -98,6 +98,7 @@ export type Mutation = {
   createBookings: ReturnData;
   createUser: User;
   login: AuthData;
+  verifyCode: MutationResponse;
 };
 
 
@@ -119,6 +120,19 @@ export type MutationCreateUserArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationVerifyCodeArgs = {
+  code: Scalars['String'];
+  email: Scalars['String'];
+};
+
+export type MutationResponse = {
+  __typename?: 'MutationResponse';
+  code: Scalars['Int'];
+  message: Scalars['String'];
+  success: Scalars['Boolean'];
 };
 
 export type Query = {
@@ -169,6 +183,14 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', _id: string, name: string, email: string, avatar: string } };
+
+export type VerifyCodeMutationVariables = Exact<{
+  email: Scalars['String'];
+  code: Scalars['String'];
+}>;
+
+
+export type VerifyCodeMutation = { __typename?: 'Mutation', verifyCode: { __typename?: 'MutationResponse', code: number, success: boolean, message: string } };
 
 export type BookDemoMutationVariables = Exact<{
   input: BookingInput;
@@ -279,6 +301,42 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const VerifyCodeDocument = gql`
+    mutation verifyCode($email: String!, $code: String!) {
+  verifyCode(email: $email, code: $code) {
+    code
+    success
+    message
+  }
+}
+    `;
+export type VerifyCodeMutationFn = Apollo.MutationFunction<VerifyCodeMutation, VerifyCodeMutationVariables>;
+
+/**
+ * __useVerifyCodeMutation__
+ *
+ * To run a mutation, you first call `useVerifyCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyCodeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyCodeMutation, { data, loading, error }] = useVerifyCodeMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useVerifyCodeMutation(baseOptions?: Apollo.MutationHookOptions<VerifyCodeMutation, VerifyCodeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyCodeMutation, VerifyCodeMutationVariables>(VerifyCodeDocument, options);
+      }
+export type VerifyCodeMutationHookResult = ReturnType<typeof useVerifyCodeMutation>;
+export type VerifyCodeMutationResult = Apollo.MutationResult<VerifyCodeMutation>;
+export type VerifyCodeMutationOptions = Apollo.BaseMutationOptions<VerifyCodeMutation, VerifyCodeMutationVariables>;
 export const BookDemoDocument = gql`
     mutation BookDemo($input: BookingInput!) {
   createBookings(input: $input) {

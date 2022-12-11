@@ -29,7 +29,18 @@ type Query {
   user: User!
   users: [User!]!
 }
+
+type MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+
 type Mutation {
   createUser(userInput: UserInput): User!
   login(email:String, password:String): AuthData!
+  verifyCode(email:String, code:String): MutationResponse!
+  resendCode(email:String): MutationResponse!
 }`;

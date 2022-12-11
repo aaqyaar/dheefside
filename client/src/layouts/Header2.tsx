@@ -168,13 +168,13 @@ export default function Header2() {
           </div>
         </div>
 
-        <MobileNav />
+        <MobileNav isAuth={auth.isAuth} />
       </motion.div>
     </Popover>
   );
 }
 
-const MobileNav = () => {
+const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   return (
     <Transition
       as={Fragment}
@@ -221,15 +221,16 @@ const MobileNav = () => {
               <div className="col-span-2">
                 <hr />
               </div>
-              {resources.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-base font-medium text-gray-900 hover:text-gray-700"
-                >
-                  {item.name}
-                </a>
-              ))}
+              {isAuth &&
+                resources.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-base font-medium text-gray-900 hover:text-gray-700"
+                  >
+                    {item.name}
+                  </a>
+                ))}
             </div>
             <div>
               <Link

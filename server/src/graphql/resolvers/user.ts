@@ -126,6 +126,35 @@ const Mutation = {
       throw err;
     }
   },
+
+  verifyCode: async (
+    _: any,
+    { email, code }: { email: string; code: string }
+  ) => {
+    try {
+      await AuthService.confirm(email, code).then((success: boolean) => {
+        if (!success) {
+          throw new Error("Code not verified");
+        }
+        return success;
+      });
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  },
+
+  resendCode: async (_: any, { email }: { email: string }) => {
+    try {
+      await AuthService.resendCode(email).then((res: any) => {
+        if (res instanceof Error) {
+          throw new Error(res.message);
+        }
+        return res;
+      });
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 function generateToken({ _id }: { _id?: string }) {

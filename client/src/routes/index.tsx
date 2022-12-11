@@ -116,7 +116,7 @@ const routes = [
     exact: true,
   },
   {
-    path: PATH.auth.verifyCode,
+    path: `${PATH.auth.verifyCode}/:email`,
     layout: Main,
     requireAuth: false,
     element: Loadable(lazy(() => import("../pages/VerifyCodePage"))),
