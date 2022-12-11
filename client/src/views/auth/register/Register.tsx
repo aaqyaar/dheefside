@@ -3,7 +3,6 @@ import { useAuth } from "contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { PATH } from "routes/paths";
-import styles from "styles/style";
 import RegisterForm from "./RegisterForm";
 
 export default function Register() {

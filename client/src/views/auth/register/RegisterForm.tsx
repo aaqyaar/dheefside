@@ -4,8 +4,6 @@ import { registerYupSchema } from "validations";
 import { Button, TextField } from "components";
 import { ITextField } from "components/TextField";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
-import { Link } from "react-router-dom";
-import { PATH } from "routes/paths";
 
 const initialState = {
   email: "",

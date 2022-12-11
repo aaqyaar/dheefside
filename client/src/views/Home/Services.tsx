@@ -1,7 +1,7 @@
 import { staggerContainer, zoomIn } from "components/animate";
 import { motion } from "framer-motion";
 import styles from "styles/style";
-import { TitleText, TypingText } from "./Guidence";
+import { TitleText } from "./Guidence";
 
 const services = [
   {
