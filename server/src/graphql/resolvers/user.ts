@@ -7,6 +7,7 @@ import type {
   MutationLoginArgs,
   User as UserType,
 } from "../../generated/graphql";
+import AuthService from "../../services/AuthService";
 
 const Query = {
   users: async () => {
@@ -40,9 +41,30 @@ const Mutation = {
     { userInput }: MutationCreateUserArgs
   ): Promise<UserType> => {
     try {
-      const user = await User.findOne({ email: userInput?.email });
-      if (user) {
+      const isUserExist = await User.findOne({ email: userInput?.email });
+      if (isUserExist) {
         throw new Error("User already exists");
+      }
+
+      const userAttr = [
+        {
+          Name: "name",
+          Value: userInput?.name,
+        },
+        {
+          Name: "email",
+          Value: userInput?.email,
+        },
+      ];
+
+      const response = await AuthService.register(
+        userInput?.email as string,
+        userInput?.password as string,
+        userAttr
+      );
+
+      if (response instanceof Error) {
+        throw new Error(response.message);
       }
 
       const newUser = new User({
@@ -56,7 +78,11 @@ const Mutation = {
 
       const result = await newUser.save();
 
-      return { ...result._doc, password: null };
+      return {
+        ...result._doc,
+        password: null,
+        awsRes: response.$response.data,
+      };
     } catch (err) {
       throw err;
     }
@@ -71,16 +97,31 @@ const Mutation = {
         throw new Error("User does not exist");
       }
 
-      const isMatch = await user.isMatchPassword(
-        password as string,
-        user.password
+      const response = await AuthService.login(
+        email as string,
+        password as string
       );
-      if (!isMatch) {
-        throw new Error("Invalid Password credentials");
+      if (response instanceof Error) {
+        throw new Error(response.message);
       }
 
-      const token = generateToken({ _id: user._id });
-      return { user, token };
+      // const isMatch = await user.isMatchPassword(
+      //   password as string,
+      //   user.password
+      // );
+      // if (!isMatch) {
+      //   throw new Error("Invalid Password credentials");
+      // }
+
+      // const token = generateToken({ _id: user._id });
+      const authedUser = {
+        ...user._doc,
+        res: response.$response.data,
+      };
+      return {
+        user: authedUser,
+        token: response.AuthenticationResult?.AccessToken,
+      };
     } catch (err) {
       throw err;
     }
