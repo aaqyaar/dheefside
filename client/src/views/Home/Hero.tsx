@@ -20,7 +20,7 @@ export default function Hero() {
           className={`2xl:mt-20 col-span-12 lg:col-span-6 ${styles.paddingY} ${styles.paddingX}`}
         >
           <h1
-            className={`2xl:text-8xl lg:text-7xl md:text-5xl text-4xl font-extrabold prose`}
+            className={`3xl:text-8xl lg:text-7xl md:text-5xl text-4xl font-extrabold prose`}
           >
             Working with you <br /> to unlock your <br /> potential.
           </h1>

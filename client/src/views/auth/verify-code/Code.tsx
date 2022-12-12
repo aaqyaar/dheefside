@@ -6,6 +6,7 @@ import { verifyCodeValidationSchema } from "validations/auth";
 
 export default function Code({
   onVerifyCode,
+
   loading,
   success,
 }: {
@@ -26,6 +27,7 @@ export default function Code({
     onSubmit: (values) => {
       const code = Object.values(values).join("");
       onVerifyCode(code);
+
       formik.setSubmitting(false);
       success && formik.resetForm();
     },

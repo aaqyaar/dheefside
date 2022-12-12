@@ -22,10 +22,6 @@ input UserInput {
   avatar: String!
 }
 
-type ResendCodeResponse {
-  data: Void!
-}
-
 mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     user {
@@ -52,9 +48,13 @@ mutation verifyCode($email: String!, $code: String!) {
   verifyCode(email: $email, code: $code)
 }
 
+mutation resendCode($email: String) {
+  resendCode(email: $email)
+}
+
 type Mutation {
   login(email: String!, password: String!): AuthData!
   createUser(userInput: UserInput!): User!
   verifyCode(email: String!, code: String!): Void
-  resendCode(email: String): ResendCodeResponse!
+  resendCode(email: String): Void
 }
