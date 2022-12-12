@@ -82,7 +82,7 @@ export type Mutation = {
   login: AuthData;
   resendCode: ResendCodeResponse;
   updateTeam: Team;
-  verifyCode: Scalars['Void'];
+  verifyCode?: Maybe<Scalars['Void']>;
 };
 
 
@@ -129,8 +129,8 @@ export type MutationUpdateTeamArgs = {
 
 
 export type MutationVerifyCodeArgs = {
-  code?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
+  code: Scalars['String'];
+  email: Scalars['String'];
 };
 
 export type Query = {
@@ -471,7 +471,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['AuthData'], ParentType, ContextType, Partial<MutationLoginArgs>>;
   resendCode?: Resolver<ResolversTypes['ResendCodeResponse'], ParentType, ContextType, Partial<MutationResendCodeArgs>>;
   updateTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<MutationUpdateTeamArgs, 'teamId'>>;
-  verifyCode?: Resolver<ResolversTypes['Void'], ParentType, ContextType, Partial<MutationVerifyCodeArgs>>;
+  verifyCode?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType, RequireFields<MutationVerifyCodeArgs, 'code' | 'email'>>;
 };
 
 export interface ObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Object'], any> {

@@ -147,7 +147,6 @@ const Mutation = {
       if (res instanceof Error) {
         throw new Error(res.message);
       }
-      return res.data;
     } catch (err: any) {
       throw new Error(err);
     }

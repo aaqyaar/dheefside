@@ -33,20 +33,10 @@ type Query {
 scalar Object
 scalar Void
 
-type TCodeDeliveryDetails {
-  AttributeName: String!
-  DeliveryMedium: String!
-  Destination: String!
-}
-
-type ResendCodeResponse {
-  data: Void!
-}
-
 
 type Mutation {
   createUser(userInput: UserInput): User!
   login(email:String, password:String): AuthData!
   verifyCode(email:String!, code:String!): Void
-  resendCode(email:String): ResendCodeResponse!
+  resendCode(email:String): Void
 }`;
