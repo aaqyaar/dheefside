@@ -3,7 +3,10 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PATH } from "routes/paths";
-import { useVerifyCodeMutation } from "__generated__/generated";
+import {
+  useResendCodeMutation,
+  useVerifyCodeMutation,
+} from "__generated__/generated";
 import Code from "./Code";
 
 export default function VerifyCode() {
@@ -17,6 +20,7 @@ export default function VerifyCode() {
     str.slice(2, str.slice(str.indexOf("@") - 2).length - 4);
 
   const [verifyMutation] = useVerifyCodeMutation();
+  const [sendCodeMutation] = useResendCodeMutation();
   const navigate = useNavigate();
 
   const handleVerifyCode = async (code: string) => {
@@ -51,6 +55,32 @@ export default function VerifyCode() {
     }
   };
 
+  const handleResendCode = async () => {
+    setLoading(true);
+    const res = await sendCodeMutation({
+      variables: {
+        email: params?.email,
+      },
+      onCompleted: () => {
+        setLoading(false);
+        setSuccess(true);
+      },
+      onError: () => {
+        setLoading(false);
+        setSuccess(false);
+      },
+    });
+
+    const err: any = res.errors;
+    if (res.errors) {
+      toast.error(err.message);
+    }
+
+    if (!res.errors) {
+      toast.success("Email sent successfully");
+    }
+  };
+
   return (
     <div className="md:h-[80vh] flex justify-center items-center">
       <div className="container mx-auto">
@@ -71,7 +101,13 @@ export default function VerifyCode() {
 
                 <span className="text-sm text-gray-500 flex justify-center items-center gap-4 mt-3">
                   Didn't receive the code?{" "}
-                  <Button className="btn btn-text">Resend</Button>
+                  <Button
+                    disabled={loading}
+                    className="btn btn-text"
+                    onClick={handleResendCode}
+                  >
+                    Resend
+                  </Button>
                 </span>
               </div>
 

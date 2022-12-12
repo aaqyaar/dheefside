@@ -18,20 +18,21 @@ export default function About() {
         className={`py-20`}
       >
         {/* grid */}
-        <div
-          className={`flex justify-center items-center lg:flex-row flex-col gap-y-4`}
-        >
-          <motion.div variants={imageRotationVariant("left")} className="px-4 ">
+        <div className={`grid grid-cols-2 place-items-center gap-y-4`}>
+          <motion.div
+            variants={imageRotationVariant("left")}
+            className="col-span-2 lg:col-span-1"
+          >
             <img
               src="/images/about.jpg"
               alt="developer planning project user experience"
-              className="rounded-xl"
+              className=""
             />
           </motion.div>
 
           <motion.div
             variants={fadeIn("left", "tween", 0.2, 1) as any}
-            className={`overflow-hidden  sm:${styles.paddingX}`}
+            className={`col-span-2 lg:col-span-1 overflow-hidden  sm:${styles.paddingX}`}
           >
             <motion.h1
               variants={textVariant(1.2) as any}
@@ -39,7 +40,7 @@ export default function About() {
             >
               About Us
             </motion.h1>
-            <p className={`text-gray-700 text-2xl my-4 2xl:text-3xl`}>
+            <p className={`text-gray-700 text-2xl my-4 3xl:text-3xl`}>
               From digital customer experience to trust and safety, AI services,
               and consulting, we believe we are responsible for supporting our
               partner's success in protecting their interests through innovation
@@ -52,14 +53,11 @@ export default function About() {
                 We protect what matters most to us, you, and citizens worldwide.
               </q>
             </blockquote>
-            <p className="text-gray-700 text-2xl 2xl:text-3xl my-4">
+            <p className="text-gray-700 text-2xl 3xl:text-3xl my-4">
               A perfect blend of technology and human intelligence, we are a
               team of experts who are passionate about protecting our clients
               and their customers. We are a team of experts who are passionate
-              about protecting our clients and their customers. We are a team of
-              experts who are passionate about protecting our clients and their
-              customers. We are a team of experts who are passionate about
-              protecting our clients and their customers.
+              about protecting our clients and their customers.
             </p>
             <Button className="bg-white text-black/95 hover:bg-gray-50">
               Learn more......

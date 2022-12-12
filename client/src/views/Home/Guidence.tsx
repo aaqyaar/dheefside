@@ -7,36 +7,38 @@ import {
 
 export default function Guidence() {
   return (
-    <motion.div
-      variants={staggerContainer as any}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.25 }}
-      className="bg-secondary w-full h-fit p-10"
-    >
-      <div className="bg-white w-full h-fit p-10 rounded-lg">
-        <div className="flex justify-center flex-col items-center">
-          {/* <h1 className="text-4xl text-gray-700 font-bold">
-            Get Guidance for Your Startup with the Dheefside
-          </h1> */}
+    <section className="relative overflow-hidden w-full">
+      <motion.div
+        variants={staggerContainer as any}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.25 }}
+        className="bg-secondary w-full h-fit p-10"
+      >
+        <div className="bg-white w-full h-fit p-10 rounded-lg">
+          <div className="flex justify-center flex-col items-center">
+            <h1 className="text-4xl text-gray-700 font-bold">
+              Get Guidance for Your Startup with the Dheefside
+            </h1>
 
-          <TypingText
-            title="Get Guidance for Your Startup with the Dheefside"
-            textStyles="text-4xl text-gray-700 font-bold"
-          />
-          <TitleText
-            title="We are the proven network to turn your innovative ideas into
+            {/* <TypingText
+              title="Get Guidance for Your Startup with the Dheefside"
+              textStyles="text-4xl text-gray-700 font-bold max-w-sm prose"
+            /> */}
+            <TitleText
+              title="We are the proven network to turn your innovative ideas into
             startups and startups into established companies."
-            textStyles="text-gray-700 text-center text-xl"
-          />
+              textStyles="text-gray-700 text-center text-xl"
+            />
 
-          {/* <p className="text-gray-700 text-center text-xl">
+            {/* <p className="text-gray-700 text-center text-xl">
             We are the proven network to turn your innovative ideas into
             startups and startups into established companies.
           </p> */}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </section>
   );
 }
 

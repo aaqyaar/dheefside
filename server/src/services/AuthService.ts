@@ -78,7 +78,7 @@ export default class AuthService {
     }
   }
 
-  static async resendCode(email: string): Promise<ResendCodeResponse> {
+  static async resendCode(email: string): Promise<any> {
     const params = {
       ClientId: this.ClientId,
       Username: email,
@@ -88,12 +88,7 @@ export default class AuthService {
       const res = await cognitoIdentity
         .resendConfirmationCode(params)
         .promise();
-
-      if (res.$response.error) {
-        return { data: null };
-      } else {
-        return { data: res.$response.data };
-      }
+      return res;
     } catch (error: any) {
       console.log(error);
       return error;
