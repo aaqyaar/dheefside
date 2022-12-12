@@ -55,7 +55,7 @@ export default function Code({
             />
           ))}
         </div>
-        <div className="flex justify-center text-center my-5">
+        <div className="flex justify-center text-center gap-4 my-5">
           <Button loading={loading} type="submit" className="bg-secondary">
             Verify
           </Button>

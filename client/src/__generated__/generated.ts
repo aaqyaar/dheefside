@@ -14,6 +14,8 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Object: any;
+  Void: any;
 };
 
 export type AuthData = {
@@ -98,7 +100,8 @@ export type Mutation = {
   createBookings: ReturnData;
   createUser: User;
   login: AuthData;
-  verifyCode: MutationResponse;
+  resendCode: ResendCodeResponse;
+  verifyCode: Scalars['Void'];
 };
 
 
@@ -123,16 +126,14 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationResendCodeArgs = {
+  email?: InputMaybe<Scalars['String']>;
+};
+
+
 export type MutationVerifyCodeArgs = {
   code: Scalars['String'];
   email: Scalars['String'];
-};
-
-export type MutationResponse = {
-  __typename?: 'MutationResponse';
-  code: Scalars['Int'];
-  message: Scalars['String'];
-  success: Scalars['Boolean'];
 };
 
 export type Query = {
@@ -147,10 +148,22 @@ export type QueryBookingArgs = {
   email: Scalars['String'];
 };
 
+export type ResendCodeResponse = {
+  __typename?: 'ResendCodeResponse';
+  data: Scalars['Void'];
+};
+
 export type ReturnData = {
   __typename?: 'ReturnData';
   data: Bookings;
   result: BookingsResultData;
+};
+
+export type TCodeDeliveryDetails = {
+  __typename?: 'TCodeDeliveryDetails';
+  AttributeName: Scalars['String'];
+  DeliveryMedium: Scalars['String'];
+  Destination: Scalars['String'];
 };
 
 export type User = {
@@ -190,7 +203,7 @@ export type VerifyCodeMutationVariables = Exact<{
 }>;
 
 
-export type VerifyCodeMutation = { __typename?: 'Mutation', verifyCode: { __typename?: 'MutationResponse', code: number, success: boolean, message: string } };
+export type VerifyCodeMutation = { __typename?: 'Mutation', verifyCode: any };
 
 export type BookDemoMutationVariables = Exact<{
   input: BookingInput;
@@ -303,11 +316,7 @@ export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const VerifyCodeDocument = gql`
     mutation verifyCode($email: String!, $code: String!) {
-  verifyCode(email: $email, code: $code) {
-    code
-    success
-    message
-  }
+  verifyCode(email: $email, code: $code)
 }
     `;
 export type VerifyCodeMutationFn = Apollo.MutationFunction<VerifyCodeMutation, VerifyCodeMutationVariables>;

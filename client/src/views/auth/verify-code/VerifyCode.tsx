@@ -1,3 +1,4 @@
+import { Button } from "components";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,6 +8,7 @@ import Code from "./Code";
 
 export default function VerifyCode() {
   const params = useParams();
+
   const getFirst2 = (str: string) => str.slice(0, 2);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -16,29 +18,36 @@ export default function VerifyCode() {
 
   const [verifyMutation] = useVerifyCodeMutation();
   const navigate = useNavigate();
+
   const handleVerifyCode = async (code: string) => {
-    console.log(code);
-    try {
-      setLoading(true);
-      await verifyMutation({
-        variables: {
-          email: params.email as string,
-          code,
-        },
-        onCompleted: () => {
-          setSuccess(true);
-          setLoading(false);
-          toast.success("Code verified");
-          navigate(PATH.auth.login);
-        },
-        onError: (error) => {
-          toast.error(error.message);
-          setLoading(false);
-          setSuccess(false);
-        },
+    setLoading(true);
+    const res = await verifyMutation({
+      variables: {
+        email: params.email as string,
+        code,
+      },
+      onCompleted: () => {
+        setLoading(false);
+        setSuccess(true);
+      },
+      onError: () => {
+        setLoading(false);
+        setSuccess(false);
+      },
+    });
+
+    const err: any = res.errors;
+    if (res.errors) {
+      setLoading(false);
+      setSuccess(false);
+      toast.error(err.message);
+    }
+
+    if (!res.errors) {
+      toast.success("Email verified successfully");
+      navigate(PATH.auth.login, {
+        replace: true,
       });
-    } catch (error: any) {
-      toast.error(error.message);
     }
   };
 
@@ -58,6 +67,11 @@ export default function VerifyCode() {
                   {getFirst2(params?.email as string)}
                   {getMiddle(params?.email as string).replace(/./g, "*")}
                   {getLast2BeforeEmail(params?.email as string)}
+                </span>
+
+                <span className="text-sm text-gray-500 flex justify-center items-center gap-4 mt-3">
+                  Didn't receive the code?{" "}
+                  <Button className="btn btn-text">Resend</Button>
                 </span>
               </div>
 

@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate": "graphql-codegen --config codegen.ts",
-    "dev": "concurrently \"npm run start\" \"npm run generate\""
+    "dev": "concurrently \"npm run start\" \"npm run generate --watch\""
   },
   "eslintConfig": {
     "extends": "react-app"

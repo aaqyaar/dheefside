@@ -12,7 +12,7 @@ export default function Register() {
   const handleRegister = async (values: any) => {
     const res = await register(values);
     if (res?.data) {
-      navigate(`${PATH.auth.verifyCode}/${values.email}`);
+      navigate(`${PATH.auth.verifyCode}/email=${values.email}`);
     }
 
     if (res?.error) {
