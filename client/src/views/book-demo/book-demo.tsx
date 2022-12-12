@@ -31,7 +31,7 @@ export default function BookDemo() {
   };
 
   return (
-    <div className="max-w-screen-xl p-4 mx-auto">
+    <div className="max-w-screen-xl md:h-screen pt-32 p-4 mx-auto">
       <Grid
         container
         xs={1}

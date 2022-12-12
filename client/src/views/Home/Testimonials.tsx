@@ -5,7 +5,7 @@ import SliderProvider from "utils/SliderProvider";
 export default function Testimonials() {
   return (
     <div className="bg-gray-100 font-poppins">
-      <div className="max-w-[1280px] mx-auto px-8 py-20">
+      <div className="max-w-screen-2xl mx-auto px-4 py-20">
         <div className="flex flex-row justify-center items-center space-x-4">
           <h1 className="lg:text-5xl md:text-4xl text-3xl prose font-bold text-gray-600">
             What our <span className="text-secondary"> Happy clients</span> say
@@ -31,7 +31,9 @@ export default function Testimonials() {
                   <q>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam, quod.
+                    Quisquam, quod. Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Quisquam, quod. Lorem ipsum dolor sit amet
+                    consectetur adipisicing elit. Quisquam, quod.
                   </q>
                 </p>
 

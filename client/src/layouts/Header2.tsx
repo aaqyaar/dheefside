@@ -232,6 +232,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                   </a>
                 ))}
             </div>
+
             <div>
               <Link
                 to={PATH.bookDemo}
@@ -240,15 +241,17 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
               >
                 Book Demo
               </Link>
-              <p className="mt-6 text-center text-base font-medium text-gray-500">
-                Existing user ?{" "}
-                <Link
-                  to={PATH.auth.login}
-                  className="ml-2 text-secondary hover:text-secondary/80"
-                >
-                  Sign in
-                </Link>
-              </p>
+              {!isAuth && (
+                <p className="mt-6 text-center text-base font-medium text-gray-500">
+                  Existing user?{" "}
+                  <Link
+                    to={PATH.auth.login}
+                    className="ml-2 text-secondary hover:text-secondary/80"
+                  >
+                    Sign in
+                  </Link>
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import { staggerContainer, zoomIn } from "components/animate";
 import { motion } from "framer-motion";
-import styles from "styles/style";
 import { TitleText } from "./Guidence";
 
 const services = [
@@ -47,7 +46,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className={`relative bg-white`}>
+    <section className={`relative mb-20 bg-white`}>
       <motion.div
         variants={staggerContainer as any}
         initial="hidden"
@@ -56,7 +55,7 @@ export default function Services() {
           once: false,
           amount: 0.25,
         }}
-        className={`${styles.boxWidth} px-8 py-20 mx-auto`}
+        className={`max-w-screen-2xl px-4 py-20 mx-auto`}
       >
         <div className="flex flex-col items-center justify-center font-poppins py-4">
           <TitleText

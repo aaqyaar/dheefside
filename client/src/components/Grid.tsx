@@ -70,6 +70,8 @@ export default function Grid(
     placeItems !== undefined && `place-items-${placeItems}`
   );
 
+  console.log(classes);
+
   return (
     <div className={classes} {...other}>
       {children}

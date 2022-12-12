@@ -84,22 +84,3 @@ export default function UserProfile() {
     </div>
   );
 }
-
-{
-  /* <div className="flex items-center justify-between">
-<div className="flex items-center">
-  <Avatar
-    name="Adobe Photoshop"
-    parentClassName="w-12 h-12 ring-2 ring-offset-2 ring-primary bg-secondary"
-    className="text-2xl"
-  />
-  <h1 className="ml-4 text-lg font-semibold">Adobe Photoshop</h1>
-</div>
-<div className="flex items-center">
-  <h1 className="text-lg font-semibold">Expires in 2 days</h1>
-  <button className="ml-4 text-sm text-primary font-semibold">
-    Extend
-  </button>
-</div>
-</div> */
-}
