@@ -80,7 +80,7 @@ export type Mutation = {
   createTeam: Team;
   createUser: User;
   login: AuthData;
-  resendCode: ResendCodeResponse;
+  resendCode?: Maybe<Scalars['Void']>;
   updateTeam: Team;
   verifyCode?: Maybe<Scalars['Void']>;
 };
@@ -160,11 +160,6 @@ export type QueryTeamArgs = {
   teamId: Scalars['ID'];
 };
 
-export type ResendCodeResponse = {
-  __typename?: 'ResendCodeResponse';
-  data: Scalars['Void'];
-};
-
 export type Result = {
   __typename?: 'Result';
   accepted?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -197,13 +192,6 @@ export type ServiceInput = {
   description: Scalars['String'];
   image: Scalars['String'];
   name: Scalars['String'];
-};
-
-export type TCodeDeliveryDetails = {
-  __typename?: 'TCodeDeliveryDetails';
-  AttributeName: Scalars['String'];
-  DeliveryMedium: Scalars['String'];
-  Destination: Scalars['String'];
 };
 
 export type Team = {
@@ -331,13 +319,11 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Object: ResolverTypeWrapper<Scalars['Object']>;
   Query: ResolverTypeWrapper<{}>;
-  ResendCodeResponse: ResolverTypeWrapper<ResendCodeResponse>;
   Result: ResolverTypeWrapper<Result>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   ReturnData: ResolverTypeWrapper<ReturnData>;
   Service: ResolverTypeWrapper<Service>;
   ServiceInput: ServiceInput;
-  TCodeDeliveryDetails: ResolverTypeWrapper<TCodeDeliveryDetails>;
   Team: ResolverTypeWrapper<Team>;
   TeamInput: TeamInput;
   User: ResolverTypeWrapper<User>;
@@ -362,13 +348,11 @@ export type ResolversParentTypes = {
   Mutation: {};
   Object: Scalars['Object'];
   Query: {};
-  ResendCodeResponse: ResendCodeResponse;
   Result: Result;
   Int: Scalars['Int'];
   ReturnData: ReturnData;
   Service: Service;
   ServiceInput: ServiceInput;
-  TCodeDeliveryDetails: TCodeDeliveryDetails;
   Team: Team;
   TeamInput: TeamInput;
   User: User;
@@ -469,7 +453,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
   login?: Resolver<ResolversTypes['AuthData'], ParentType, ContextType, Partial<MutationLoginArgs>>;
-  resendCode?: Resolver<ResolversTypes['ResendCodeResponse'], ParentType, ContextType, Partial<MutationResendCodeArgs>>;
+  resendCode?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType, Partial<MutationResendCodeArgs>>;
   updateTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<MutationUpdateTeamArgs, 'teamId'>>;
   verifyCode?: Resolver<Maybe<ResolversTypes['Void']>, ParentType, ContextType, RequireFields<MutationVerifyCodeArgs, 'code' | 'email'>>;
 };
@@ -487,11 +471,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   teams?: Resolver<Array<ResolversTypes['Team']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
-};
-
-export type ResendCodeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ResendCodeResponse'] = ResolversParentTypes['ResendCodeResponse']> = {
-  data?: Resolver<ResolversTypes['Void'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
@@ -518,13 +497,6 @@ export type ServiceResolvers<ContextType = any, ParentType extends ResolversPare
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type TCodeDeliveryDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['TCodeDeliveryDetails'] = ResolversParentTypes['TCodeDeliveryDetails']> = {
-  AttributeName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  DeliveryMedium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  Destination?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -562,11 +534,9 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Object?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
-  ResendCodeResponse?: ResendCodeResponseResolvers<ContextType>;
   Result?: ResultResolvers<ContextType>;
   ReturnData?: ReturnDataResolvers<ContextType>;
   Service?: ServiceResolvers<ContextType>;
-  TCodeDeliveryDetails?: TCodeDeliveryDetailsResolvers<ContextType>;
   Team?: TeamResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Void?: GraphQLScalarType;

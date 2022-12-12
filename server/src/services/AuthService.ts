@@ -1,7 +1,6 @@
 import AWS from "aws-sdk";
 import crypto from "crypto";
 import { awsExports } from "../config/aws-exports";
-import { ResendCodeResponse } from "../generated/graphql";
 
 const { config, auth } = awsExports;
 
