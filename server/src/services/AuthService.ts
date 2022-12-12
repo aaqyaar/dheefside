@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
 import crypto from "crypto";
 import { awsExports } from "../config/aws-exports";
+import { ResendCodeResponse } from "../generated/graphql";
 
 const { config, auth } = awsExports;
 
@@ -42,7 +43,7 @@ export default class AuthService {
     }
   }
 
-  static async confirm(email: string, code: string): Promise<boolean> {
+  static async confirm(email: string, code: string): Promise<any> {
     const params = {
       ClientId: this.ClientId,
       Username: email,
@@ -50,11 +51,10 @@ export default class AuthService {
       SecretHash: this.hashSecret(email),
     };
     try {
-      await cognitoIdentity.confirmSignUp(params).promise();
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
+      const res = await cognitoIdentity.confirmSignUp(params).promise();
+      return res;
+    } catch (error: any) {
+      return error;
     }
   }
 
@@ -78,18 +78,25 @@ export default class AuthService {
     }
   }
 
-  static async resendCode(email: string): Promise<boolean> {
+  static async resendCode(email: string): Promise<ResendCodeResponse> {
     const params = {
       ClientId: this.ClientId,
       Username: email,
       SecretHash: this.hashSecret(email),
     };
     try {
-      await cognitoIdentity.resendConfirmationCode(params).promise();
-      return true;
-    } catch (error) {
+      const res = await cognitoIdentity
+        .resendConfirmationCode(params)
+        .promise();
+
+      if (res.$response.error) {
+        return { data: null };
+      } else {
+        return { data: res.$response.data };
+      }
+    } catch (error: any) {
       console.log(error);
-      return false;
+      return error;
     }
   }
 }

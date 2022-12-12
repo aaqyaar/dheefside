@@ -30,17 +30,23 @@ type Query {
   users: [User!]!
 }
 
-type MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
+scalar Object
+scalar Void
+
+type TCodeDeliveryDetails {
+  AttributeName: String!
+  DeliveryMedium: String!
+  Destination: String!
+}
+
+type ResendCodeResponse {
+  data: Void!
 }
 
 
 type Mutation {
   createUser(userInput: UserInput): User!
   login(email:String, password:String): AuthData!
-  verifyCode(email:String, code:String): MutationResponse!
-  resendCode(email:String): MutationResponse!
+  verifyCode(email:String!, code:String!): Void
+  resendCode(email:String): ResendCodeResponse!
 }`;

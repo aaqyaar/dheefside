@@ -13,6 +13,8 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Object: any;
+  Void: any;
 };
 
 export type AuthData = {
@@ -78,7 +80,9 @@ export type Mutation = {
   createTeam: Team;
   createUser: User;
   login: AuthData;
+  resendCode: ResendCodeResponse;
   updateTeam: Team;
+  verifyCode: Scalars['Void'];
 };
 
 
@@ -113,9 +117,20 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationResendCodeArgs = {
+  email?: InputMaybe<Scalars['String']>;
+};
+
+
 export type MutationUpdateTeamArgs = {
   teamId: Scalars['ID'];
   teamInput?: InputMaybe<TeamInput>;
+};
+
+
+export type MutationVerifyCodeArgs = {
+  code?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -143,6 +158,11 @@ export type QueryServiceArgs = {
 
 export type QueryTeamArgs = {
   teamId: Scalars['ID'];
+};
+
+export type ResendCodeResponse = {
+  __typename?: 'ResendCodeResponse';
+  data: Scalars['Void'];
 };
 
 export type Result = {
@@ -177,6 +197,13 @@ export type ServiceInput = {
   description: Scalars['String'];
   image: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type TCodeDeliveryDetails = {
+  __typename?: 'TCodeDeliveryDetails';
+  AttributeName: Scalars['String'];
+  DeliveryMedium: Scalars['String'];
+  Destination: Scalars['String'];
 };
 
 export type Team = {
@@ -302,16 +329,20 @@ export type ResolversTypes = {
   Envelope: ResolverTypeWrapper<Envelope>;
   LoginInput: LoginInput;
   Mutation: ResolverTypeWrapper<{}>;
+  Object: ResolverTypeWrapper<Scalars['Object']>;
   Query: ResolverTypeWrapper<{}>;
+  ResendCodeResponse: ResolverTypeWrapper<ResendCodeResponse>;
   Result: ResolverTypeWrapper<Result>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   ReturnData: ResolverTypeWrapper<ReturnData>;
   Service: ResolverTypeWrapper<Service>;
   ServiceInput: ServiceInput;
+  TCodeDeliveryDetails: ResolverTypeWrapper<TCodeDeliveryDetails>;
   Team: ResolverTypeWrapper<Team>;
   TeamInput: TeamInput;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
+  Void: ResolverTypeWrapper<Scalars['Void']>;
   AdditionalEntityFields: AdditionalEntityFields;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
@@ -329,16 +360,20 @@ export type ResolversParentTypes = {
   Envelope: Envelope;
   LoginInput: LoginInput;
   Mutation: {};
+  Object: Scalars['Object'];
   Query: {};
+  ResendCodeResponse: ResendCodeResponse;
   Result: Result;
   Int: Scalars['Int'];
   ReturnData: ReturnData;
   Service: Service;
   ServiceInput: ServiceInput;
+  TCodeDeliveryDetails: TCodeDeliveryDetails;
   Team: Team;
   TeamInput: TeamInput;
   User: User;
   UserInput: UserInput;
+  Void: Scalars['Void'];
   AdditionalEntityFields: AdditionalEntityFields;
   Boolean: Scalars['Boolean'];
 };
@@ -434,8 +469,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, Partial<MutationCreateTeamArgs>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, Partial<MutationCreateUserArgs>>;
   login?: Resolver<ResolversTypes['AuthData'], ParentType, ContextType, Partial<MutationLoginArgs>>;
+  resendCode?: Resolver<ResolversTypes['ResendCodeResponse'], ParentType, ContextType, Partial<MutationResendCodeArgs>>;
   updateTeam?: Resolver<ResolversTypes['Team'], ParentType, ContextType, RequireFields<MutationUpdateTeamArgs, 'teamId'>>;
+  verifyCode?: Resolver<ResolversTypes['Void'], ParentType, ContextType, Partial<MutationVerifyCodeArgs>>;
 };
+
+export interface ObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Object'], any> {
+  name: 'Object';
+}
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   booking?: Resolver<Array<ResolversTypes['Bookings']>, ParentType, ContextType, RequireFields<QueryBookingArgs, 'email'>>;
@@ -446,6 +487,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   teams?: Resolver<Array<ResolversTypes['Team']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type ResendCodeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ResendCodeResponse'] = ResolversParentTypes['ResendCodeResponse']> = {
+  data?: Resolver<ResolversTypes['Void'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
@@ -475,6 +521,13 @@ export type ServiceResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type TCodeDeliveryDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['TCodeDeliveryDetails'] = ResolversParentTypes['TCodeDeliveryDetails']> = {
+  AttributeName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  DeliveryMedium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  Destination?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   avatar?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -496,6 +549,10 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface VoidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Void'], any> {
+  name: 'Void';
+}
+
 export type Resolvers<ContextType = any> = {
   AuthData?: AuthDataResolvers<ContextType>;
   Bookings?: BookingsResolvers<ContextType>;
@@ -503,12 +560,16 @@ export type Resolvers<ContextType = any> = {
   Date?: GraphQLScalarType;
   Envelope?: EnvelopeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Object?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
+  ResendCodeResponse?: ResendCodeResponseResolvers<ContextType>;
   Result?: ResultResolvers<ContextType>;
   ReturnData?: ReturnDataResolvers<ContextType>;
   Service?: ServiceResolvers<ContextType>;
+  TCodeDeliveryDetails?: TCodeDeliveryDetailsResolvers<ContextType>;
   Team?: TeamResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Void?: GraphQLScalarType;
 };
 
 export type DirectiveResolvers<ContextType = any> = {
