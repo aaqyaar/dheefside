@@ -93,8 +93,8 @@ function renderService(service: any) {
       variants={zoomIn(0.5, 1)}
       key={service.id}
       className={`${
-        service.id === 2 && "shadow-2xl shadow-gray-300"
-      } max-w-sm bg-white duration-150 transition ease-in hover:shadow-2xl hover:shadow-gray-300 px-2 py-10 rounded-md font-poppins`}
+        service.id === 2 && "shadow-2xl shadow-gray-200"
+      } max-w-sm bg-white duration-150 transition ease-in hover:shadow-2xl hover:shadow-gray-200 px-2 py-10 rounded-md font-poppins`}
     >
       <div className=" flex flex-col items-center justify-center space-y-4">
         <div className="flex items-center justify-center p-4">
